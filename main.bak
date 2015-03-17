@@ -1,0 +1,10 @@
+int main(void){
+   while(TRUE){
+       
+   }
+
+   return 0;
+}
+
+
+/* END OF FILE */
