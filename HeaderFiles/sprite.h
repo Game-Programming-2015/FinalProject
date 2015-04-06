@@ -87,10 +87,8 @@ typedef struct hitBox{
     int y;
     int xSize;
     int ySize;
-    Sprite *parentSprite;
-} HitBox;
-
-HitBox hitBoxes[128];
+    pSprite parentSprite;
+} HitBox, *pHitbox;
 
 Sprite sprites[128];
 
@@ -120,39 +118,4 @@ void copyToSpriteData(const unsigned short* image,size_t length, int location){
 
 void* copyToSpritePalette(const unsigned short* palette){
     return memcpy(spritePal,palette,256);
-}
-
-int getLocationValue(int x,int y,unsigned short *loc){
-    return loc[y/8*32+x/8];
-}
-
-int hitDetectionBackground(HitBox hb, unsigned short *bgHitMap,unsigned short hOffset,unsigned short vOffset){
-    int xCheck=(hb.parentSprite->fields.x+hb.x+hOffset)%256;
-    int yCheck=hb.parentSprite->fields.y+hb.y+vOffset;
-    int finalX=xCheck+hb.xSize;
-    int finalY=yCheck+hb.ySize;
-    int r=0;
-    int i=0;
-    
-    //if (finalY>256) return -1;
-    
-    //spritePal[254]=hOffset;
-
-    while (yCheck<=finalY){
-        while (xCheck<=finalX){
-            int bgItem=getLocationValue(xCheck,yCheck,bgHitMap);
-
-            if (bgItem>r){
-                r=bgItem;
-            }
-            xCheck+=8;
-            i++;
-        }
-        xCheck=(hb.parentSprite->fields.x+hb.x+hOffset)%256;
-        yCheck+=8;
-    }
-
-    //spritePal[252]=i;
-
-    return r;
 }

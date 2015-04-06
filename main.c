@@ -1,16 +1,24 @@
+#include <string.h>
+
 #include "HeaderFiles/mode0.h"
 #include "HeaderFiles/sprite.h"
+#include "HeaderFiles/objectMovement.h"
 #include "HeaderFiles/DMA.h"
 #include "HeaderFiles/button.h"
+#include "HeaderFiles/timer.h"
 
 #include "Tiles/Senary.raw.h"
 #include "Tiles/Senary.pal.h"
 #include "Maps/Senary.map.h"
 
+#include "Sprites/Chameleon.h"
+
 //Declaring some globals
 unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (can't interact)
 unsigned short* bg1map = (unsigned short*)ScreenBaseBlock(16); //Background (interactable)
 int nextRight,nextLeft,nextRightDestination,nextLeftDestination,goingRight,scrolling_x,scrolling_y; //Scrolling controls
+unsigned short prev_timer3;
+Moveable moveableHead;
 
 void init(void);
 void update(void);
@@ -26,11 +34,6 @@ int main(void){
         update();
         
         draw();
-        
-        { //This will need to be changed for timers
-            int i=0;
-            for (;i<5000;i++);
-        }
     }
     
     return 0;
@@ -44,7 +47,7 @@ void init(void){
     enableBG0();
     REG_BG0CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (31 << SCREEN_SHIFT);
     
-    //This is just a temperary map from my original scrolling assignment.
+    //This is just a temporary map from my original scrolling assignment.
     DMAFastCopy((void*)Senary_Palette, (void*)BGPaletteMem,256, DMA_16NOW);
 
     DMAFastCopy((void*)Senary_Tiles,(void*)CharBaseBlock(0),1440,DMA_32NOW);
@@ -72,38 +75,99 @@ void init(void){
     setObjMap1d();
     enableObjects();
     
-    //Reset sprites
+    //Set sprite defaults
     for (i=0;i<128;i++){
         sprites[i].fields.x=240;
         sprites[i].fields.y=160;
+        sprites[i].fields.colorMode=1;
+        sprites[i].fields.size=2;
+        sprites[i].fields.shape=1;
     }
+    
+    //Write sprite data in
+    DMAFastCopy((void*)ChameleonPalette, (void*)spritePal,256, DMA_16NOW);
+
+    copyToSpriteData(ChameleonData,Chameleon_WIDTH*Chameleon_HEIGHT,0);
+    
+    //Setup player object
+    sprites[0].fields.x=50;
+    sprites[0].fields.y=50;
+    sprites[0].fields.tileIndex=0;
+    //Setup player movement controller
+    moveableHead.parentSprite=&sprites[0];
+    moveableHead.hSpeed=4;
+    moveableHead.vSpeed=1;
+    moveableHead.next=NULL;
+    //Setup the main hitbox
+    moveableHead.masterHitBox=malloc(sizeof(HitBox));
+    moveableHead.masterHitBox->x=0;
+    moveableHead.masterHitBox->y=0;
+    moveableHead.masterHitBox->xSize=32;
+    moveableHead.masterHitBox->ySize=16;
+    moveableHead.masterHitBox->parentSprite=moveableHead.parentSprite;
+    //Setup the secondary hitboxes
+    moveableHead.hitBoxList=moveableHead.masterHitBox;
+    moveableHead.hitBoxCount=1;
+    
+    //Timer 2 runs at ~38.4 FPS. This is the speed of button presses - they will only be interpreted when timer 2 is 0 (or -0x2000, whichever)
+    //Timer 3 increments once every time timer 2 does. This is for things that need to run slower than button presses.
+    //REG_TM2D = -0x80;
+    REG_TM2D = -0x200;
+    REG_TM2CNT = TIMER_FREQUENCY_64;
+    REG_TM3CNT = TIMER_ENABLE | TIMER_OVERFLOW;
+    REG_TM2CNT |= TIMER_ENABLE;
+    prev_timer3=REG_TM3D;
 }
 
 void update(void){
     pollButtons();
-    playerMovement();
+    if (REG_TM3D!=prev_timer3){
+        if (REG_TM3D%4==0){
+            prev_timer3=REG_TM3D;
+            playerMovement();
+        }
+        prev_timer3=REG_TM3D;
+    }
 }
 
 //Control player movement, including button presses
 void playerMovement(void){
     if (checkState(BTN_RIGHT)){
+        //Move right
+        moveObject(&moveableHead,1,0,bg0map);
+        
         //Scroll right if you aren't at the edge of the map
-        if (scrolling_x<959) //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
+        while (scrolling_x<959                          //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
+            && moveableHead.parentSprite->fields.x>160){   //How far along the screen we want to the player to be able to go
             rightScroll();
+            moveableHead.parentSprite->fields.x--;
+        }
     }
     else if (checkState(BTN_LEFT)){
+        
+        moveObject(&moveableHead,-1,0,bg0map);
+        
         //Scroll left if you aren't at the left edge of the map
-        if (scrolling_x>0)
+        while (scrolling_x>0
+            && moveableHead.parentSprite->fields.x<40){
             leftScroll();
+            moveableHead.parentSprite->fields.x++;
+        }
     }
     
+//    gravityControls();
+    
+
     //If we want vertical maps, we need a copy row function.
-    if (checkState(BTN_UP)){
-        scrolling_y--;
+    if (checkState(BTN_UP) && (hitDetection(&moveableHead,0,1,bg0map) || 1 ) ){
+        //moveObject(&moveableHead,0,-1,bg0map);
+        moveableHead.vSpeed+=10;
     }
     if (checkState(BTN_DOWN)){
-        scrolling_y++;
+        moveObject(&moveableHead,0,1,bg0map);
     }
+    
+    gravityControls(&moveableHead);
 }
 
 void rightScroll(void){
@@ -179,4 +243,7 @@ void draw(void){
     //Update the scrolling registers. Do it here to avoid screen tearing.
     REG_BG0HOFS=scrolling_x;
     REG_BG0VOFS=scrolling_y;
+
+    //Update OAM memory
+    writeToOAM();
 }
