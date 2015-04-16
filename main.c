@@ -6,6 +6,7 @@
 #include "HeaderFiles/DMA.h"
 #include "HeaderFiles/button.h"
 #include "HeaderFiles/timer.h"
+#include "HeaderFiles/soundHeader.h"
 
 #include "Tiles/Senary.raw.h"
 #include "Tiles/Senary.pal.h"
@@ -13,12 +14,43 @@
 
 #include "Sprites/Chameleon.h"
 
+//Sound files
+#include "Sounds/attack.h"
+#include "Sounds/caw1.h"
+#include "Sounds/caw2.h"
+#include "Sounds/death.h"
+#include "Sounds/enemy_die2.h"
+#include "Sounds/getfly.h"
+#include "Sounds/jump.h"
+#include "Sounds/level01.h"
+#include "Sounds/level02.h"
+#include "Sounds/level03.h"
+#include "Sounds/mainmenu.h"
+#include "Sounds/omnom1.h"
+#include "Sounds/victory.h"
+
 //Declaring some globals
 unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (can't interact)
 unsigned short* bg1map = (unsigned short*)ScreenBaseBlock(16); //Background (interactable)
 int nextRight,nextLeft,nextRightDestination,nextLeftDestination,goingRight,scrolling_x,scrolling_y; //Scrolling controls
 unsigned short prev_timer3;
 Moveable moveableHead;
+
+//define sound files
+sound attackSnd = {&attack_bin, 8000, 1225104};
+sound caw1Snd = {&caw1_bin, 8000, 16144};
+sound caw2Snd = {&caw2_bin, 8000, 18064};
+sound deathSnd = {&death_bin, 8000, 11568};
+sound enemy_die2Snd = {&enemy_die2_bin, 8000, 1424};
+sound getflySnd = {&getfly_bin, 8000, 5136};
+sound jumpSnd = {&jump_bin, 8000, 2672};
+sound omnom1Snd = {&omnom1_bin, 8000, 10160};
+
+sound level01Mus = {&level01_bin, 8000, 497936};
+sound level02Mus = {&level02_bin, 8000, 450384};
+sound level03Mus = {&level03_bin, 8000, 766160};
+sound mainmenuMus = {&mainmenu_bin, 8000, 1225104};
+sound victoryMus = {&victory_bin, 8000, 244944};
 
 void init(void);
 void update(void);

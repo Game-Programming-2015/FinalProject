@@ -1,0 +1,7 @@
+attack, death, enemy_die2, jump Sound effects sourced/modified from Metroid - Copyright Nintendo.
+getfly Sound effect sourced/modified from Legend of Zelda Ocarina of Time - Copyright Nintendo.
+omnom1 Sound effect sourced/modified from Team Fortress 2 - Copyright Valve.
+level01, level02 Music sourced/modified from Bio Menace - Copyright 3dRealms/Apogee Software.
+level03 Music composed by Jayster - www.jaystermusic.com
+victory Msuic composed by Ziro - https://www.youtube.com/watch?v=vyjSQsRM9hU
+mainmenu Music composed by Kinesthesia - https://www.youtube.com/watch?v=H3ItlRVU1Ck
