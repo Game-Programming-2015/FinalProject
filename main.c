@@ -15,7 +15,7 @@
 #include "Sprites/Chameleon.h"
 
 //Sound files
-#include "Sounds/attack.h"
+/*#include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
 #include "Sounds/death.h"
@@ -27,7 +27,7 @@
 #include "Sounds/level03.h"
 #include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
-#include "Sounds/victory.h"
+#include "Sounds/victory.h"*/
 
 //Declaring some globals
 unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (can't interact)
@@ -37,7 +37,7 @@ unsigned short prev_timer3;
 Moveable moveableHead;
 
 //define sound files
-sound attackSnd = {&attack_bin, 8000, 1225104};
+/*sound attackSnd = {&attack_bin, 8000, 1225104};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
 sound deathSnd = {&death_bin, 8000, 11568};
@@ -50,7 +50,7 @@ sound level01Mus = {&level01_bin, 8000, 497936};
 sound level02Mus = {&level02_bin, 8000, 450384};
 sound level03Mus = {&level03_bin, 8000, 766160};
 sound mainmenuMus = {&mainmenu_bin, 8000, 1225104};
-sound victoryMus = {&victory_bin, 8000, 244944};
+sound victoryMus = {&victory_bin, 8000, 244944};*/
 
 void init(void);
 void update(void);
@@ -77,7 +77,9 @@ void init(void){
     //Set up the non-interactive background.
     setMode(0);
     enableBG0();
+    enableBG1();
     REG_BG0CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (31 << SCREEN_SHIFT);
+    REG_BG1CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (16 << SCREEN_SHIFT);
     
     //This is just a temporary map from my original scrolling assignment.
     DMAFastCopy((void*)Senary_Palette, (void*)BGPaletteMem,256, DMA_16NOW);
@@ -149,10 +151,15 @@ void init(void){
     REG_TM3CNT = TIMER_ENABLE | TIMER_OVERFLOW;
     REG_TM2CNT |= TIMER_ENABLE;
     prev_timer3=REG_TM3D;
+    
+    /*enable timer for sound*/
+    REG_TM0D = 65536 - (16777216 / 8000);
+    REG_TM0CNT = TIMER_ENABLE;
 }
 
 void update(void){
     pollButtons();
+    
     if (REG_TM3D!=prev_timer3){
         if (REG_TM3D%4==0){
             prev_timer3=REG_TM3D;
@@ -166,7 +173,7 @@ void update(void){
 void playerMovement(void){
     if (checkState(BTN_RIGHT)){
         //Move right
-        moveObject(&moveableHead,1,0,bg0map);
+        moveObject(&moveableHead,1,0,bg0map,scrolling_x,scrolling_y);
         
         //Scroll right if you aren't at the edge of the map
         while (scrolling_x<959                          //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
@@ -177,7 +184,7 @@ void playerMovement(void){
     }
     else if (checkState(BTN_LEFT)){
         
-        moveObject(&moveableHead,-1,0,bg0map);
+        moveObject(&moveableHead,-1,0,bg0map,scrolling_x,scrolling_y);
         
         //Scroll left if you aren't at the left edge of the map
         while (scrolling_x>0
@@ -191,12 +198,12 @@ void playerMovement(void){
     
 
     //If we want vertical maps, we need a copy row function.
-    if (checkState(BTN_UP) && (hitDetection(&moveableHead,0,1,bg0map) || 1 ) ){
-        //moveObject(&moveableHead,0,-1,bg0map);
-        moveableHead.vSpeed+=10;
+    if ( checkState(BTN_UP) && 1 || hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) ){
+        moveObject(&moveableHead,0,-1,bg0map,scrolling_x,scrolling_y);
+        //moveableHead.vSpeed-=10;
     }
     if (checkState(BTN_DOWN)){
-        moveObject(&moveableHead,0,1,bg0map);
+        moveObject(&moveableHead,0,1,bg0map,scrolling_x,scrolling_y);
     }
     
     gravityControls(&moveableHead);
@@ -275,7 +282,23 @@ void draw(void){
     //Update the scrolling registers. Do it here to avoid screen tearing.
     REG_BG0HOFS=scrolling_x;
     REG_BG0VOFS=scrolling_y;
-
+    REG_BG1HOFS=scrolling_x;
+    REG_BG1VOFS=scrolling_y;
     //Update OAM memory
     writeToOAM();
+    
+    int i;
+    for (i=0;i<1024;i++){
+        bg1map[i]=0;
+    }
+    
+    //The error is in the scrolling registers NOT WORKING LIKE MY FUCKING MANUAL ONES
+
+    bg1map[((sprites[0].fields.y+scrolling_y)%256)/8*32+((sprites[0].fields.x+scrolling_x)%256)/8]=10;
+    /*
+    spritePal[254]=scrolling_x;
+    spritePal[255]=scrolling_y;
+    spritePal[252]=REG_BG0HOFS;
+    spritePal[253]=REG_BG0VOFS;
+    */
 }

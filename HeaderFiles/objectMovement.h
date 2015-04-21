@@ -25,12 +25,12 @@ typedef struct moveable_object{
               will change between positive and negative when the object starts jumping/falling
 * return - collision value, if there is a collision
 */
-int moveObject(Moveable *object, int horizontal, int vertical,unsigned short* hitmap){
+int moveObject(Moveable *object, int horizontal, int vertical,unsigned short* hitmap,int hOffset,int vOffset){
     int i;
     int maxr=0; //Highest collision value, which will be returned and handled elsewhere
     if (horizontal){
         for (i=object->hSpeed;i>0;i--){ //Move horizontally hSpeed number of times
-            int r=hitDetection(object,horizontal,0,hitmap); //Make sure you can move
+            int r=hitDetection(object,horizontal+hOffset,0+vOffset,hitmap); //Make sure you can move
             if (r>maxr) maxr=r; //If you hit something, remember it
 
             if (!r){
@@ -42,7 +42,7 @@ int moveObject(Moveable *object, int horizontal, int vertical,unsigned short* hi
     
     if (vertical){
         for (i=object->vSpeed;i>0;i--){
-            int r=hitDetection(object,0,vertical,hitmap);
+            int r=hitDetection(object,0+hOffset,vertical+vOffset,hitmap);
             if (r>maxr) maxr=r;
             
             if (!r){
@@ -61,7 +61,7 @@ int getLocationValue(int x,int y,unsigned short *loc){
 
 int hitDetectionBackground(HitBox hb, unsigned short hOffset,unsigned short vOffset,unsigned short *bgHitMap){
     int xCheck=(hb.parentSprite->fields.x+hb.x+hOffset)%256;
-    int yCheck=hb.parentSprite->fields.y+hb.y+vOffset;
+    int yCheck=(hb.parentSprite->fields.y+hb.y+vOffset)%256;
     int finalX=xCheck+hb.xSize;
     int finalY=yCheck+hb.ySize;
     int r=0;
@@ -77,7 +77,7 @@ int hitDetectionBackground(HitBox hb, unsigned short hOffset,unsigned short vOff
             xCheck+=8;
             i++;
         }
-        xCheck=(hb.parentSprite->fields.x+hb.x+hOffset)%256;
+        xCheck=(hb.parentSprite->fields.x+hb.x+hOffset+REG_BG0HOFS)%256;
         yCheck+=8;
     }
 

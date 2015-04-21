@@ -1,20 +1,11 @@
+#ifndef REG_DMA1SAD
+#include "HeaderFiles/DMA.h"
+#endif
+
 /*DMA registers*/
 #define REG_DISPCNT *(unsigned long*)0x4000000
 
-#define REG_DMA1SAD *(volatile unsigned long*)0x40000BC //DMA1 source
-#define REG_DMA1DAD *(volatile unsigned long*)0x40000C0 //DMA1 dest
-#define REG_DMA1CNT_H *(volatile unsigned short*)0x40000C6 //DMA1 ctrl reg
-
-#define REG_DMA2SAD *(volatile unsigned long*)0x40000C8 //DMA2 srouce
-#define REG_DMA2DAD *(volatile unsigned long*)0x40000CC //DMA2 dest
-#define REG_DMA2CNT_H *(volatile unsigned short*)0x40000D2 //DMA2 ctrl reg
-
 /*DMA flags*/
-#define DMA_DEST_FIXED 64
-#define DMA_REPEAT 512
-#define DMA_TIMING_SYNC_TO_DISPLAY 4096 | 8192
-#define DMA_32_NEW 1024
-#define DMA_ENABLE_NEW 32768
 
 /*timer registers*/
 #define REG_TM0CNT     *(volatile unsigned short*)0x4000102

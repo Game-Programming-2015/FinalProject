@@ -16,6 +16,4 @@
 #define TIMER_OVERFLOW 0x5
 #define TIMER_ENABLE 0x80
 
-/*enable timer for sound*/
-REG_TM0D = 65536 - (16777216 / 8000);
-REG_TM0CNT = TIMER_ENABLE;
+
