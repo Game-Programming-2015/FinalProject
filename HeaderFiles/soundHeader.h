@@ -75,6 +75,7 @@ unsigned short SamplePosition0 = 0;
 unsigned short SampleLength0 = 0;
 unsigned short SamplePosition1 = 0;
 unsigned short SampleLength1 = 0;
+void *playing = NULL; //*pointer to currently looping sound
 	
 /*fucntion for playing sound*/
 void PlaySound(sound *theSound, int music){
@@ -100,6 +101,7 @@ void PlaySound(sound *theSound, int music){
 	} else {
     	/*DMA2 source address*/
     	REG_DMA2SAD = (unsigned long)theSound->pBuffer;
+    	playing = (unsigned long)theSound->pBuffer;
     	
     	/*DMA2 destination address*/
     	REG_DMA2DAD = REG_FIFO_B_L;
@@ -131,7 +133,7 @@ void MyHandler(void)
 			
 			/*increment position*/
 			SamplePosition0++;
-			if(SamplePosition0 > SampleLength0 || SamplePosition0 == -1){
+			if(SamplePosition0 > SampleLength0){
 				/*stop & reset length*/
 				REG_DMA1CNT_H = 0;
 				SampleLength0 = 0;
@@ -141,11 +143,44 @@ void MyHandler(void)
 		/*check music*/
 		if(SampleLength1){
 			SamplePosition1++;
-			if(SamplePosition1 > SampleLength1 || SamplePosition1 == -1){
-				REG_DMA2CNT_H = 0;
-				SampleLength1 = 0;
+			if(SamplePosition1 > SampleLength1){
+				/*loop music*/
+				SamplePosition1 = 0;
+				REG_DMA2SAD = playing;
+            	
+            	/*DMA2 destination address*/
+            	REG_DMA2DAD = REG_FIFO_B_L;
+
+                /*write 32 bits to dma2dest per vblank*/
+            	REG_DMA2CNT_H = DMA_DEST_FIXED | DMA_REPEAT | DMA_32_NEW | DMA_TIMING_SYNC_TO_DISPLAY | DMA_ENABLE_NEW;
 			}
 		}
+	}
+	
+	/*restore interrupt flags*/
+	REG_IF = Int_Flag;
+	
+	/*enable interrupts*/
+	REG_IME = 0x01;
+}
+
+/*stop sound function*/
+void StopSound(int channel){
+	unsigned short Int_Flag;
+	
+	/*disable interrupts*/
+	REG_IME = 0x00;
+	
+	/*backup interrupt flags*/
+	Int_Flag = REG_IF;
+	
+	/*end sound*/
+	if(channel == 0){	
+		REG_DMA1CNT_H = 0;
+		SampleLength0 = 0;
+	} else {
+		REG_DMA2CNT_H = 0;
+		SampleLength1 = 0;
 	}
 	
 	/*restore interrupt flags*/
