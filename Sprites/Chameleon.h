@@ -1,7 +1,7 @@
-/**********************************************\
-*       Chameleon.h                                   *
-*          by dovotos pcx->gba program         *
-/**********************************************/
+/**********************************************
+*       Chameleon.h                           *
+*          by dovotos pcx->gba program        *
+**********************************************/
 #define  Chameleon_WIDTH   32
 #define  Chameleon_HEIGHT  160
 #define  Chameleon_run1             0

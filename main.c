@@ -15,6 +15,7 @@
 #include "Sprites/Chameleon.h"
 
 //Sound files
+//Tyler commented these out because it makes compiling take almost a minute when they're included, and I didn't want to sit through it. It compiles with them there just fine, though.
 /*#include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
@@ -28,6 +29,22 @@
 #include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
 #include "Sounds/victory.h"*/
+
+//Function prototypes
+void init(void);
+void backgroundSetup(void);
+void objectSetup(void);
+void playerObjectSetup(void);
+void timerSetup(void);
+void buttonTimerSetup(void);
+void soundTimerSetup(void);
+
+void update(void);
+void playerMovement(void);
+void leftScroll(void);
+void rightScroll(void);
+
+void draw(void);
 
 //Declaring some globals
 unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (can't interact)
@@ -52,12 +69,6 @@ sound level03Mus = {&level03_bin, 8000, 766160};
 sound mainmenuMus = {&mainmenu_bin, 8000, 1225104};
 sound victoryMus = {&victory_bin, 8000, 244944};*/
 
-void init(void);
-void update(void);
-void playerMovement(void);
-void leftScroll(void);
-void rightScroll(void);
-void draw(void);
 
 int main(void){
     init();
@@ -72,25 +83,96 @@ int main(void){
 }
 
 void init(void){
-    int i;
-    
-    //Set up the non-interactive background.
     setMode(0);
-    enableBG0();
-    enableBG1();
+    backgroundSetup();
+    objectSetup();
+    timerSetup();
+}
+
+void timerSetup(void){
+    buttonTimerSetup();
+    soundTimerSetup();
+}
+
+void soundTimerSetup(void){
+    //enable timer for sound
+    REG_TM0D = 65536 - (16777216 / 8000);
+    REG_TM0CNT = TIMER_ENABLE;
+}
+
+void buttonTimerSetup(void){
+    //Timer 2 runs at ~38.4 FPS. This is the speed of button presses - they will only be interpreted when timer 2 is 0 (or -0x2000, whichever)
+    //Timer 3 increments once every time timer 2 does. This is for things that need to run slower than button presses.
+    REG_TM2D = -0x200;
+    REG_TM2CNT = TIMER_FREQUENCY_64;
+    REG_TM3CNT = TIMER_ENABLE | TIMER_OVERFLOW;
+    REG_TM2CNT |= TIMER_ENABLE;
+    prev_timer3=REG_TM3D;
+}
+
+void objectSetup(void){
+    int i;
+    //Setup objects
+    setObjMap1d();
+    enableObjects();
+
+    //Set sprite defaults
+    for (i=0;i<128;i++){
+        sprites[i].fields.x=240;
+        sprites[i].fields.y=160;
+        sprites[i].fields.colorMode=1;
+        sprites[i].fields.size=2;
+        sprites[i].fields.shape=1;
+    }
+
+    //Write sprite data in
+    DMAFastCopy((void*)ChameleonPalette, (void*)spritePal,256, DMA_16NOW);
+    copyToSpriteData(ChameleonData,Chameleon_WIDTH*Chameleon_HEIGHT,0);
+    
+    playerObjectSetup();
+    
+}
+
+void playerObjectSetup(void){
+    //Start player positions
+    sprites[0].fields.x=50;
+    sprites[0].fields.y=50;
+    sprites[0].fields.tileIndex=0;
+    //Setup player movement controller
+    moveableHead.parentSprite=&sprites[0];
+    moveableHead.hSpeed=0;
+    moveableHead.vSpeed=0;
+    moveableHead.next=NULL;
+    moveableHead.collisionHandler=playerCollisionHandler;
+    //Setup the main hitbox
+    moveableHead.masterHitBox=malloc(sizeof(HitBox));
+    moveableHead.masterHitBox->x=0;
+    moveableHead.masterHitBox->y=0;
+    moveableHead.masterHitBox->xSize=32;
+    moveableHead.masterHitBox->ySize=16;
+    moveableHead.masterHitBox->parentSprite=moveableHead.parentSprite;
+    //Setup the secondary hitboxes
+    moveableHead.hitBoxList=moveableHead.masterHitBox;
+    moveableHead.hitBoxCount=1;
+}
+
+void backgroundSetup(void){
+    int i;
+    enableBG0(); //Right now, this is the hitmap.
+    enableBG1(); //BG1 just tracks where the player is on the background screen. It's not used for any actual gameplay
     REG_BG0CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (31 << SCREEN_SHIFT);
     REG_BG1CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (16 << SCREEN_SHIFT);
-    
+
     //This is just a temporary map from my original scrolling assignment.
     DMAFastCopy((void*)Senary_Palette, (void*)BGPaletteMem,256, DMA_16NOW);
 
     DMAFastCopy((void*)Senary_Tiles,(void*)CharBaseBlock(0),1440,DMA_32NOW);
-    
+
     //Copy the first 30 columns in.
     for (i=0;i<30;i++){
         copyColumn(Senary_map,i,150,32,bg0map,i,32,32);
     }
-    
+
     //Set up the scrolling information.
     nextLeft=149; //Where the map will be copied from when the screen scrolls left.
     nextRight=30; //Same, but for the right.
@@ -102,65 +184,14 @@ void init(void){
     scrolling_x=0;
     REG_BG0VOFS=0;
     scrolling_y=0;
-    
-    goingRight=-1; //Not going left or right
-    
-    //Setup objects
-    setObjMap1d();
-    enableObjects();
-    
-    //Set sprite defaults
-    for (i=0;i<128;i++){
-        sprites[i].fields.x=240;
-        sprites[i].fields.y=160;
-        sprites[i].fields.colorMode=1;
-        sprites[i].fields.size=2;
-        sprites[i].fields.shape=1;
-    }
-    
-    //Write sprite data in
-    DMAFastCopy((void*)ChameleonPalette, (void*)spritePal,256, DMA_16NOW);
 
-    copyToSpriteData(ChameleonData,Chameleon_WIDTH*Chameleon_HEIGHT,0);
-    
-    //Setup player object
-    sprites[0].fields.x=50;
-    sprites[0].fields.y=50;
-    sprites[0].fields.tileIndex=0;
-    //Setup player movement controller
-    moveableHead.parentSprite=&sprites[0];
-    moveableHead.hSpeed=4;
-    moveableHead.vSpeed=1;
-    moveableHead.next=NULL;
-    //Setup the main hitbox
-    moveableHead.masterHitBox=malloc(sizeof(HitBox));
-    moveableHead.masterHitBox->x=0;
-    moveableHead.masterHitBox->y=0;
-    moveableHead.masterHitBox->xSize=32;
-    moveableHead.masterHitBox->ySize=16;
-    moveableHead.masterHitBox->parentSprite=moveableHead.parentSprite;
-    //Setup the secondary hitboxes
-    moveableHead.hitBoxList=moveableHead.masterHitBox;
-    moveableHead.hitBoxCount=1;
-    
-    //Timer 2 runs at ~38.4 FPS. This is the speed of button presses - they will only be interpreted when timer 2 is 0 (or -0x2000, whichever)
-    //Timer 3 increments once every time timer 2 does. This is for things that need to run slower than button presses.
-    //REG_TM2D = -0x80;
-    REG_TM2D = -0x200;
-    REG_TM2CNT = TIMER_FREQUENCY_64;
-    REG_TM3CNT = TIMER_ENABLE | TIMER_OVERFLOW;
-    REG_TM2CNT |= TIMER_ENABLE;
-    prev_timer3=REG_TM3D;
-    
-    /*enable timer for sound*/
-    REG_TM0D = 65536 - (16777216 / 8000);
-    REG_TM0CNT = TIMER_ENABLE;
+    goingRight=-1; //Not going left or right
 }
 
 void update(void){
-    pollButtons();
-    
-    if (REG_TM3D!=prev_timer3){
+    if (REG_TM3D!=prev_timer3){ //On button timer update
+        pollButtons();
+        
         if (REG_TM3D%4==0){
             prev_timer3=REG_TM3D;
             playerMovement();
@@ -169,44 +200,45 @@ void update(void){
     }
 }
 
-//Control player movement, including button presses
+//Update player movment, left/right/up with button presses, up/down with gravity
 void playerMovement(void){
     if (checkState(BTN_RIGHT)){
-        //Move right
-        moveObject(&moveableHead,1,0,bg0map,scrolling_x,scrolling_y);
-        
-        //Scroll right if you aren't at the edge of the map
-        while (scrolling_x<959                          //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
-            && moveableHead.parentSprite->fields.x>160){   //How far along the screen we want to the player to be able to go
-            rightScroll();
-            moveableHead.parentSprite->fields.x--;
-        }
+        //Point the player in the right direction
+        moveableHead.parentSprite->fields.horizontalFlip=0;
+        //Tell the player object to move
+        moveableHead.hSpeed=4;
+        //The actual movement is taken care of later on.
     }
     else if (checkState(BTN_LEFT)){
-        
-        moveObject(&moveableHead,-1,0,bg0map,scrolling_x,scrolling_y);
-        
-        //Scroll left if you aren't at the left edge of the map
-        while (scrolling_x>0
-            && moveableHead.parentSprite->fields.x<40){
-            leftScroll();
-            moveableHead.parentSprite->fields.x++;
-        }
+        moveableHead.parentSprite->fields.horizontalFlip=1;
+        moveableHead.hSpeed=-4;
+    }
+    else{
+        moveableHead.hSpeed=0;
     }
     
-//    gravityControls();
-    
-
-    //If we want vertical maps, we need a copy row function.
-    if ( checkState(BTN_UP) && 1 || hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) ){
-        moveObject(&moveableHead,0,-1,bg0map,scrolling_x,scrolling_y);
-        //moveableHead.vSpeed-=10;
-    }
-    if (checkState(BTN_DOWN)){
-        moveObject(&moveableHead,0,1,bg0map,scrolling_x,scrolling_y);
+    if ( checkState(BTN_UP)
+      && hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) //If there is a block directly below the player.
+    ){
+        moveableHead.vSpeed=-10; //Tell the player object to move up
     }
     
-    gravityControls(&moveableHead);
+    //Calculate the vSpeed for the player based on gravity
+    gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
+    //Move the player object
+    moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
+    //Scroll right if you aren't at the edge of the map
+    while (scrolling_x<959 //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
+        && moveableHead.parentSprite->fields.x>160){ //How far along the screen we want to the player to be able to go
+        rightScroll();
+        moveableHead.parentSprite->fields.x--;
+    }
+    //Scroll left if you aren't at the left edge of the map
+    while (scrolling_x>0
+        && moveableHead.parentSprite->fields.x<40){
+        leftScroll();
+        moveableHead.parentSprite->fields.x++;
+    }
 }
 
 void rightScroll(void){
@@ -286,19 +318,15 @@ void draw(void){
     REG_BG1VOFS=scrolling_y;
     //Update OAM memory
     writeToOAM();
-    
+
     int i;
     for (i=0;i<1024;i++){
         bg1map[i]=0;
     }
-    
-    //The error is in the scrolling registers NOT WORKING LIKE MY FUCKING MANUAL ONES
-
-    bg1map[((sprites[0].fields.y+scrolling_y)%256)/8*32+((sprites[0].fields.x+scrolling_x)%256)/8]=10;
-    /*
-    spritePal[254]=scrolling_x;
-    spritePal[255]=scrolling_y;
-    spritePal[252]=REG_BG0HOFS;
-    spritePal[253]=REG_BG0VOFS;
-    */
+    for (i=0;i<=moveableHead.masterHitBox->ySize/8;i++){
+        int j;
+        for (j=0;j<=moveableHead.masterHitBox->xSize/8;j++){
+            bg1map[((sprites[0].fields.y+scrolling_y+i*8)%256)/8*32+((sprites[0].fields.x+scrolling_x+j*8)%256)/8]=10;
+        }
+    }
 }
