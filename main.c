@@ -15,7 +15,7 @@
 #include "Sprites/Chameleon.h"
 
 //Sound files
-/*#include "Sounds/attack.h"
+#include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
 #include "Sounds/death.h"
@@ -27,7 +27,7 @@
 #include "Sounds/level03.h"
 #include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
-#include "Sounds/victory.h"*/
+#include "Sounds/victory.h"
 
 //Declaring some globals
 unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (can't interact)
@@ -36,8 +36,16 @@ int nextRight,nextLeft,nextRightDestination,nextLeftDestination,goingRight,scrol
 unsigned short prev_timer3;
 Moveable moveableHead;
 
-//define sound files
-/*sound attackSnd = {&attack_bin, 8000, 1225104};
+const unsigned char *sndLocation = NULL;
+const long int *sndLength = NULL;
+const unsigned char *musLocation = NULL;
+const long int *musLength = NULL;
+
+//define sound file data
+sound channelSnd = {&sndLocation, 8000, &sndLength}; //channel 0
+sound channelMus = {&musLocation, 8000, &musLength}; //channel 1
+
+/*sound attackSnd = {&attack_bin, 8000, 1120};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
 sound deathSnd = {&death_bin, 8000, 11568};
@@ -58,6 +66,9 @@ void playerMovement(void);
 void leftScroll(void);
 void rightScroll(void);
 void draw(void);
+
+//load sound functions
+void load_Sound(const unsigned char*, const long int*, int); // int = 0 for sound, 1 for music
 
 int main(void){
     init();
@@ -105,6 +116,10 @@ void init(void){
     
     goingRight=-1; //Not going left or right
     
+	//allocate memory for sound length data
+	sndLength = malloc(sizeof(const long int)* 1);
+	musLength = malloc(sizeof(const long int)* 1);
+	
     //Setup objects
     setObjMap1d();
     enableObjects();
@@ -301,4 +316,17 @@ void draw(void){
     spritePal[252]=REG_BG0HOFS;
     spritePal[253]=REG_BG0VOFS;
     */
+}
+
+/*sound loading functions*/
+void load_Sound(const unsigned char *sample, const long int *length, int type){
+	if(type == 0){
+		sndLength = length;
+		sndLocation = malloc(sizeof(const unsigned char)*&length);
+		mempcy(sample, sndLocation, &length);
+	} else {
+		musLength = length;
+		musLocation = malloc(sizeof(const unsigned char)*&length);
+		mempcy(sample, sndLocation, &length);
+	}
 }
