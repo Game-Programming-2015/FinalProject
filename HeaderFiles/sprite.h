@@ -82,13 +82,6 @@ typedef union tagSprite3{
     SpriteAttributes attributes;
 } Sprite, *pSprite;
 
-typedef struct hitBox{
-    int x;
-    int y;
-    int xSize;
-    int ySize;
-    pSprite parentSprite;
-} HitBox, *pHitbox;
 
 Sprite sprites[128];
 

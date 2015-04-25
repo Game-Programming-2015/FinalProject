@@ -3,7 +3,9 @@
 #endif
 
 /*DMA registers*/
+#ifndef REG_DISPCNT
 #define REG_DISPCNT *(unsigned long*)0x4000000
+#endif
 
 /*DMA flags*/
 
@@ -15,7 +17,9 @@
 #define TIMER_FREQUENCY_64 0x1
 #define TIMER_FREQUENCY_256 0x2
 #define TIMER_FREQUENCY_1024 0x3
+#ifndef TIMER_OVERFLOW
 #define TIMER_OVERFLOW 0x4
+#endif
 #define TIMER_ENABLE 0x80
 
 /*sound registers*/
@@ -60,7 +64,9 @@
 #define REG_IE *(unsigned short*)0x4000200
 #define REG_IF *(unsigned short*)0x4000202
 #define REG_INTERRUPT *(unsigned long*)0x3007FFC
+#ifndef REG_DISPSTAT
 #define REG_DISPSTAT *(unsigned short*)0x4000004
+#endif
 #define INT_VBLANK 0x0001
 
 typedef struct soundData{

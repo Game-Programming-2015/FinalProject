@@ -11,7 +11,7 @@
 #define BTN_L 0x200
 
 unsigned short prevButton=~0;
-unsigned short currButton=REG_BUTTON;
+unsigned short currButton=~0;
 
 void pollButtons(){
     prevButton=currButton;
@@ -19,11 +19,11 @@ void pollButtons(){
 }
 
 int checkPressed(int button){
-    return currButton & button && !(prevButton & button) ;
+    return currButton & button && !(prevButton & button);
 }
 
 int checkHeld(int button){
-    return currButton & button && prevButton & button ;
+    return currButton & button && prevButton & button;
 }
 
 int checkReleased(int button){
