@@ -19,6 +19,176 @@
 @ -fmath-errno -ftrapping-math -mapcs -mapcs-frame -mapcs-32 -msoft-float
 @ -mthumb-interwork -mlong-calls
 
+	.global	prevButton
+	.data
+	.align	1
+	.type	prevButton, %object
+	.size	prevButton, 2
+prevButton:
+	.short	-1
+	.global	currButton
+	.align	1
+	.type	currButton, %object
+	.size	currButton, 2
+currButton:
+	.short	-1
+	.text
+	.align	2
+	.global	pollButtons
+	.type	pollButtons, %function
+pollButtons:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r1, .L2
+	ldr	r3, .L2+4
+	ldrh	r0, [r1, #0]	@ movhi	@  currButton
+	mov	r2, #67108864
+	strh	r0, [r3, #0]	@ movhi 	@  prevButton
+	add	r2, r2, #304
+	ldrh	r3, [r2, #0]
+	mvn	r3, r3
+	@ lr needed for prologue
+	strh	r3, [r1, #0]	@ movhi 	@  currButton
+	bx	lr
+.L3:
+	.align	2
+.L2:
+	.word	currButton
+	.word	prevButton
+	.size	pollButtons, .-pollButtons
+	.align	2
+	.global	checkPressed
+	.type	checkPressed, %function
+checkPressed:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r3, .L6
+	ldrh	r2, [r3, #0]	@  currButton
+	tst	r2, r0	@  button
+	@ lr needed for prologue
+	mov	r3, #0	@  button
+	beq	.L5
+	ldr	r3, .L6+4
+	ldrh	r2, [r3, #0]	@  prevButton
+	tst	r2, r0	@  button
+	movne	r3, #0	@  button
+	moveq	r3, #1	@  button
+.L5:
+	mov	r0, r3	@  button
+	bx	lr
+.L7:
+	.align	2
+.L6:
+	.word	currButton
+	.word	prevButton
+	.size	checkPressed, .-checkPressed
+	.align	2
+	.global	checkHeld
+	.type	checkHeld, %function
+checkHeld:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r3, .L10
+	ldrh	r2, [r3, #0]	@  currButton
+	tst	r2, r0	@  button
+	@ lr needed for prologue
+	mov	r3, #0	@  button
+	beq	.L9
+	ldr	r3, .L10+4
+	ldrh	r2, [r3, #0]	@  prevButton
+	tst	r2, r0	@  button
+	moveq	r3, #0	@  button
+	movne	r3, #1	@  button
+.L9:
+	mov	r0, r3	@  button
+	bx	lr
+.L11:
+	.align	2
+.L10:
+	.word	currButton
+	.word	prevButton
+	.size	checkHeld, .-checkHeld
+	.align	2
+	.global	checkReleased
+	.type	checkReleased, %function
+checkReleased:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r3, .L14
+	ldrh	r2, [r3, #0]	@  currButton
+	tst	r2, r0	@  button
+	@ lr needed for prologue
+	mov	r3, #0	@  button
+	bne	.L13
+	ldr	r3, .L14+4
+	ldrh	r2, [r3, #0]	@  prevButton
+	tst	r2, r0	@  button
+	moveq	r3, #0	@  button
+	movne	r3, #1	@  button
+.L13:
+	mov	r0, r3	@  button
+	bx	lr
+.L15:
+	.align	2
+.L14:
+	.word	currButton
+	.word	prevButton
+	.size	checkReleased, .-checkReleased
+	.align	2
+	.global	checkHeldReleased
+	.type	checkHeldReleased, %function
+checkHeldReleased:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r3, .L18
+	ldrh	r2, [r3, #0]	@  currButton
+	tst	r2, r0	@  button
+	@ lr needed for prologue
+	mov	r3, #0	@  button
+	bne	.L17
+	ldr	r3, .L18+4
+	ldrh	r2, [r3, #0]	@  prevButton
+	tst	r2, r0	@  button
+	movne	r3, #0	@  button
+	moveq	r3, #1	@  button
+.L17:
+	mov	r0, r3	@  button
+	bx	lr
+.L19:
+	.align	2
+.L18:
+	.word	currButton
+	.word	prevButton
+	.size	checkHeldReleased, .-checkHeldReleased
+	.align	2
+	.global	checkState
+	.type	checkState, %function
+checkState:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r3, .L21
+	ldrh	r2, [r3, #0]	@  currButton
+	and	r2, r2, r0	@  button,  button
+	mov	r0, r2	@  button
+	@ lr needed for prologue
+	bx	lr
+.L22:
+	.align	2
+.L21:
+	.word	currButton
+	.size	checkState, .-checkState
 	.global	videoBuffer
 	.data
 	.align	2
@@ -47,17 +217,17 @@ waitVBlank:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r3, .L5
+	ldr	r3, .L27
 	ldr	r2, [r3, #0]	@  scanlineCounter
 	@ lr needed for prologue
-.L2:
+.L24:
 	ldrh	r3, [r2, #0]
 	cmp	r3, #159
-	bls	.L2
+	bls	.L24
 	bx	lr
-.L6:
+.L28:
 	.align	2
-.L5:
+.L27:
 	.word	scanlineCounter
 	.size	waitVBlank, .-waitVBlank
 	.align	2
@@ -71,22 +241,22 @@ addToPalette:
 	movge	r2, #256	@  end
 	cmp	r1, r2	@  start,  end
 	str	lr, [sp, #-4]!
-	bge	.L14
-	ldr	r3, .L15
+	bge	.L36
+	ldr	r3, .L37
 	ldr	ip, [r3, #0]	@  paletteMem
-.L12:
+.L34:
 	mov	r3, r1, asl #1	@  start
 	ldrh	lr, [r3, r0]	@ movhi	@ * palette
 	add	r1, r1, #1	@  start,  start
 	cmp	r1, r2	@  start,  end
 	strh	lr, [r3, ip]	@ movhi 
-	blt	.L12
-.L14:
+	blt	.L34
+.L36:
 	ldr	lr, [sp], #4
 	bx	lr
-.L16:
+.L38:
 	.align	2
-.L15:
+.L37:
 	.word	paletteMem
 	.size	addToPalette, .-addToPalette
 	.align	2
@@ -100,7 +270,7 @@ copyColumn:
 	stmfd	sp!, {r4, lr}
 	mov	ip, r2	@  sourceWidth
 	mov	r4, r3	@  sourceHeight
-	ble	.L24
+	ble	.L46
 	add	r2, sp, #8
 	ldmia	r2, {r2, r3}	@ phole ldm
 	add	lr, r2, r3, asl #1	@  destination,  destStart
@@ -109,14 +279,14 @@ copyColumn:
 	mov	r2, ip, asl #1	@  sourceWidth
 	mov	r1, r3, asl #1	@  destWidth
 	mov	ip, r4	@  y,  sourceHeight
-.L22:
+.L44:
 	ldrh	r3, [r0, #0]
 	subs	ip, ip, #1	@  y,  y
 	strh	r3, [lr, #0]	@ movhi 
 	add	r0, r0, r2
 	add	lr, lr, r1
-	bne	.L22
-.L24:
+	bne	.L44
+.L46:
 	ldmfd	sp!, {r4, lr}
 	bx	lr
 	.size	copyColumn, .-copyColumn
@@ -140,13 +310,13 @@ copySpritePalette:
 	@ lr needed for prologue
 	mov	r2, #0	@  i
 	add	r1, r1, #512
-.L30:
+.L52:
 	mov	r3, r2, asl #1	@  i
 	ldrh	ip, [r3, r0]	@ movhi	@ * myPalette
 	add	r2, r2, #1	@  i,  i
 	cmp	r2, #255	@  i
 	strh	ip, [r3, r1]	@ movhi 
-	ble	.L30
+	ble	.L52
 	bx	lr
 	.size	copySpritePalette, .-copySpritePalette
 	.align	2
@@ -157,26 +327,26 @@ writeToOAM:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	str	lr, [sp, #-4]!
-	ldr	ip, .L48
+	ldr	ip, .L70
 	mov	r0, #0	@  i
-.L43:
+.L65:
 	mov	r2, r0, asl #3	@  i
 	mov	r1, #3	@  attr
-.L42:
+.L64:
 	ldrh	lr, [r2, ip]	@ movhi	@  <variable>.attributes.attribute
 	add	r3, r2, #117440512
 	subs	r1, r1, #1	@  attr,  attr
 	strh	lr, [r3, #0]	@ movhi 
 	add	r2, r2, #2
-	bpl	.L42
+	bpl	.L64
 	add	r0, r0, #1	@  i,  i
 	cmp	r0, #127	@  i
-	ble	.L43
+	ble	.L65
 	ldr	lr, [sp], #4
 	bx	lr
-.L49:
+.L71:
 	.align	2
-.L48:
+.L70:
 	.word	sprites
 	.size	writeToOAM, .-writeToOAM
 	.align	2
@@ -190,24 +360,24 @@ copyToSpriteData:
 	mov	r4, r1, lsr #1	@  length
 	mov	lr, #0	@  i
 	cmp	lr, r4	@  i
-	bcs	.L57
-	ldr	r3, .L58
+	bcs	.L79
+	ldr	r3, .L80
 	ldr	r1, [r3, #0]	@  spriteData
 	mov	ip, r2, asl #1	@  location
-.L55:
+.L77:
 	mov	r3, lr, asl #1	@  i
 	ldrh	r2, [r3, r0]	@ * image
 	add	lr, lr, #1	@  i,  i
 	cmp	lr, r4	@  i
 	strh	r2, [ip, r1]	@ movhi 
 	add	ip, ip, #2
-	bcc	.L55
-.L57:
+	bcc	.L77
+.L79:
 	ldmfd	sp!, {r4, lr}
 	bx	lr
-.L59:
+.L81:
 	.align	2
-.L58:
+.L80:
 	.word	spriteData
 	.size	copyToSpriteData, .-copyToSpriteData
 	.align	2
@@ -225,14 +395,14 @@ copyToSpritePalette:
 	sub	fp, ip, #4
 	mov	r0, r3	@  palette
 	mov	r2, #256
-	ldr	r3, .L61
+	ldr	r3, .L83
 	mov	lr, pc
 	bx	r3
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L62:
+.L84:
 	.align	2
-.L61:
+.L83:
 	.word	memcpy
 	.size	copyToSpritePalette, .-copyToSpritePalette
 	.align	2
@@ -249,20 +419,20 @@ moveObject:
 	mov	r6, r0	@  object
 	mov	r7, r2	@  vertical
 	mov	sl, r3	@  hitmap
-	beq	.L64
+	beq	.L86
 	ldr	r3, [r0, #20]	@  <variable>.hSpeed
 	cmp	r3, #0
 	mvnlt	r5, #0	@  horizontalSign
-	blt	.L66
+	blt	.L88
 	movle	r5, #0	@  horizontalSign
 	movgt	r5, #1	@  horizontalSign
-.L66:
+.L88:
 	muls	r4, r1, r3	@  i,  horizontal
-	beq	.L64
+	beq	.L86
 	ldr	r3, [fp, #4]	@  hOffset
-	ldr	r9, .L86
+	ldr	r9, .L108
 	add	r8, r5, r3	@  horizontal,  horizontalSign
-.L73:
+.L95:
 	mov	r0, r6	@  object
 	mov	r1, r8	@  horizontal
 	ldr	r2, [fp, #8]	@  vOffset
@@ -270,7 +440,7 @@ moveObject:
 	mov	lr, pc
 	bx	r9
 	cmp	r0, #0	@  r
-	bne	.L64
+	bne	.L86
 	ldr	r3, [r6, #0]	@  <variable>.parentSprite
 	ldrh	r2, [r3, #2]
 	mov	r1, r2, asl #23
@@ -281,23 +451,23 @@ moveObject:
 	mov	r2, r2, ror #23
 	subs	r4, r4, r5	@  i,  i,  horizontalSign
 	strh	r2, [r3, #2]	@ movhi 
-	bne	.L73
-.L64:
+	bne	.L95
+.L86:
 	cmp	r7, #0	@  vertical
-	beq	.L74
+	beq	.L96
 	ldr	r3, [r6, #24]	@  <variable>.vSpeed
 	cmp	r3, #0
 	mvnlt	r5, #0	@  verticalSign
-	blt	.L76
+	blt	.L98
 	movle	r5, #0	@  verticalSign
 	movgt	r5, #1	@  verticalSign
-.L76:
+.L98:
 	muls	r4, r7, r3	@  i,  vertical
-	beq	.L74
+	beq	.L96
 	ldr	r3, [fp, #8]	@  vOffset
-	ldr	r9, .L86
+	ldr	r9, .L108
 	add	r7, r5, r3	@  vertical,  verticalSign
-.L83:
+.L105:
 	mov	r0, r6	@  object
 	ldr	r1, [fp, #4]	@  hOffset
 	mov	r2, r7	@  vertical
@@ -305,20 +475,20 @@ moveObject:
 	mov	lr, pc
 	bx	r9
 	cmp	r0, #0	@  r
-	bne	.L74
+	bne	.L96
 	ldr	r2, [r6, #0]	@  <variable>.parentSprite
 	ldrb	r3, [r2, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	subs	r4, r4, r5	@  i,  i,  verticalSign
 	add	r3, r3, r5	@  verticalSign
 	strb	r3, [r2, #0]	@  <variable>.fields.y
-	bne	.L83
-.L74:
+	bne	.L105
+.L96:
 	mov	r0, #0
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L87:
+.L109:
 	.align	2
-.L86:
+.L108:
 	.word	hitDetection
 	.size	moveObject, .-moveObject
 	.align	2
@@ -326,14 +496,14 @@ moveObject:
 	.type	hitDetectionBackground, %function
 hitDetectionBackground:
 	@ Function supports interworking.
-	@ args = 40, pretend = 16, frame = 12
+	@ args = 40, pretend = 16, frame = 8
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	sub	sp, sp, #16
 	stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, ip, lr, pc}
 	sub	fp, ip, #20
 	add	ip, fp, #4
-	sub	sp, sp, #12
+	sub	sp, sp, #8
 	stmia	ip, {r0, r1, r2, r3}
 	ldr	r3, [fp, #20]	@  hb.parentSprite
 	ldrb	r0, [r3, #0]	@ zero_extendqisi2
@@ -342,134 +512,91 @@ hitDetectionBackground:
 	ldrh	r2, [fp, #28]	@  vOffset
 	add	r0, r0, r3
 	mov	r1, r1, asl #23
-	ldr	r3, [fp, #4]	@  hb.x
+	ldrsh	ip, [fp, #24]	@  hOffset,  hOffset
+	ldr	lr, [fp, #4]	@  hb.x
 	add	r0, r0, r2
 	mov	r1, r1, lsr #23
-	add	r1, r1, r3
-	ldrsh	ip, [fp, #24]	@  hOffset,  hOffset
-	mov	r3, r0, asr #31
-	add	r3, r0, r3, lsr #24
 	mov	ip, ip, asl #16	@  hOffset
-	bic	r3, r3, #255
+	add	r1, r1, lr
+	mov	r2, r0, asr #31
 	add	r1, r1, ip, lsr #16
-	rsb	r6, r3, r0	@  yCheck
-	ldr	r3, [fp, #16]	@  hb.ySize
-	mov	r2, r1, asr #31
-	add	r3, r6, r3	@  yCheck
-	add	r2, r1, r2, lsr #24
+	add	r2, r0, r2, lsr #24
 	bic	r2, r2, #255
-	cmp	r6, r3	@  yCheck
-	str	r3, [fp, #-48]	@  finalY
+	mov	r3, r1, asr #31
+	rsb	r6, r2, r0	@  yCheck
+	add	r3, r1, r3, lsr #24
+	ldr	r2, [fp, #16]	@  hb.ySize
+	bic	r3, r3, #255
+	rsb	r4, r3, r1	@  xCheck
+	add	r2, r6, r2	@  yCheck
 	ldr	r3, [fp, #12]	@  hb.xSize
-	rsb	r4, r2, r1	@  xCheck
-	add	r8, r4, r3	@  finalX,  xCheck
-	movge	r2, r8, asr #31	@  finalX
+	mov	r8, #0	@  r
 	str	ip, [fp, #-44]
-	ldr	r9, [fp, #40]	@  doCollisions,  doCollisions
-	mov	r7, #0	@  r
-	strge	r2, [fp, #-52]
-	bge	.L107
-	mov	r1, r8, asr #31	@  finalX
-	str	r1, [fp, #-52]
-.L102:
-	cmp	r4, r8	@  xCheck,  finalX
-	movge	sl, r6, asr #31	@  yCheck
-	bge	.L109
-	mov	sl, r6, asr #31	@  yCheck
-	add	r3, r6, sl, lsr #29	@  yCheck
-	mov	r5, r3, asr #3
-.L98:
+	str	r2, [fp, #-48]	@  finalY
+	add	sl, r4, r3	@  finalX,  xCheck
+	mov	r5, r8	@  xDone,  r
+	mov	r9, r8	@  yDone,  r
+.L127:
+	mov	r3, r6, asr #31	@  yCheck
+	add	r3, r6, r3, lsr #29	@  yCheck
+	mov	r7, r3, asr #3
+.L123:
 	mov	r3, r4, asr #31	@  xCheck
+	ldr	r2, [fp, #40]	@  doCollisions
 	add	r3, r4, r3, lsr #29	@  xCheck
 	mov	r3, r3, asr #3
-	add	r3, r3, r5, asl #5
+	add	r3, r3, r7, asl #5
+	cmp	r2, #0
 	ldr	r2, [fp, #32]	@  bgHitMap
 	mov	r3, r3, asl #1
 	ldrh	r3, [r3, r2]	@  bgItem
-	cmp	r9, #0	@  doCollisions
-	add	r4, r4, #8	@  xCheck,  xCheck
 	ldr	r1, [fp, #36]	@  parentObject
 	mov	r0, r3	@  bgItem
-	bne	.L112
-.L96:
-	cmp	r7, r3	@  r,  bgItem
-	movlt	r7, r3	@  r,  bgItem
-	cmp	r4, r8	@  xCheck,  finalX
-	blt	.L98
-.L109:
-	add	r3, r6, sl, lsr #29	@  yCheck
-	ldr	r1, [fp, #-52]
-	mov	r3, r3, asr #3
-	add	r2, r8, r1, lsr #29	@  finalX
-	mov	r3, r3, asl #5
-	add	r3, r3, r2, asr #3
-	ldr	r2, [fp, #32]	@  bgHitMap
-	mov	r3, r3, asl #1
-	cmp	r9, #0	@  doCollisions
-	ldrh	ip, [r3, r2]	@  bgItem
-	bne	.L113
-.L100:
-	ldr	r2, [fp, #20]	@  hb.parentSprite
-	ldrh	r3, [r2, #2]
-	mov	r1, #67108864
-	ldr	r2, [fp, #4]	@  hb.x
+	bne	.L135
+.L118:
+	cmp	r8, r3	@  r,  bgItem
+	movlt	r8, r3	@  r,  bgItem
+	cmp	r5, #1	@  xDone
+	add	r4, r4, #8	@  xCheck,  xCheck
+	beq	.L132
+	cmp	r4, sl	@  xCheck,  finalX
+	movge	r5, #1	@  xDone
+	movge	r4, sl	@  xCheck,  finalX
+	cmp	r5, #2	@  xDone
+	bne	.L123
+.L132:
+	ldr	r3, [fp, #20]	@  hb.parentSprite
+	ldrh	r3, [r3, #2]
+	ldr	lr, [fp, #4]	@  hb.x
 	mov	r3, r3, asl #23
-	ldrh	r0, [r1, #16]
+	ldr	r2, [fp, #-44]
 	mov	r3, r3, lsr #23
-	ldr	r1, [fp, #-44]
-	add	r3, r3, r2
-	add	r3, r3, r1, lsr #16
-	add	r3, r3, r0
+	add	r3, r3, lr
+	add	r3, r3, r2, lsr #16
 	mov	r2, r3, asr #31
-	ldr	r1, [fp, #-48]	@  finalY
 	add	r2, r3, r2, lsr #24
-	add	r6, r6, #8	@  yCheck,  yCheck
-	cmp	r7, ip	@  r,  bgItem
-	movlt	r7, ip	@  r,  bgItem
 	bic	r2, r2, #255
-	cmp	r6, r1	@  yCheck
+	cmp	r9, #1	@  yDone
 	rsb	r4, r2, r3	@  xCheck
-	blt	.L102
-.L107:
-	ldr	r1, [fp, #-48]	@  finalY
-	mov	r3, r1, asr #31
-	add	r3, r1, r3, lsr #29
-	ldr	r1, [fp, #-52]
-	mov	r3, r3, asr #3
-	add	r2, r8, r1, lsr #29	@  finalX
-	mov	r3, r3, asl #5
-	add	r3, r3, r2, asr #3
-	ldr	r2, [fp, #32]	@  bgHitMap
-	mov	r3, r3, asl #1
-	cmp	r9, #0	@  doCollisions
-	ldrh	r0, [r3, r2]	@  bgItem
-	bne	.L114
-.L104:
-	cmp	r7, r0	@  r,  bgItem
-	movlt	r7, r0	@  r,  bgItem
-	mov	r0, r7	@  r
+	mov	r5, #0	@  xDone
+	add	r6, r6, #8	@  yCheck,  yCheck
+	beq	.L133
+	ldr	r3, [fp, #-48]	@  finalY
+	cmp	r6, r3	@  yCheck
+	movge	r9, #1	@  yDone
+	movge	r6, r3	@  yCheck
+	cmp	r9, #2	@  yDone
+	bne	.L127
+.L133:
+	mov	r0, r8	@  r
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L114:
-	ldr	r1, [fp, #36]	@  parentObject
-	ldr	ip, [r1, #16]	@  <variable>.collisionHandler
-	mov	lr, pc
-	bx	ip
-	b	.L104
-.L113:
-	mov	r0, ip	@  bgItem
-	ldr	r1, [fp, #36]	@  parentObject
-	ldr	ip, [r1, #16]	@  <variable>.collisionHandler
-	mov	lr, pc
-	bx	ip
-	mov	ip, r0	@  bgItem
-	b	.L100
-.L112:
+.L135:
 	ldr	ip, [r1, #16]	@  <variable>.collisionHandler
 	mov	lr, pc
 	bx	ip
 	mov	r3, r0	@  bgItem
-	b	.L96
+	b	.L118
 	.size	hitDetectionBackground, .-hitDetectionBackground
 	.align	2
 	.global	hitDetection
@@ -500,7 +627,7 @@ hitDetection:
 	ldmia	ip, {r0, r1, r2, r3}
 	bl	hitDetectionBackground
 	cmp	r0, r7	@  object
-	beq	.L116
+	beq	.L137
 	ldr	lr, [r4, #8]	@  <variable>.hitBoxList
 	sub	r5, fp, #60
 	ldmia	lr!, {r0, r1, r2, r3}
@@ -511,12 +638,12 @@ hitDetection:
 	cmp	r7, r3	@  r
 	str	r2, [ip, #0]
 	mov	r6, r7	@  i,  r
-	blt	.L122
-.L116:
+	blt	.L143
+.L137:
 	mov	r0, r7	@  r
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L122:
+.L143:
 	mov	lr, sl, lsr #16
 	mov	ip, r9, lsr #16
 	str	lr, [sp, #8]
@@ -534,8 +661,8 @@ hitDetection:
 	cmp	r7, r0	@  r,  hitValue
 	movlt	r7, r0	@  r,  hitValue
 	cmp	r6, r3	@  i
-	blt	.L122
-	b	.L116
+	blt	.L143
+	b	.L137
 	.size	hitDetection, .-hitDetection
 	.align	2
 	.global	gravityControls
@@ -553,14 +680,14 @@ gravityControls:
 	cmp	r0, #0	@  object
 	ldreq	r3, [r4, #24]	@  <variable>.vSpeed
 	addeq	r3, r3, #1
-	beq	.L128
+	beq	.L149
 	ldr	r3, [r4, #24]	@  <variable>.vSpeed
 	cmp	r3, #0
-	blt	.L124
+	ble	.L145
 	mov	r3, #0
-.L128:
+.L149:
 	str	r3, [r4, #24]	@  <variable>.vSpeed
-.L124:
+.L145:
 	ldmea	fp, {r4, fp, sp, lr}
 	bx	lr
 	.size	gravityControls, .-gravityControls
@@ -572,14 +699,9 @@ playerCollisionHandler:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	cmp	r0, #0	@  collisionID
+	subs	r0, r0, #0	@  r,  collisionID
+	movne	r0, #1	@  r
 	@ lr needed for prologue
-	mov	r3, #0	@  r
-	beq	.L130
-	cmp	r0, #1	@  collisionID
-	moveq	r3, #1	@  r
-.L130:
-	mov	r0, r3	@  r
 	bx	lr
 	.size	playerCollisionHandler, .-playerCollisionHandler
 	.align	2
@@ -600,176 +722,6 @@ DMAFastCopy:
 	streq	r2, [ip, #220]
 	bx	lr
 	.size	DMAFastCopy, .-DMAFastCopy
-	.global	prevButton
-	.data
-	.align	1
-	.type	prevButton, %object
-	.size	prevButton, 2
-prevButton:
-	.short	-1
-	.global	currButton
-	.align	1
-	.type	currButton, %object
-	.size	currButton, 2
-currButton:
-	.short	-1
-	.text
-	.align	2
-	.global	pollButtons
-	.type	pollButtons, %function
-pollButtons:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	ldr	r1, .L138
-	ldr	r3, .L138+4
-	ldrh	r0, [r1, #0]	@ movhi	@  currButton
-	mov	r2, #67108864
-	strh	r0, [r3, #0]	@ movhi 	@  prevButton
-	add	r2, r2, #304
-	ldrh	r3, [r2, #0]
-	mvn	r3, r3
-	@ lr needed for prologue
-	strh	r3, [r1, #0]	@ movhi 	@  currButton
-	bx	lr
-.L139:
-	.align	2
-.L138:
-	.word	currButton
-	.word	prevButton
-	.size	pollButtons, .-pollButtons
-	.align	2
-	.global	checkPressed
-	.type	checkPressed, %function
-checkPressed:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	ldr	r3, .L142
-	ldrh	r2, [r3, #0]	@  currButton
-	tst	r2, r0	@  button
-	@ lr needed for prologue
-	mov	r3, #0	@  button
-	beq	.L141
-	ldr	r3, .L142+4
-	ldrh	r2, [r3, #0]	@  prevButton
-	tst	r2, r0	@  button
-	movne	r3, #0	@  button
-	moveq	r3, #1	@  button
-.L141:
-	mov	r0, r3	@  button
-	bx	lr
-.L143:
-	.align	2
-.L142:
-	.word	currButton
-	.word	prevButton
-	.size	checkPressed, .-checkPressed
-	.align	2
-	.global	checkHeld
-	.type	checkHeld, %function
-checkHeld:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	ldr	r3, .L146
-	ldrh	r2, [r3, #0]	@  currButton
-	tst	r2, r0	@  button
-	@ lr needed for prologue
-	mov	r3, #0	@  button
-	beq	.L145
-	ldr	r3, .L146+4
-	ldrh	r2, [r3, #0]	@  prevButton
-	tst	r2, r0	@  button
-	moveq	r3, #0	@  button
-	movne	r3, #1	@  button
-.L145:
-	mov	r0, r3	@  button
-	bx	lr
-.L147:
-	.align	2
-.L146:
-	.word	currButton
-	.word	prevButton
-	.size	checkHeld, .-checkHeld
-	.align	2
-	.global	checkReleased
-	.type	checkReleased, %function
-checkReleased:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	ldr	r3, .L150
-	ldrh	r2, [r3, #0]	@  currButton
-	tst	r2, r0	@  button
-	@ lr needed for prologue
-	mov	r3, #0	@  button
-	bne	.L149
-	ldr	r3, .L150+4
-	ldrh	r2, [r3, #0]	@  prevButton
-	tst	r2, r0	@  button
-	moveq	r3, #0	@  button
-	movne	r3, #1	@  button
-.L149:
-	mov	r0, r3	@  button
-	bx	lr
-.L151:
-	.align	2
-.L150:
-	.word	currButton
-	.word	prevButton
-	.size	checkReleased, .-checkReleased
-	.align	2
-	.global	checkHeldReleased
-	.type	checkHeldReleased, %function
-checkHeldReleased:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	ldr	r3, .L154
-	ldrh	r2, [r3, #0]	@  currButton
-	tst	r2, r0	@  button
-	@ lr needed for prologue
-	mov	r3, #0	@  button
-	bne	.L153
-	ldr	r3, .L154+4
-	ldrh	r2, [r3, #0]	@  prevButton
-	tst	r2, r0	@  button
-	movne	r3, #0	@  button
-	moveq	r3, #1	@  button
-.L153:
-	mov	r0, r3	@  button
-	bx	lr
-.L155:
-	.align	2
-.L154:
-	.word	currButton
-	.word	prevButton
-	.size	checkHeldReleased, .-checkHeldReleased
-	.align	2
-	.global	checkState
-	.type	checkState, %function
-checkState:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	ldr	r3, .L157
-	ldrh	r2, [r3, #0]	@  currButton
-	and	r2, r2, r0	@  button,  button
-	mov	r0, r2	@  button
-	@ lr needed for prologue
-	bx	lr
-.L158:
-	.align	2
-.L157:
-	.word	currButton
-	.size	checkState, .-checkState
 	.global	sample
 	.data
 	.align	1
@@ -843,68 +795,68 @@ PlaySound:
 	sub	r4, r4, #191
 	mov	r6, r1	@  music
 	strh	r3, [r2, #132]	@ movhi 
-	bne	.L160
+	bne	.L158
 	ldr	r3, [r0, #0]	@  <variable>.pBuffer
 	str	r3, [r2, #188]
 	str	ip, [r2, #192]
-	ldr	r3, .L162+8
+	ldr	r3, .L160+8
 	strh	r5, [r2, #198]	@ movhi 
 	ldr	r0, [r0, #8]	@  theSound,  <variable>.length
 	ldrh	r1, [r3, #0]	@  music,  sample
-	ldr	r3, .L162+12
+	ldr	r3, .L160+12
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L162+16
+	ldr	r3, .L160+16
 	mov	lr, pc
 	bx	r3
-	adr	r2, .L162
+	adr	r2, .L160
 	ldmia	r2, {r2-r3}
-	ldr	ip, .L162+20
+	ldr	ip, .L160+20
 	mov	lr, pc
 	bx	ip
-	ldr	r3, .L162+24
+	ldr	r3, .L160+24
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L162+28
-	ldr	r2, .L162+32
+	ldr	r3, .L160+28
+	ldr	r2, .L160+32
 	strh	r0, [r3, #0]	@ movhi 	@  theSound,  SampleLength0
 	strh	r6, [r2, #0]	@ movhi 	@  music,  SamplePosition0
-.L159:
+.L157:
 	ldmea	fp, {r4, r5, r6, fp, sp, lr}
 	bx	lr
-.L160:
+.L158:
 	ldr	ip, [r0, #0]	@  <variable>.pBuffer
-	ldr	r3, .L162+8
+	ldr	r3, .L160+8
 	str	ip, [r2, #200]
 	str	lr, [r2, #204]
 	strh	r4, [r2, #210]	@ movhi 
 	ldrh	r1, [r3, #0]	@  music,  sample
-	ldr	r3, .L162+36
-	ldr	r2, .L162+12
+	ldr	r3, .L160+36
+	ldr	r2, .L160+12
 	str	ip, [r3, #0]	@  playing
 	ldr	r0, [r0, #8]	@  theSound,  <variable>.length
 	mov	lr, pc
 	bx	r2
-	ldr	r3, .L162+16
+	ldr	r3, .L160+16
 	mov	lr, pc
 	bx	r3
-	adr	r2, .L162
+	adr	r2, .L160
 	ldmia	r2, {r2-r3}
-	ldr	ip, .L162+20
+	ldr	ip, .L160+20
 	mov	lr, pc
 	bx	ip
-	ldr	r3, .L162+24
+	ldr	r3, .L160+24
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L162+40
-	ldr	r2, .L162+44
+	ldr	r3, .L160+40
+	ldr	r2, .L160+44
 	strh	r0, [r3, #0]	@ movhi 	@  theSound,  SampleLength1
 	mov	r3, #0	@ movhi
 	strh	r3, [r2, #0]	@ movhi 	@  SamplePosition1
-	b	.L159
-.L163:
+	b	.L157
+.L161:
 	.align	2
-.L162:
+.L160:
 	.word	1076831191
 	.word	171798692
 	.word	sample
@@ -937,16 +889,16 @@ MyHandler:
 	mov	r0, #512
 	mov	ip, #67108864
 	tst	r3, #65536
-	ldr	r4, .L170
+	ldr	r4, .L168
 	add	r0, r0, #67108866
 	add	ip, ip, #520
 	mov	lr, r3, asr #16	@  Int_Flag
-	beq	.L165
+	beq	.L163
 	ldrh	r1, [r4, #0]	@  SampleLength0
 	cmp	r1, #0
-	ldr	r7, .L170+4
-	ldr	r2, .L170+8
-	beq	.L166
+	ldr	r7, .L168+4
+	ldr	r2, .L168+8
+	beq	.L164
 	ldrh	r3, [r2, #0]	@  SamplePosition0
 	add	r3, r3, #1
 	strh	r3, [r2, #0]	@ movhi 	@  SamplePosition0
@@ -956,11 +908,11 @@ MyHandler:
 	movhi	r3, #67108864
 	strhih	r2, [r3, #198]	@ movhi 
 	strhih	r2, [r4, #0]	@ movhi 	@  SampleLength0
-.L166:
-	ldr	r3, .L170+12
+.L164:
+	ldr	r3, .L168+12
 	ldrh	r1, [r3, #0]	@  SampleLength1
 	cmp	r1, #0
-	beq	.L165
+	beq	.L163
 	ldrh	r2, [r7, #0]	@  SamplePosition1
 	add	r2, r2, #1
 	strh	r2, [r7, #0]	@ movhi 	@  SamplePosition1
@@ -971,23 +923,23 @@ MyHandler:
 	mov	r4, r5
 	sub	r6, r6, #191
 	add	r5, r5, #164
-	bls	.L165
-	ldr	r3, .L170+16
+	bls	.L163
+	ldr	r3, .L168+16
 	ldr	r2, [r3, #0]	@  playing
 	mov	r3, #0	@ movhi
 	str	r2, [r4, #200]
 	strh	r3, [r7, #0]	@ movhi 	@  SamplePosition1
 	str	r5, [r4, #204]
 	strh	r6, [r4, #210]	@ movhi 
-.L165:
+.L163:
 	mov	r1, #1	@ movhi
 	strh	lr, [r0, #0]	@ movhi 	@  Int_Flag
 	strh	r1, [ip, #0]	@ movhi 
 	ldmfd	sp!, {r4, r5, r6, r7, lr}
 	bx	lr
-.L171:
+.L169:
 	.align	2
-.L170:
+.L168:
 	.word	SampleLength0
 	.word	SamplePosition1
 	.word	SamplePosition0
@@ -1014,8 +966,8 @@ StopSound:
 	movne	r2, #0	@ movhi
 	strneh	r2, [r3, #210]	@ movhi 
 	streqh	r0, [r3, #198]	@ movhi 	@  channel
-	ldrne	r3, .L175
-	ldreq	r3, .L175+4
+	ldrne	r3, .L173
+	ldreq	r3, .L173+4
 	strneh	r2, [r3, #0]	@ movhi 	@  SampleLength1
 	streqh	r0, [r3, #0]	@ movhi 	@  channel,  SampleLength0
 	mov	r3, #512
@@ -1027,9 +979,9 @@ StopSound:
 	@ lr needed for prologue
 	strh	r3, [r2, #0]	@ movhi 
 	bx	lr
-.L176:
+.L174:
 	.align	2
-.L175:
+.L173:
 	.word	SampleLength1
 	.word	SampleLength0
 	.size	StopSound, .-StopSound
@@ -1046,7 +998,7 @@ setInterruptHandler:
 	ldrh	r3, [r1, #0]
 	orr	r3, r3, #1
 	strh	r3, [r1, #0]	@ movhi 
-	ldr	r3, .L178
+	ldr	r3, .L176
 	ldrh	r2, [ip, #4]
 	mov	r1, #50331648
 	add	r1, r1, #32512
@@ -1058,9 +1010,9 @@ setInterruptHandler:
 	strh	r3, [lr, #0]	@ movhi 
 	ldr	lr, [sp], #4
 	bx	lr
-.L179:
+.L177:
 	.align	2
-.L178:
+.L176:
 	.word	MyHandler
 	.size	setInterruptHandler, .-setInterruptHandler
 	.global	Senary_Tiles
@@ -19549,21 +19501,21 @@ main:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
-	ldr	r3, .L185
+	ldr	r3, .L183
 	sub	fp, ip, #4
 	mov	lr, pc
 	bx	r3
-	ldr	r5, .L185+4
-	ldr	r4, .L185+8
-.L184:
+	ldr	r5, .L183+4
+	ldr	r4, .L183+8
+.L182:
 	mov	lr, pc
 	bx	r5
 	mov	lr, pc
 	bx	r4
-	b	.L184
-.L186:
+	b	.L182
+.L184:
 	.align	2
-.L185:
+.L183:
 	.word	init
 	.word	update
 	.word	draw
@@ -19579,22 +19531,22 @@ init:
 	mov	r1, #0
 	mov	r3, #67108864
 	stmfd	sp!, {fp, ip, lr, pc}
-	ldr	r2, .L188
+	ldr	r2, .L186
 	str	r1, [r3, #0]
 	sub	fp, ip, #4
 	mov	lr, pc
 	bx	r2
-	ldr	r3, .L188+4
+	ldr	r3, .L186+4
 	mov	lr, pc
 	bx	r3
-	ldr	r2, .L188+8
+	ldr	r2, .L186+8
 	mov	lr, pc
 	bx	r2
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L189:
+.L187:
 	.align	2
-.L188:
+.L186:
 	.word	backgroundSetup
 	.word	objectSetup
 	.word	timerSetup
@@ -19608,18 +19560,18 @@ timerSetup:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {fp, ip, lr, pc}
-	ldr	r3, .L191
+	ldr	r3, .L189
 	sub	fp, ip, #4
 	mov	lr, pc
 	bx	r3
-	ldr	r2, .L191+4
+	ldr	r2, .L189+4
 	mov	lr, pc
 	bx	r2
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L192:
+.L190:
 	.align	2
-.L191:
+.L189:
 	.word	buttonTimerSetup
 	.word	soundTimerSetup
 	.size	timerSetup, .-timerSetup
@@ -19652,7 +19604,7 @@ buttonTimerSetup:
 	@ link register save eliminated.
 	mov	r0, #67108864
 	add	ip, r0, #264
-	mov	r3, #65024
+	mov	r3, #59904
 	mov	r2, #264
 	strh	r3, [ip, #0]	@ movhi 
 	add	r2, r2, #67108866
@@ -19667,13 +19619,13 @@ buttonTimerSetup:
 	strh	r3, [r2, #0]	@ movhi 
 	add	r0, r0, #268
 	ldrh	r2, [r0, #0]
-	ldr	r3, .L195
+	ldr	r3, .L193
 	@ lr needed for prologue
 	strh	r2, [r3, #0]	@ movhi 	@  prev_timer3
 	bx	lr
-.L196:
+.L194:
 	.align	2
-.L195:
+.L193:
 	.word	prev_timer3
 	.size	buttonTimerSetup, .-buttonTimerSetup
 	.align	2
@@ -19690,10 +19642,10 @@ objectSetup:
 	orr	r3, r3, #4160
 	sub	fp, ip, #4
 	str	r3, [r2, #0]
-	ldr	ip, .L205
+	ldr	ip, .L203
 	mov	r0, #0	@  i
 	mvn	lr, #95
-.L202:
+.L200:
 	add	r1, ip, r0, asl #3	@  i
 	ldrh	r3, [r1, #2]
 	bic	r3, r3, #268
@@ -19716,25 +19668,25 @@ objectSetup:
 	cmp	r0, #127	@  i
 	strb	r3, [r1, #1]
 	strb	r2, [r1, #3]
-	ble	.L202
+	ble	.L200
 	mov	r1, #83886080
 	mov	r3, #-2147483648
-	ldr	r0, .L205+4
+	ldr	r0, .L203+4
 	add	r1, r1, #512
 	mov	r2, #256
 	bl	DMAFastCopy
-	ldr	r0, .L205+8
+	ldr	r0, .L203+8
 	mov	r1, #5120
 	mov	r2, #0
 	bl	copyToSpriteData
-	ldr	r3, .L205+12
+	ldr	r3, .L203+12
 	mov	lr, pc
 	bx	r3
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L206:
+.L204:
 	.align	2
-.L205:
+.L203:
 	.word	sprites
 	.word	ChameleonPalette
 	.word	ChameleonData
@@ -19749,28 +19701,25 @@ playerObjectSetup:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
-	ldr	r1, .L208
-	ldrh	r3, [r1, #2]
-	bic	r3, r3, #460
-	bic	r3, r3, #1
-	mov	r3, r3, asl #16
-	mov	r3, r3, lsr #16
+	ldr	r1, .L206
+	ldrh	r2, [r1, #2]
 	sub	fp, ip, #4
-	orr	r3, r3, #50
+	mov	r3, #127
 	ldrh	ip, [r1, #4]
-	ldr	r4, .L208+4
-	strh	r3, [r1, #2]	@ movhi 
-	ldr	r3, .L208+8
+	ldr	r4, .L206+4
+	strb	r3, [r1, #0]	@  <variable>.fields.y
+	bic	r2, r2, #392
+	ldr	r3, .L206+8
 	mov	r5, #0
-	mov	r2, #50
+	orr	r2, r2, #119
 	and	ip, ip, #64512
-	strb	r2, [r1, #0]	@  <variable>.fields.y
+	strh	r2, [r1, #2]	@ movhi 
 	strh	ip, [r1, #4]	@ movhi 
 	mov	r0, #20
 	str	r1, [r4, #0]	@  moveableHead.parentSprite
 	str	r3, [r4, #16]	@  moveableHead.collisionHandler
 	str	r5, [r4, #20]	@  moveableHead.hSpeed
-	ldr	r3, .L208+12
+	ldr	r3, .L206+12
 	str	r5, [r4, #24]	@  moveableHead.vSpeed
 	str	r5, [r4, #28]	@  moveableHead.next
 	mov	lr, pc
@@ -19789,9 +19738,9 @@ playerObjectSetup:
 	str	r5, [r0, #0]	@  <variable>.x
 	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L209:
+.L207:
 	.align	2
-.L208:
+.L206:
 	.word	sprites
 	.word	moveableHead
 	.word	playerCollisionHandler
@@ -19816,24 +19765,24 @@ backgroundSetup:
 	strh	ip, [r4, #8]	@ movhi 
 	mov	ip, #4224	@ movhi
 	strh	ip, [r4, #10]	@ movhi 
-	ldr	r0, .L218
+	ldr	r0, .L216
 	mov	r1, #83886080
 	mov	r2, #256
 	mov	r3, #-2147483648
 	bl	DMAFastCopy
-	ldr	r0, .L218+4
+	ldr	r0, .L216+4
 	mov	r1, #100663296
 	mov	r2, #1440
 	mov	r3, #-2080374784
 	bl	DMAFastCopy
-	ldr	r7, .L218+8
+	ldr	r7, .L216+8
 	mov	r4, #0	@  i
 	mov	r8, #32
-.L215:
+.L213:
 	ldr	ip, [r7, #0]	@  bg0map
 	mov	r1, r4	@  i
 	str	r4, [sp, #4]	@  i
-	ldr	r0, .L218+12
+	ldr	r0, .L216+12
 	mov	r2, #150
 	mov	r3, r8
 	add	r4, r4, #1	@  i,  i
@@ -19842,32 +19791,32 @@ backgroundSetup:
 	str	r8, [sp, #12]
 	bl	copyColumn
 	cmp	r4, #29	@  i
-	ble	.L215
-	ldr	ip, .L218+16
-	ldr	lr, .L218+20
+	ble	.L213
+	ldr	ip, .L216+16
+	ldr	lr, .L216+20
 	mov	r5, #149	@  i
 	mov	r4, #30
 	str	r4, [ip, #0]	@  nextRightDestination
 	str	r5, [lr, #0]	@  i,  nextLeft
-	ldr	ip, .L218+24
-	ldr	lr, .L218+28
+	ldr	ip, .L216+24
+	ldr	lr, .L216+28
 	ldr	r7, [r7, #0]	@  bg0map
 	mov	r6, #31
 	str	r4, [ip, #0]	@  nextRight
 	str	r6, [lr, #0]	@  nextLeftDestination
 	mov	r1, r5	@  i
 	mov	r3, r8
-	ldr	r0, .L218+12
+	ldr	r0, .L216+12
 	mov	r2, #150
 	str	r7, [sp, #0]
 	stmib	sp, {r6, r8}	@ phole stm
 	str	r8, [sp, #12]
 	bl	copyColumn
-	ldr	r3, .L218+32
+	ldr	r3, .L216+32
 	mov	r1, #0
 	str	r1, [r3, #0]	@  scrolling_y
-	ldr	r2, .L218+36
-	ldr	r3, .L218+40
+	ldr	r2, .L216+36
+	ldr	r3, .L216+40
 	mov	ip, #67108864
 	mvn	r0, #0
 	strh	r1, [ip, #16]	@ movhi 
@@ -19876,9 +19825,9 @@ backgroundSetup:
 	strh	r1, [ip, #18]	@ movhi 
 	ldmea	fp, {r4, r5, r6, r7, r8, fp, sp, lr}
 	bx	lr
-.L219:
+.L217:
 	.align	2
-.L218:
+.L216:
 	.word	Senary_Palette
 	.word	Senary_Tiles
 	.word	bg0map
@@ -19900,34 +19849,26 @@ update:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
-	ldr	r5, .L224
+	ldr	r5, .L220
 	mov	r4, #67108864
 	add	r4, r4, #268
 	ldrh	r2, [r4, #0]
 	ldrh	r3, [r5, #0]	@  prev_timer3
 	cmp	r2, r3
 	sub	fp, ip, #4
-	beq	.L220
+	beq	.L218
 	bl	pollButtons
 	ldrh	r3, [r4, #0]
-	tst	r3, #3
-	beq	.L223
-.L222:
-	ldrh	r3, [r4, #0]
+	ldr	r2, .L220+4
 	strh	r3, [r5, #0]	@ movhi 	@  prev_timer3
-.L220:
+	mov	lr, pc
+	bx	r2
+.L218:
 	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L223:
-	ldrh	r2, [r4, #0]
-	ldr	r3, .L224+4
-	strh	r2, [r5, #0]	@ movhi 	@  prev_timer3
-	mov	lr, pc
-	bx	r3
-	b	.L222
-.L225:
+.L221:
 	.align	2
-.L224:
+.L220:
 	.word	prev_timer3
 	.word	playerMovement
 	.size	update, .-update
@@ -19945,28 +19886,28 @@ playerMovement:
 	mov	r0, #16
 	bl	checkState
 	cmp	r0, #0
-	beq	.L227
-	ldr	r6, .L247
+	beq	.L223
+	ldr	r6, .L243
 	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #3]	@ zero_extendqisi2
 	mov	r1, #4
 	bic	r2, r2, #16
 	strb	r2, [r3, #3]
-.L245:
+.L241:
 	str	r1, [r6, #20]	@  moveableHead.hSpeed
-.L228:
+.L224:
 	mov	r0, #64
-	bl	checkState
+	bl	checkPressed
 	cmp	r0, #0
-	ldreq	r5, .L247+4
-	ldreq	r7, .L247+8
-	ldreq	r4, .L247+12
-	bne	.L246
-.L231:
+	ldreq	r5, .L243+4
+	ldreq	r7, .L243+8
+	ldreq	r4, .L243+12
+	bne	.L242
+.L227:
 	ldr	r1, [r5, #0]	@  scrolling_x
 	ldr	r2, [r7, #0]	@  scrolling_y
 	ldr	r3, [r4, #0]	@  bg0map
-	ldr	r0, .L247
+	ldr	r0, .L243
 	bl	gravityControls
 	ldr	r2, [r5, #0]	@  scrolling_x
 	ldr	r3, [r4, #0]	@  bg0map
@@ -19974,22 +19915,22 @@ playerMovement:
 	mov	r1, #1
 	ldr	ip, [r7, #0]	@  scrolling_y
 	mov	r2, r1
-	ldr	r0, .L247
+	ldr	r0, .L243
 	str	ip, [sp, #4]
 	bl	moveObject
 	ldr	r2, [r5, #0]	@  scrolling_x
 	mov	r3, #956
 	add	r3, r3, #2
 	cmp	r2, r3
-	bgt	.L233
+	bgt	.L229
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #160
-	ble	.L233
-	ldr	r4, .L247+16
-.L236:
+	ble	.L229
+	ldr	r4, .L243+16
+.L232:
 	mov	lr, pc
 	bx	r4
 	ldr	r1, [r6, #0]	@  moveableHead.parentSprite
@@ -20003,25 +19944,25 @@ playerMovement:
 	ldr	r3, [r5, #0]	@  scrolling_x
 	add	r2, r2, #2
 	cmp	r3, r2
-	bgt	.L233
+	bgt	.L229
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #160
-	bgt	.L236
-.L233:
+	bgt	.L232
+.L229:
 	ldr	r3, [r5, #0]	@  scrolling_x
 	cmp	r3, #0
-	ble	.L238
+	ble	.L234
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #39
-	bgt	.L238
-	ldr	r4, .L247+20
-.L241:
+	bgt	.L234
+	ldr	r4, .L243+20
+.L237:
 	mov	lr, pc
 	bx	r4
 	ldr	r1, [r6, #0]	@  moveableHead.parentSprite
@@ -20033,47 +19974,47 @@ playerMovement:
 	strh	r3, [r1, #2]	@ movhi 
 	ldr	r2, [r5, #0]	@  scrolling_x
 	cmp	r2, #0
-	ble	.L238
+	ble	.L234
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #39
-	ble	.L241
-.L238:
+	ble	.L237
+.L234:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L246:
-	ldr	r7, .L247+8
-	ldr	r5, .L247+4
+.L242:
+	ldr	r7, .L243+8
+	ldr	r5, .L243+4
 	ldr	r2, [r7, #0]	@  scrolling_y
-	ldr	r4, .L247+12
+	ldr	r4, .L243+12
 	ldr	r1, [r5, #0]	@  scrolling_x
 	ldr	r3, [r4, #0]	@  bg0map
 	add	r2, r2, #1
-	ldr	r0, .L247
+	ldr	r0, .L243
 	bl	hitDetection
 	cmp	r0, #0
 	mvnne	r3, #9
 	strne	r3, [r6, #24]	@  moveableHead.vSpeed
-	b	.L231
-.L227:
+	b	.L227
+.L223:
 	mov	r0, #32
 	bl	checkState
 	cmp	r0, #0
-	ldreq	r6, .L247
+	ldreq	r6, .L243
 	streq	r0, [r6, #20]	@  moveableHead.hSpeed
-	beq	.L228
-	ldr	r6, .L247
+	beq	.L224
+	ldr	r6, .L243
 	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #3]	@ zero_extendqisi2
 	orr	r2, r2, #16
 	strb	r2, [r3, #3]
 	mvn	r1, #3
-	b	.L245
-.L248:
+	b	.L241
+.L244:
 	.align	2
-.L247:
+.L243:
 	.word	moveableHead
 	.word	scrolling_x
 	.word	scrolling_y
@@ -20090,7 +20031,7 @@ rightScroll:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r1, .L257
+	ldr	r1, .L253
 	sub	fp, ip, #4
 	sub	sp, sp, #16
 	ldr	r2, [r1, #0]	@  scrolling_x
@@ -20101,32 +20042,32 @@ rightScroll:
 	rsb	r5, r3, r2
 	cmp	r5, #1
 	str	r2, [r1, #0]	@  scrolling_x
-	beq	.L256
-.L249:
+	beq	.L252
+.L245:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L256:
-	ldr	r7, .L257+4
-	ldr	r3, .L257+8
-	ldr	r6, .L257+12
+.L252:
+	ldr	r7, .L253+4
+	ldr	r3, .L253+8
+	ldr	r6, .L253+12
 	ldr	r4, [r3, #0]	@  bg0map
 	mov	ip, #32
 	ldr	lr, [r7, #0]	@  nextRightDestination
 	mov	r3, ip
 	ldr	r1, [r6, #0]	@  nextRight
-	ldr	r0, .L257+16
+	ldr	r0, .L253+16
 	mov	r2, #150
 	stmia	sp, {r4, lr}	@ phole stm
 	str	ip, [sp, #8]
 	str	ip, [sp, #12]
 	bl	copyColumn
 	ldr	r3, [r6, #0]	@  nextRight
-	ldr	ip, .L257+20
+	ldr	ip, .L253+20
 	add	r3, r3, #1
 	ldr	r2, [r7, #0]	@  nextRightDestination
 	cmp	r3, #149
 	str	r3, [r6, #0]	@  nextRight
-	ldr	lr, .L257+24
+	ldr	lr, .L253+24
 	movgt	r3, #0
 	ldr	r1, [ip, #0]	@  nextLeft
 	add	r2, r2, #1
@@ -20141,7 +20082,7 @@ rightScroll:
 	movgt	r3, #0
 	add	r0, r0, #1
 	str	r1, [ip, #0]	@  nextLeft
-	ldr	r4, .L257+28
+	ldr	r4, .L253+28
 	strgt	r3, [ip, #0]	@  nextLeft
 	cmp	r0, #31
 	movgt	r3, #0
@@ -20149,7 +20090,7 @@ rightScroll:
 	strgt	r3, [lr, #0]	@  nextLeftDestination
 	ldr	r3, [r4, #0]	@  goingRight
 	cmp	r3, #0
-	bne	.L255
+	bne	.L251
 	ldr	r3, [r6, #0]	@  nextRight
 	ldr	r2, [r7, #0]	@  nextRightDestination
 	ldr	r1, [ip, #0]	@  nextLeft
@@ -20162,12 +20103,12 @@ rightScroll:
 	str	r2, [r7, #0]	@  nextRightDestination
 	str	r1, [ip, #0]	@  nextLeft
 	str	r0, [lr, #0]	@  nextLeftDestination
-.L255:
+.L251:
 	str	r5, [r4, #0]	@  goingRight
-	b	.L249
-.L258:
+	b	.L245
+.L254:
 	.align	2
-.L257:
+.L253:
 	.word	scrolling_x
 	.word	nextRightDestination
 	.word	bg0map
@@ -20186,7 +20127,7 @@ leftScroll:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r1, .L267
+	ldr	r1, .L263
 	sub	fp, ip, #4
 	sub	sp, sp, #16
 	ldr	r2, [r1, #0]	@  scrolling_x
@@ -20197,28 +20138,28 @@ leftScroll:
 	rsb	r3, r3, r2
 	cmp	r3, #7
 	str	r2, [r1, #0]	@  scrolling_x
-	beq	.L266
-.L259:
+	beq	.L262
+.L255:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L266:
-	ldr	r6, .L267+4
-	ldr	r3, .L267+8
-	ldr	r5, .L267+12
+.L262:
+	ldr	r6, .L263+4
+	ldr	r3, .L263+8
+	ldr	r5, .L263+12
 	ldr	r4, [r3, #0]	@  bg0map
 	mov	ip, #32
 	ldr	lr, [r6, #0]	@  nextLeftDestination
 	mov	r3, ip
 	ldr	r1, [r5, #0]	@  nextLeft
-	ldr	r0, .L267+16
+	ldr	r0, .L263+16
 	mov	r2, #150
 	stmia	sp, {r4, lr}	@ phole stm
 	str	ip, [sp, #8]
 	str	ip, [sp, #12]
-	ldr	r4, .L267+20
+	ldr	r4, .L263+20
 	bl	copyColumn
-	ldr	r7, .L267+24
-	ldr	lr, .L267+28
+	ldr	r7, .L263+24
+	ldr	lr, .L263+28
 	ldr	r1, [r4, #0]	@  nextRightDestination
 	ldr	r2, [lr, #0]	@  nextRight
 	ldr	r0, [r5, #0]	@  nextLeft
@@ -20233,7 +20174,7 @@ leftScroll:
 	str	r1, [r4, #0]	@  nextRightDestination
 	str	r0, [r5, #0]	@  nextLeft
 	str	ip, [r6, #0]	@  nextLeftDestination
-	beq	.L261
+	beq	.L257
 	sub	r3, r2, #1
 	sub	r2, r1, #1
 	sub	r1, r0, #1
@@ -20242,7 +20183,7 @@ leftScroll:
 	str	r2, [r4, #0]	@  nextRightDestination
 	str	r1, [r5, #0]	@  nextLeft
 	str	r0, [r6, #0]	@  nextLeftDestination
-.L261:
+.L257:
 	ldr	r3, [lr, #0]	@  nextRight
 	cmp	r3, #0
 	movlt	r3, #149
@@ -20261,10 +20202,10 @@ leftScroll:
 	strlt	r3, [r6, #0]	@  nextLeftDestination
 	mov	r3, #0
 	str	r3, [r7, #0]	@  goingRight
-	b	.L259
-.L268:
+	b	.L255
+.L264:
 	.align	2
-.L267:
+.L263:
 	.word	scrolling_x
 	.word	nextLeftDestination
 	.word	bg0map
@@ -20286,9 +20227,9 @@ draw:
 	sub	fp, ip, #4
 	sub	sp, sp, #4
 	bl	waitVBlank
-	ldr	r2, .L291
+	ldr	r2, .L287
 	ldrh	r3, [r2, #0]	@  scrolling_x
-	ldr	r2, .L291+4
+	ldr	r2, .L287+4
 	ldrh	r1, [r2, #0]	@  scrolling_y
 	mov	r2, #67108864
 	strh	r3, [r2, #16]	@ movhi 
@@ -20296,19 +20237,19 @@ draw:
 	strh	r3, [r2, #20]	@ movhi 
 	strh	r1, [r2, #22]	@ movhi 
 	bl	writeToOAM
-	ldr	r3, .L291+8
+	ldr	r3, .L287+8
 	mov	ip, #0	@  i
 	mov	r1, #1020
 	ldr	r2, [r3, #0]	@  bg1map
 	add	r1, r1, #3
 	mov	r0, ip	@  i,  i
-.L274:
+.L270:
 	mov	r3, ip, asl #1	@  i
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r1	@  i
 	strh	r0, [r3, r2]	@ movhi 	@  i
-	ble	.L274
-	ldr	r2, .L291+12
+	ble	.L270
+	ldr	r2, .L287+12
 	ldr	r1, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r3, [r1, #12]	@  <variable>.ySize
 	mov	r2, r3, asr #31
@@ -20316,31 +20257,31 @@ draw:
 	mov	r3, r3, asr #3
 	cmp	r0, r3	@  i
 	mov	ip, #0	@  i
-	bgt	.L288
+	bgt	.L284
 	str	r3, [fp, #-44]
 	mov	r2, r1
 	mov	r9, r1
-.L284:
+.L280:
 	ldr	r2, [r2, #8]	@  <variable>.xSize
 	mov	r3, r2, asr #31
 	adds	r3, r2, r3, lsr #29
 	mov	lr, #0	@  j
-	bmi	.L290
-	ldr	r2, .L291+12
+	bmi	.L286
+	ldr	r2, .L287+12
 	ldr	r3, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r1, [r3, #8]	@  <variable>.xSize
-	ldr	r3, .L291+8
+	ldr	r3, .L287+8
 	mov	r2, r1, asr #31
 	add	r1, r1, r2, lsr #29
 	ldr	r8, [r3, #0]	@  bg1map
-	ldr	r2, .L291+4
-	ldr	r3, .L291
-	ldr	sl, .L291+16
+	ldr	r2, .L287+4
+	ldr	r3, .L287
+	ldr	sl, .L287+16
 	ldr	r6, [r2, #0]	@  scrolling_y
 	ldr	r7, [r3, #0]	@  scrolling_x
 	mov	r5, r1, asr #3
 	mov	r4, ip, asl #3	@  i
-.L283:
+.L279:
 	ldrb	r3, [sl, #0]	@ zero_extendqisi2
 	ldrh	r2, [sl, #2]	@  sprites
 	add	r3, r3, r6
@@ -20369,19 +20310,19 @@ draw:
 	mov	r2, #10	@ movhi
 	cmp	lr, r5	@  j
 	strh	r2, [r3, r8]	@ movhi 
-	ble	.L283
-.L290:
+	ble	.L279
+.L286:
 	ldr	r3, [fp, #-44]
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r3	@  i
 	mov	r2, r9
-	ble	.L284
-.L288:
+	ble	.L280
+.L284:
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L292:
+.L288:
 	.align	2
-.L291:
+.L287:
 	.word	scrolling_x
 	.word	scrolling_y
 	.word	bg1map

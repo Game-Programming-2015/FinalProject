@@ -24,7 +24,6 @@ typedef struct moveable_object{
     struct moveable_object *next;
 } Moveable;
 
-int hitDetection(Moveable *object,int hOffset,int vOffset,unsigned short* hitmap);
 int moveObject(Moveable *object, unsigned int horizontal, unsigned int vertical,unsigned short* hitmap,int hOffset,int vOffset);
 inline int getLocationValue(int x,int y,unsigned short *bg);
 int hitDetectionBackground(HitBox hb, unsigned short hOffset,unsigned short vOffset,unsigned short *bgHitMap,Moveable *parentObject,int doCollisions);
@@ -83,12 +82,16 @@ int hitDetectionBackground(HitBox hb, unsigned short hOffset,unsigned short vOff
     //The bottom right of the hitbox
     int finalX=xCheck+hb.xSize;
     int finalY=yCheck+hb.ySize;
+    //Tells if we're done in each respective axis
+    int yDone,xDone;
     
     int r=0; //A return value if it needs to be handled by the caller
     
+    yDone=xDone=0;
+    
     //Check every 8 pixels around the edge of the hitbox
-    while (yCheck<finalY){
-        while (xCheck<finalX){
+    while (yDone!=2){ //2 because we have to make one last check after we reach the edge so that the edge is actually checked
+        while (xDone!=2){
             //Get the background tile at the current location
             int bgItem=getLocationValue(xCheck,yCheck,bgHitMap);
             
@@ -102,35 +105,29 @@ int hitDetectionBackground(HitBox hb, unsigned short hOffset,unsigned short vOff
             }
             //Go to the next x position
             xCheck+=8;
+            
+            //If we finished the horizontal line last time, tell the loop to quit
+            if (xDone==1)
+                xDone=2;
+            else if (xCheck>=finalX){ //If we're at the right edge and we're not done, check the right edge
+                xCheck=finalX;
+                xDone=1; 
+            }
         }
-        //Do a check for the rightmost edge
-        int bgItem=getLocationValue(finalX,yCheck,bgHitMap);
-
-        if (doCollisions)
-            bgItem=(parentObject->collisionHandler)(bgItem,parentObject);
-
-
-        if (bgItem>r){
-            r=bgItem;
-        }
-        
         //Reset the x position
-        xCheck=(hb.parentSprite->fields.x+hb.x+hOffset+REG_BG0HOFS)%256;
+        xCheck=(hb.parentSprite->fields.x+hb.x+hOffset)%256;
+        xDone=0;
         //Go to the next y position
         yCheck+=8;
+        
+        //If we finished last time, tell the loop to quit
+        if (yDone==1)
+            yDone=2;
+        else if (yCheck>=finalY){ //If we're at the bottom edge, and we're not done, check the bottom edge
+            yCheck=finalY;
+            yDone=1;
+        }
     }
-
-    //Do one last check for the bottom right, just in case it wasn't caught by the size of the hitbox (if it's a 7*7, for instance)
-    int bgItem=getLocationValue(finalX,finalY,bgHitMap);
-    
-    if (doCollisions)
-        bgItem=(parentObject->collisionHandler)(bgItem,parentObject);
-
-    
-    if (bgItem>r){
-        r=bgItem;
-    }
-
     return r;
 }
 
@@ -170,7 +167,7 @@ void gravityControls(Moveable *object,int hOffset,int vOffset,unsigned short* bg
     if (!hitDetection(object,hOffset,vOffset+1,bgHitMap)){
         object->vSpeed++;
     }
-    else if (object->vSpeed>=0){
+    else if (object->vSpeed>0){
         object->vSpeed=0;
     }
 }
@@ -183,7 +180,7 @@ int playerCollisionHandler(int collisionID,Moveable *self){
         case 0:
         r=0;
         break;
-        case 1:
+        default :
         r=1;
         break;
     }

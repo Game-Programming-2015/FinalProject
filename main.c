@@ -1,10 +1,10 @@
 #include <string.h>
 
+#include "HeaderFiles/button.h"
 #include "HeaderFiles/mode0.h"
 #include "HeaderFiles/sprite.h"
 #include "HeaderFiles/objectMovement.h"
 #include "HeaderFiles/DMA.h"
-#include "HeaderFiles/button.h"
 #include "HeaderFiles/timer.h"
 #include "HeaderFiles/soundHeader.h"
 
@@ -103,7 +103,7 @@ void soundTimerSetup(void){
 void buttonTimerSetup(void){
     //Timer 2 runs at ~38.4 FPS. This is the speed of button presses - they will only be interpreted when timer 2 is 0 (or -0x2000, whichever)
     //Timer 3 increments once every time timer 2 does. This is for things that need to run slower than button presses.
-    REG_TM2D = -0x200;
+    REG_TM2D = -0x1600;
     REG_TM2CNT = TIMER_FREQUENCY_64;
     REG_TM3CNT = TIMER_ENABLE | TIMER_OVERFLOW;
     REG_TM2CNT |= TIMER_ENABLE;
@@ -135,8 +135,8 @@ void objectSetup(void){
 
 void playerObjectSetup(void){
     //Start player positions
-    sprites[0].fields.x=50;
-    sprites[0].fields.y=50;
+    sprites[0].fields.x=119;
+    sprites[0].fields.y=127;
     sprites[0].fields.tileIndex=0;
     //Setup player movement controller
     moveableHead.parentSprite=&sprites[0];
@@ -191,12 +191,9 @@ void backgroundSetup(void){
 void update(void){
     if (REG_TM3D!=prev_timer3){ //On button timer update
         pollButtons();
-        
-        if (REG_TM3D%4==0){
-            prev_timer3=REG_TM3D;
-            playerMovement();
-        }
         prev_timer3=REG_TM3D;
+        
+        playerMovement();
     }
 }
 
@@ -217,7 +214,7 @@ void playerMovement(void){
         moveableHead.hSpeed=0;
     }
     
-    if ( checkState(BTN_UP)
+    if ( checkPressed(BTN_UP)
       && hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) //If there is a block directly below the player.
     ){
         moveableHead.vSpeed=-10; //Tell the player object to move up
