@@ -224,17 +224,38 @@ void playerMovement(void){
     gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
     //Move the player object
     moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
+
+    scrollControls();
+}
+
+void scrollControls(void){
     //Scroll right if you aren't at the edge of the map
     while (scrolling_x<959 //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
         && moveableHead.parentSprite->fields.x>160){ //How far along the screen we want to the player to be able to go
+
         rightScroll();
         moveableHead.parentSprite->fields.x--;
     }
     //Scroll left if you aren't at the left edge of the map
     while (scrolling_x>0
         && moveableHead.parentSprite->fields.x<40){
+
         leftScroll();
         moveableHead.parentSprite->fields.x++;
+    }
+    
+    while (scrolling_y<256
+        && moveableHead.parentSprite->fields.y>120){
+        
+        scrolling_y++;
+        moveableHead.parentSprite->fields.y--;
+    }
+    
+    while (scrolling_y>0
+        && moveableHead.parentSprite->fields.y<40){
+
+        scrolling_y--;
+        moveableHead.parentSprite->fields.y++;
     }
 }
 

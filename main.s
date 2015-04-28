@@ -19885,54 +19885,110 @@ playerMovement:
 	sub	sp, sp, #8
 	mov	r0, #16
 	bl	checkState
-	cmp	r0, #0
+	mov	r3, r0
+	cmp	r3, #0
+	ldr	r7, .L231
+	mov	r0, #32
 	beq	.L223
-	ldr	r6, .L243
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #3]	@ zero_extendqisi2
 	mov	r1, #4
 	bic	r2, r2, #16
 	strb	r2, [r3, #3]
-.L241:
-	str	r1, [r6, #20]	@  moveableHead.hSpeed
+.L229:
+	str	r1, [r7, #20]	@  moveableHead.hSpeed
 .L224:
 	mov	r0, #64
 	bl	checkPressed
-	cmp	r0, #0
-	ldreq	r5, .L243+4
-	ldreq	r7, .L243+8
-	ldreq	r4, .L243+12
-	bne	.L242
+	mov	r3, r0
+	cmp	r3, #0
+	ldr	r6, .L231+4
+	ldr	r5, .L231+8
+	ldr	r4, .L231+12
+	ldr	r0, .L231
+	ldreq	r5, .L231+8
+	ldreq	r6, .L231+4
+	ldreq	r4, .L231+12
+	bne	.L230
 .L227:
 	ldr	r1, [r5, #0]	@  scrolling_x
-	ldr	r2, [r7, #0]	@  scrolling_y
+	ldr	r2, [r6, #0]	@  scrolling_y
 	ldr	r3, [r4, #0]	@  bg0map
-	ldr	r0, .L243
+	ldr	r0, .L231
 	bl	gravityControls
 	ldr	r2, [r5, #0]	@  scrolling_x
 	ldr	r3, [r4, #0]	@  bg0map
 	str	r2, [sp, #0]
 	mov	r1, #1
-	ldr	ip, [r7, #0]	@  scrolling_y
+	ldr	ip, [r6, #0]	@  scrolling_y
 	mov	r2, r1
-	ldr	r0, .L243
+	ldr	r0, .L231
 	str	ip, [sp, #4]
 	bl	moveObject
-	ldr	r2, [r5, #0]	@  scrolling_x
+	ldr	r0, .L231+16
+	mov	lr, pc
+	bx	r0
+	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
+	bx	lr
+.L230:
+	ldr	r2, [r6, #0]	@  scrolling_y
+	ldr	r3, [r4, #0]	@  bg0map
+	ldr	r1, [r5, #0]	@  scrolling_x
+	add	r2, r2, #1
+	bl	hitDetection
+	cmp	r0, #0
+	mvnne	r3, #9
+	strne	r3, [r7, #24]	@  moveableHead.vSpeed
+	b	.L227
+.L223:
+	bl	checkState
+	cmp	r0, #0
+	ldr	r7, .L231
+	ldreq	r7, .L231
+	streq	r0, [r7, #20]	@  moveableHead.hSpeed
+	beq	.L224
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
+	ldrb	r2, [r3, #3]	@ zero_extendqisi2
+	orr	r2, r2, #16
+	strb	r2, [r3, #3]
+	mvn	r1, #3
+	b	.L229
+.L232:
+	.align	2
+.L231:
+	.word	moveableHead
+	.word	scrolling_y
+	.word	scrolling_x
+	.word	bg0map
+	.word	scrollControls
+	.size	playerMovement, .-playerMovement
+	.align	2
+	.global	scrollControls
+	.type	scrollControls, %function
+scrollControls:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r4, r5, r6, fp, ip, lr, pc}
+	ldr	r4, .L258
 	mov	r3, #956
+	ldr	r2, [r4, #0]	@  scrolling_x
 	add	r3, r3, #2
 	cmp	r2, r3
-	bgt	.L229
+	sub	fp, ip, #4
+	bgt	.L235
+	ldr	r6, .L258+4
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #160
-	ble	.L229
-	ldr	r4, .L243+16
-.L232:
+	ble	.L235
+	ldr	r5, .L258+8
+.L238:
 	mov	lr, pc
-	bx	r4
+	bx	r5
 	ldr	r1, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r2, [r1, #2]
 	mov	r3, r2, asl #23
@@ -19941,30 +19997,31 @@ playerMovement:
 	mov	r3, r3, ror #23
 	strh	r3, [r1, #2]	@ movhi 
 	mov	r2, #956
-	ldr	r3, [r5, #0]	@  scrolling_x
+	ldr	r3, [r4, #0]	@  scrolling_x
 	add	r2, r2, #2
 	cmp	r3, r2
-	bgt	.L229
+	bgt	.L235
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #160
-	bgt	.L232
-.L229:
-	ldr	r3, [r5, #0]	@  scrolling_x
+	bgt	.L238
+.L235:
+	ldr	r3, [r4, #0]	@  scrolling_x
 	cmp	r3, #0
-	ble	.L234
+	ble	.L240
+	ldr	r6, .L258+4
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #39
-	bgt	.L234
-	ldr	r4, .L243+20
-.L237:
+	bgt	.L240
+	ldr	r5, .L258+12
+.L243:
 	mov	lr, pc
-	bx	r4
+	bx	r5
 	ldr	r1, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r2, [r1, #2]
 	mov	r3, r2, asl #23
@@ -19972,56 +20029,81 @@ playerMovement:
 	orr	r3, r3, r2, lsr #9
 	mov	r3, r3, ror #23
 	strh	r3, [r1, #2]	@ movhi 
-	ldr	r2, [r5, #0]	@  scrolling_x
+	ldr	r2, [r4, #0]	@  scrolling_x
 	cmp	r2, #0
-	ble	.L234
+	ble	.L240
 	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #39
-	ble	.L237
-.L234:
-	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
-	bx	lr
-.L242:
-	ldr	r7, .L243+8
-	ldr	r5, .L243+4
-	ldr	r2, [r7, #0]	@  scrolling_y
-	ldr	r4, .L243+12
-	ldr	r1, [r5, #0]	@  scrolling_x
-	ldr	r3, [r4, #0]	@  bg0map
-	add	r2, r2, #1
-	ldr	r0, .L243
-	bl	hitDetection
-	cmp	r0, #0
-	mvnne	r3, #9
-	strne	r3, [r6, #24]	@  moveableHead.vSpeed
-	b	.L227
-.L223:
-	mov	r0, #32
-	bl	checkState
-	cmp	r0, #0
-	ldreq	r6, .L243
-	streq	r0, [r6, #20]	@  moveableHead.hSpeed
-	beq	.L224
-	ldr	r6, .L243
+	ble	.L243
+.L240:
+	ldr	r0, .L258+16
+	ldr	r3, [r0, #0]	@  scrolling_y
+	cmp	r3, #255
+	bgt	.L245
+	ldr	r6, .L258+4
 	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
-	ldrb	r2, [r3, #3]	@ zero_extendqisi2
-	orr	r2, r2, #16
-	strb	r2, [r3, #3]
-	mvn	r1, #3
-	b	.L241
-.L244:
+	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	cmp	r2, #120
+	mov	lr, r6
+	bls	.L245
+	mov	ip, r0
+.L248:
+	ldr	r1, [lr, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r0, #0]	@  scrolling_y
+	ldrb	r2, [r1, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	add	r3, r3, #1
+	sub	r2, r2, #1
+	str	r3, [r0, #0]	@  scrolling_y
+	strb	r2, [r1, #0]	@  <variable>.fields.y
+	ldr	r3, [ip, #0]	@  scrolling_y
+	cmp	r3, #255
+	bgt	.L245
+	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	cmp	r2, #120
+	bhi	.L248
+.L245:
+	ldr	r0, .L258+16
+	ldr	r3, [r0, #0]	@  scrolling_y
+	cmp	r3, #0
+	ble	.L250
+	ldr	r6, .L258+4
+	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	cmp	r2, #39
+	mov	lr, r6
+	bhi	.L250
+	mov	ip, r0
+.L253:
+	ldr	r1, [lr, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r0, #0]	@  scrolling_y
+	ldrb	r2, [r1, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	sub	r3, r3, #1
+	add	r2, r2, #1
+	str	r3, [r0, #0]	@  scrolling_y
+	strb	r2, [r1, #0]	@  <variable>.fields.y
+	ldr	r3, [ip, #0]	@  scrolling_y
+	cmp	r3, #0
+	ble	.L250
+	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	cmp	r2, #39
+	bls	.L253
+.L250:
+	ldmea	fp, {r4, r5, r6, fp, sp, lr}
+	bx	lr
+.L259:
 	.align	2
-.L243:
-	.word	moveableHead
+.L258:
 	.word	scrolling_x
-	.word	scrolling_y
-	.word	bg0map
+	.word	moveableHead
 	.word	rightScroll
 	.word	leftScroll
-	.size	playerMovement, .-playerMovement
+	.word	scrolling_y
+	.size	scrollControls, .-scrollControls
 	.align	2
 	.global	rightScroll
 	.type	rightScroll, %function
@@ -20031,7 +20113,7 @@ rightScroll:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r1, .L253
+	ldr	r1, .L268
 	sub	fp, ip, #4
 	sub	sp, sp, #16
 	ldr	r2, [r1, #0]	@  scrolling_x
@@ -20042,32 +20124,32 @@ rightScroll:
 	rsb	r5, r3, r2
 	cmp	r5, #1
 	str	r2, [r1, #0]	@  scrolling_x
-	beq	.L252
-.L245:
+	beq	.L267
+.L260:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L252:
-	ldr	r7, .L253+4
-	ldr	r3, .L253+8
-	ldr	r6, .L253+12
+.L267:
+	ldr	r7, .L268+4
+	ldr	r3, .L268+8
+	ldr	r6, .L268+12
 	ldr	r4, [r3, #0]	@  bg0map
 	mov	ip, #32
 	ldr	lr, [r7, #0]	@  nextRightDestination
 	mov	r3, ip
 	ldr	r1, [r6, #0]	@  nextRight
-	ldr	r0, .L253+16
+	ldr	r0, .L268+16
 	mov	r2, #150
 	stmia	sp, {r4, lr}	@ phole stm
 	str	ip, [sp, #8]
 	str	ip, [sp, #12]
 	bl	copyColumn
 	ldr	r3, [r6, #0]	@  nextRight
-	ldr	ip, .L253+20
+	ldr	ip, .L268+20
 	add	r3, r3, #1
 	ldr	r2, [r7, #0]	@  nextRightDestination
 	cmp	r3, #149
 	str	r3, [r6, #0]	@  nextRight
-	ldr	lr, .L253+24
+	ldr	lr, .L268+24
 	movgt	r3, #0
 	ldr	r1, [ip, #0]	@  nextLeft
 	add	r2, r2, #1
@@ -20082,7 +20164,7 @@ rightScroll:
 	movgt	r3, #0
 	add	r0, r0, #1
 	str	r1, [ip, #0]	@  nextLeft
-	ldr	r4, .L253+28
+	ldr	r4, .L268+28
 	strgt	r3, [ip, #0]	@  nextLeft
 	cmp	r0, #31
 	movgt	r3, #0
@@ -20090,7 +20172,7 @@ rightScroll:
 	strgt	r3, [lr, #0]	@  nextLeftDestination
 	ldr	r3, [r4, #0]	@  goingRight
 	cmp	r3, #0
-	bne	.L251
+	bne	.L266
 	ldr	r3, [r6, #0]	@  nextRight
 	ldr	r2, [r7, #0]	@  nextRightDestination
 	ldr	r1, [ip, #0]	@  nextLeft
@@ -20103,12 +20185,12 @@ rightScroll:
 	str	r2, [r7, #0]	@  nextRightDestination
 	str	r1, [ip, #0]	@  nextLeft
 	str	r0, [lr, #0]	@  nextLeftDestination
-.L251:
+.L266:
 	str	r5, [r4, #0]	@  goingRight
-	b	.L245
-.L254:
+	b	.L260
+.L269:
 	.align	2
-.L253:
+.L268:
 	.word	scrolling_x
 	.word	nextRightDestination
 	.word	bg0map
@@ -20127,7 +20209,7 @@ leftScroll:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r1, .L263
+	ldr	r1, .L278
 	sub	fp, ip, #4
 	sub	sp, sp, #16
 	ldr	r2, [r1, #0]	@  scrolling_x
@@ -20138,28 +20220,28 @@ leftScroll:
 	rsb	r3, r3, r2
 	cmp	r3, #7
 	str	r2, [r1, #0]	@  scrolling_x
-	beq	.L262
-.L255:
+	beq	.L277
+.L270:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L262:
-	ldr	r6, .L263+4
-	ldr	r3, .L263+8
-	ldr	r5, .L263+12
+.L277:
+	ldr	r6, .L278+4
+	ldr	r3, .L278+8
+	ldr	r5, .L278+12
 	ldr	r4, [r3, #0]	@  bg0map
 	mov	ip, #32
 	ldr	lr, [r6, #0]	@  nextLeftDestination
 	mov	r3, ip
 	ldr	r1, [r5, #0]	@  nextLeft
-	ldr	r0, .L263+16
+	ldr	r0, .L278+16
 	mov	r2, #150
 	stmia	sp, {r4, lr}	@ phole stm
 	str	ip, [sp, #8]
 	str	ip, [sp, #12]
-	ldr	r4, .L263+20
+	ldr	r4, .L278+20
 	bl	copyColumn
-	ldr	r7, .L263+24
-	ldr	lr, .L263+28
+	ldr	r7, .L278+24
+	ldr	lr, .L278+28
 	ldr	r1, [r4, #0]	@  nextRightDestination
 	ldr	r2, [lr, #0]	@  nextRight
 	ldr	r0, [r5, #0]	@  nextLeft
@@ -20174,7 +20256,7 @@ leftScroll:
 	str	r1, [r4, #0]	@  nextRightDestination
 	str	r0, [r5, #0]	@  nextLeft
 	str	ip, [r6, #0]	@  nextLeftDestination
-	beq	.L257
+	beq	.L272
 	sub	r3, r2, #1
 	sub	r2, r1, #1
 	sub	r1, r0, #1
@@ -20183,7 +20265,7 @@ leftScroll:
 	str	r2, [r4, #0]	@  nextRightDestination
 	str	r1, [r5, #0]	@  nextLeft
 	str	r0, [r6, #0]	@  nextLeftDestination
-.L257:
+.L272:
 	ldr	r3, [lr, #0]	@  nextRight
 	cmp	r3, #0
 	movlt	r3, #149
@@ -20202,10 +20284,10 @@ leftScroll:
 	strlt	r3, [r6, #0]	@  nextLeftDestination
 	mov	r3, #0
 	str	r3, [r7, #0]	@  goingRight
-	b	.L255
-.L264:
+	b	.L270
+.L279:
 	.align	2
-.L263:
+.L278:
 	.word	scrolling_x
 	.word	nextLeftDestination
 	.word	bg0map
@@ -20227,9 +20309,9 @@ draw:
 	sub	fp, ip, #4
 	sub	sp, sp, #4
 	bl	waitVBlank
-	ldr	r2, .L287
+	ldr	r2, .L302
 	ldrh	r3, [r2, #0]	@  scrolling_x
-	ldr	r2, .L287+4
+	ldr	r2, .L302+4
 	ldrh	r1, [r2, #0]	@  scrolling_y
 	mov	r2, #67108864
 	strh	r3, [r2, #16]	@ movhi 
@@ -20237,19 +20319,19 @@ draw:
 	strh	r3, [r2, #20]	@ movhi 
 	strh	r1, [r2, #22]	@ movhi 
 	bl	writeToOAM
-	ldr	r3, .L287+8
+	ldr	r3, .L302+8
 	mov	ip, #0	@  i
 	mov	r1, #1020
 	ldr	r2, [r3, #0]	@  bg1map
 	add	r1, r1, #3
 	mov	r0, ip	@  i,  i
-.L270:
+.L285:
 	mov	r3, ip, asl #1	@  i
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r1	@  i
 	strh	r0, [r3, r2]	@ movhi 	@  i
-	ble	.L270
-	ldr	r2, .L287+12
+	ble	.L285
+	ldr	r2, .L302+12
 	ldr	r1, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r3, [r1, #12]	@  <variable>.ySize
 	mov	r2, r3, asr #31
@@ -20257,31 +20339,31 @@ draw:
 	mov	r3, r3, asr #3
 	cmp	r0, r3	@  i
 	mov	ip, #0	@  i
-	bgt	.L284
+	bgt	.L299
 	str	r3, [fp, #-44]
 	mov	r2, r1
 	mov	r9, r1
-.L280:
+.L295:
 	ldr	r2, [r2, #8]	@  <variable>.xSize
 	mov	r3, r2, asr #31
 	adds	r3, r2, r3, lsr #29
 	mov	lr, #0	@  j
-	bmi	.L286
-	ldr	r2, .L287+12
+	bmi	.L301
+	ldr	r2, .L302+12
 	ldr	r3, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r1, [r3, #8]	@  <variable>.xSize
-	ldr	r3, .L287+8
+	ldr	r3, .L302+8
 	mov	r2, r1, asr #31
 	add	r1, r1, r2, lsr #29
 	ldr	r8, [r3, #0]	@  bg1map
-	ldr	r2, .L287+4
-	ldr	r3, .L287
-	ldr	sl, .L287+16
+	ldr	r2, .L302+4
+	ldr	r3, .L302
+	ldr	sl, .L302+16
 	ldr	r6, [r2, #0]	@  scrolling_y
 	ldr	r7, [r3, #0]	@  scrolling_x
 	mov	r5, r1, asr #3
 	mov	r4, ip, asl #3	@  i
-.L279:
+.L294:
 	ldrb	r3, [sl, #0]	@ zero_extendqisi2
 	ldrh	r2, [sl, #2]	@  sprites
 	add	r3, r3, r6
@@ -20310,19 +20392,19 @@ draw:
 	mov	r2, #10	@ movhi
 	cmp	lr, r5	@  j
 	strh	r2, [r3, r8]	@ movhi 
-	ble	.L279
-.L286:
+	ble	.L294
+.L301:
 	ldr	r3, [fp, #-44]
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r3	@  i
 	mov	r2, r9
-	ble	.L280
-.L284:
+	ble	.L295
+.L299:
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L288:
+.L303:
 	.align	2
-.L287:
+.L302:
 	.word	scrolling_x
 	.word	scrolling_y
 	.word	bg1map
