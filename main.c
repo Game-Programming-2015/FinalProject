@@ -8,15 +8,22 @@
 #include "HeaderFiles/timer.h"
 #include "HeaderFiles/soundHeader.h"
 
+/*
 #include "Tiles/Senary.raw.h"
 #include "Tiles/Senary.pal.h"
 #include "Maps/Senary.map.h"
+*/
+#include "Maps/LevelOne/LevelOnePlatforms.map.h"
+#include "Tiles/LevelOne/LevelOnePlatformTiles.raw.h"
+#include "Tiles/LevelOne/LevelOnePalette.pal.h"
+
 
 #include "Sprites/Chameleon.h"
 
 //Sound files
 //Tyler commented these out because it makes compiling take almost a minute when they're included, and I didn't want to sit through it. It compiles with them there just fine, though.
-/*#include "Sounds/attack.h"
+/*
+#include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
 #include "Sounds/death.h"
@@ -28,7 +35,8 @@
 #include "Sounds/level03.h"
 #include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
-#include "Sounds/victory.h"*/
+#include "Sounds/victory.h"
+*/
 
 //Function prototypes
 void init(void);
@@ -41,20 +49,23 @@ void soundTimerSetup(void);
 
 void update(void);
 void playerMovement(void);
+void scrollControls(void);
 void leftScroll(void);
 void rightScroll(void);
 
 void draw(void);
 
 //Declaring some globals
-unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (can't interact)
-unsigned short* bg1map = (unsigned short*)ScreenBaseBlock(16); //Background (interactable)
+unsigned short* bg0map = (unsigned short*)ScreenBaseBlock(31); //Background (interactable)
+unsigned short* bg1map = (unsigned short*)ScreenBaseBlock(16); //Background (can't interact)
 int nextRight,nextLeft,nextRightDestination,nextLeftDestination,goingRight,scrolling_x,scrolling_y; //Scrolling controls
+unsigned short *hitMap,*backMap;
 unsigned short prev_timer3;
 Moveable moveableHead;
 
 //define sound files
-/*sound attackSnd = {&attack_bin, 8000, 1225104};
+/*
+sound attackSnd = {&attack_bin, 8000, 1225104};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
 sound deathSnd = {&death_bin, 8000, 11568};
@@ -67,7 +78,8 @@ sound level01Mus = {&level01_bin, 8000, 497936};
 sound level02Mus = {&level02_bin, 8000, 450384};
 sound level03Mus = {&level03_bin, 8000, 766160};
 sound mainmenuMus = {&mainmenu_bin, 8000, 1225104};
-sound victoryMus = {&victory_bin, 8000, 244944};*/
+sound victoryMus = {&victory_bin, 8000, 244944};
+*/
 
 
 int main(void){
@@ -135,8 +147,8 @@ void objectSetup(void){
 
 void playerObjectSetup(void){
     //Start player positions
-    sprites[0].fields.x=119;
-    sprites[0].fields.y=127;
+    sprites[0].fields.x=0;
+    sprites[0].fields.y=0;
     sprites[0].fields.tileIndex=0;
     //Setup player movement controller
     moveableHead.parentSprite=&sprites[0];
@@ -158,19 +170,24 @@ void playerObjectSetup(void){
 
 void backgroundSetup(void){
     int i;
+    
+    hitMap=malloc(sizeof(unsigned short)*2048);
+    backMap=malloc(sizeof(unsigned short)*2048);
     enableBG0(); //Right now, this is the hitmap.
     enableBG1(); //BG1 just tracks where the player is on the background screen. It's not used for any actual gameplay
     REG_BG0CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (31 << SCREEN_SHIFT);
     REG_BG1CNT = BG_COLOR256 | TEXTBG_SIZE_256x256 | (16 << SCREEN_SHIFT);
 
-    //This is just a temporary map from my original scrolling assignment.
-    DMAFastCopy((void*)Senary_Palette, (void*)BGPaletteMem,256, DMA_16NOW);
+    //Load the pallete, tiles, and hitmap
+    loadLevelOnePalette();
 
-    DMAFastCopy((void*)Senary_Tiles,(void*)CharBaseBlock(0),1440,DMA_32NOW);
+    loadLevelOneHitmapTiles((void*)CharBaseBlock(0));
+    
+    loadLevelOneHitMap(hitMap);
 
     //Copy the first 30 columns in.
     for (i=0;i<30;i++){
-        copyColumn(Senary_map,i,150,32,bg0map,i,32,32);
+        copyColumn(hitMap,i,64,32,bg0map,i,32,32);
     }
 
     //Set up the scrolling information.
@@ -178,7 +195,7 @@ void backgroundSetup(void){
     nextRight=30; //Same, but for the right.
     nextLeftDestination=31; //Where the map will be copied into when the screen scrolls left.
     nextRightDestination=30; //^ Right
-    copyColumn(Senary_map,nextLeft,150,32,bg0map,nextLeftDestination,32,32); //Copy the leftmost column in, because movement to the left won't trigger the column copy initially.
+    copyColumn(hitMap,nextLeft,64,32,bg0map,nextLeftDestination,32,32); //Copy the leftmost column in, because movement to the left won't trigger the column copy initially.
     //Reset the scrolling registers.
     REG_BG0HOFS=0;
     scrolling_x=0;
@@ -194,6 +211,7 @@ void update(void){
         prev_timer3=REG_TM3D;
         
         playerMovement();
+        scrollControls();
     }
 }
 
@@ -224,8 +242,6 @@ void playerMovement(void){
     gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
     //Move the player object
     moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
-
-    scrollControls();
 }
 
 void scrollControls(void){
@@ -262,7 +278,7 @@ void scrollControls(void){
 void rightScroll(void){
     scrolling_x++; //Scroll right. This will be applied to the scrolling register during the draw portion
     if (scrolling_x%8==1){ //If starting on a new column in the scrolling, copy the next column in to be prepared
-        copyColumn(Senary_map,nextRight,150,32,bg0map,nextRightDestination,32,32);
+        copyColumn(hitMap,nextRight,64,32,bg0map,nextRightDestination,32,32);
         
         //Increment the destinations.
         nextRight++;
@@ -299,7 +315,7 @@ void leftScroll(void){
     scrolling_x--;
 
     if (scrolling_x%8==7){
-        copyColumn(Senary_map,nextLeft,150,32,bg0map,nextLeftDestination,32,32);
+        copyColumn(hitMap,nextLeft,64,32,bg0map,nextLeftDestination,32,32);
         nextRight--;
         nextRightDestination--;
         nextLeft--;
