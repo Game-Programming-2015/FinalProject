@@ -1,0 +1,59 @@
+Full Palette Values For All Maps and TileSet
+
+TileSet:
+Black	-	000000
+Grey	-	404040
+Blue	-	4040c0
+Red	-	e02040
+Purple	-	a040c0
+Orange	-	e08040
+Green	-	20c040
+Yellow	-	ffff00
+White	-	ffffff
+
+Sky:
+Sky Blue-	20a0c0
+
+Level1:
+Dk Grey	-	5a4646
+Dk Red	-	d32d2d
+Dk Blue	-	5757a9
+Dk Red2	-	be4257
+Dk Purp	-	9557a9
+Silver	-	808080
+Dk Brown-	a98057
+Dk Green-	3ca452
+Dk Brown2-	c4865c
+Lt Grey	-	c0c0c0
+Dk Yellow-	d1d32d
+
+Level2:
+Black	-	USED
+Grey	-	USED
+Dk Grey	-	USED
+Dk Blue	-	USED
+Dk Red2	-	USED
+Silver	-	USED
+Dk Brown-	USED
+Dk Green-	USED
+Lt Grey	-	USED
+Dk Yellow-	USED
+Sky Blue-	USED
+
+Level3:
+Black	-	USED
+Magenta	-	730d0d
+Gray	-	USED
+Dk Gray2-	5d4343
+Dk Blue	-	4d4db3
+For Green-	0d730d
+Dk Red3	-	cc344d
+Silver	-	USED
+Dk Brown3-	b37f4d
+Dk Green2-	30b04b
+Tan	-	d08350
+Lt Grey	-	USED
+Lt Blue	-	aecbe8
+Dk Yellow2-	e3e61a
+
+Total Unique: 31
