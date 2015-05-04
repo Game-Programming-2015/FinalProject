@@ -22,7 +22,6 @@
 
 //Sound files
 //Tyler commented these out because it makes compiling take almost a minute when they're included, and I didn't want to sit through it. It compiles with them there just fine, though.
-/*
 #include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
@@ -36,7 +35,6 @@
 #include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
 #include "Sounds/victory.h"
-*/
 
 //Function prototypes
 void init(void);
@@ -46,6 +44,11 @@ void playerObjectSetup(void);
 void timerSetup(void);
 void buttonTimerSetup(void);
 void soundTimerSetup(void);
+void loadMainMenu(void);
+void loadLevel01(void);
+void loadLevel02(void);
+void loadLevel03(void);
+void loadVictory(void);
 
 void update(void);
 void playerMovement(void);
@@ -64,7 +67,6 @@ unsigned short prev_timer3;
 Moveable moveableHead;
 
 //define sound files
-/*
 sound attackSnd = {&attack_bin, 8000, 1120};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
@@ -73,14 +75,6 @@ sound enemy_die2Snd = {&enemy_die2_bin, 8000, 1424};
 sound getflySnd = {&getfly_bin, 8000, 5136};
 sound jumpSnd = {&jump_bin, 8000, 2672};
 sound omnom1Snd = {&omnom1_bin, 8000, 10160};
-
-sound level01Mus = {&level01_bin, 8000, 497936};
-sound level02Mus = {&level02_bin, 8000, 450384};
-sound level03Mus = {&level03_bin, 8000, 766160};
-sound mainmenuMus = {&mainmenu_bin, 8000, 1225104};
-sound victoryMus = {&victory_bin, 8000, 244944};
-*/
-
 
 int main(void){
     init();
@@ -96,6 +90,7 @@ int main(void){
 
 void init(void){
     setMode(0);
+	channelMus.sampleRate = 8000;
     backgroundSetup();
     objectSetup();
     timerSetup();
@@ -363,4 +358,33 @@ void draw(void){
             bg1map[((sprites[0].fields.y+scrolling_y+i*8)%256)/8*32+((sprites[0].fields.x+scrolling_x+j*8)%256)/8]=10;
         }
     }
+}
+
+void loadMainMenu(void){
+    songLength = set_mainmenu(&song);
+    channelMus.pBuffer = song;
+    channelMus.length = songLength;
+}
+
+void loadLevel01(void){
+    songLength = set_level01(&song);
+    channelMus.pBuffer = song;
+    channelMus.length = songLength;
+}
+
+void loadLevel02(void){
+    songLength = set_level02(&song);
+    channelMus.pBuffer = song;
+    channelMus.length = songLength;
+}
+void loadLevel03(void){
+    songLength = set_level03(&song);
+    channelMus.pBuffer = song;
+    channelMus.length = songLength;
+}
+
+void loadVictory(void){
+    songLength = set_victory(&song);
+    channelMus.pBuffer = song;
+    channelMus.length = songLength;
 }

@@ -82,6 +82,10 @@ unsigned short SampleLength0 = 0;
 unsigned short SamplePosition1 = 0;
 unsigned short SampleLength1 = 0;
 void *playing = NULL; //*pointer to currently looping sound
+unsigned char* song;// *pointer to music sound file
+unsigned long songLength;// length of music sound file 
+
+sound channelMus;
 	
 /*fucntion for playing sound*/
 void PlaySound(sound *theSound, int music){
@@ -136,7 +140,6 @@ void MyHandler(void)
 	if((REG_IF & INT_VBLANK) == INT_VBLANK){
 		/*check if samples are playing*/
 		if(SampleLength0){
-			
 			/*increment position*/
 			SamplePosition0++;
 			if(SamplePosition0 > SampleLength0){
