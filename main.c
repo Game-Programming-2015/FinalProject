@@ -65,7 +65,7 @@ Moveable moveableHead;
 
 //define sound files
 /*
-sound attackSnd = {&attack_bin, 8000, 1225104};
+sound attackSnd = {&attack_bin, 8000, 1120};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
 sound deathSnd = {&death_bin, 8000, 11568};
