@@ -178,11 +178,24 @@ int playerCollisionHandler(int collisionID,Moveable *self){
     int r=0;
     switch (collisionID){
         case 0:
-        r=0;
-        break;
+            r=0;
+            break;
+        case 1: //blue
+            r=mainColor==blueMain;
+            break;
+        case 2: //violet
+            r=mainColor==violetMain;
+            break;
+        case 3: //red
+        case 0x0403: //This is the flipped version of the tile, which is apparently a thing you can do
+            r=mainColor==redMain;
+            break;
+        case 4: //green
+            r=mainColor==greenMain;
+            break;
         default :
-        r=1;
-        break;
+            r=1;
+            break;
     }
     
     return r;
