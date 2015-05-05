@@ -1,6 +1,7 @@
 #include <string.h>
 
 #include "Sprites/Chameleon.h"
+#include "Sprites/Flies.h"
 
 #include "HeaderFiles/button.h"
 #include "HeaderFiles/mode0.h"
@@ -44,6 +45,8 @@ void init(void);
 void backgroundSetup(void);
 void objectSetup(void);
 void playerObjectSetup(void);
+void tongueObjectSetup(void);
+void flyObjectSetup(void);
 void timerSetup(void);
 void buttonTimerSetup(void);
 void soundTimerSetup(void);
@@ -141,11 +144,15 @@ void objectSetup(void){
 
     //Write sprite data in
     DMAFastCopy((void*)ChameleonPalette, (void*)spritePal,256, DMA_16NOW);
-    //copyToSpriteData(ChameleonData,Chameleon_WIDTH*Chameleon_HEIGHT,0);
-    copyToSpriteData(&(*ChameleonData),5120,0);
+
+    copyToSpriteData( ChameleonData+256*Chameleon_run1 ,512,0);
+    copyToSpriteData( ChameleonData+256*Chameleon_tongueSprite ,512,256);
+    copyToSpriteData( FliesData ,3072,512);
     
+    //Sprites 0 and 1 are reserved for the player and the tongue
     playerObjectSetup();
     
+    flyObjectSetup();
 }
 
 void playerObjectSetup(void){
@@ -169,6 +176,37 @@ void playerObjectSetup(void){
     //Setup the secondary hitboxes
     moveableHead.hitBoxList=moveableHead.masterHitBox;
     moveableHead.hitBoxCount=1;
+    
+    tongueObjectSetup();
+}
+
+void tongueObjectSetup(void){
+    sprites[1].fields.x=240;
+    sprites[1].fields.y=160;
+    sprites[1].fields.tileIndex=16;
+}
+
+void flyObjectSetup(void){
+    Moveable *flyOne=malloc(sizeof(Moveable)*1);
+    sprites[2].fields.x=16;
+    sprites[2].fields.y=180;
+    sprites[2].fields.shape=0;
+    sprites[2].fields.size=1;
+    sprites[2].fields.tileIndex=32;
+    
+    flyOne->parentSprite=&(sprites[2]);
+    flyOne->hSpeed=0;
+    flyOne->vSpeed=0;
+    
+    //addMoveable(&moveableHead,flyOne);
+    moveableHead.next=flyOne;
+    /*
+    sprites[3].fields.x=32;
+    sprites[3].fields.y=64;
+    sprites[3].fields.shape=0;
+    sprites[3].fields.size=1;
+    sprites[3].fields.tileIndex=40;
+    */
 }
 
 void backgroundSetup(void){
@@ -221,6 +259,8 @@ void update(void){
         
         playerMovement();
         scrollControls();
+        
+        tongueControls();
     }
 }
 
@@ -246,11 +286,56 @@ void playerMovement(void){
     ){
         moveableHead.vSpeed=-10; //Tell the player object to move up
     }
-
-    if ( checkPressed(BTN_A) ){
+    //Debug thing
+    if ( checkPressed(BTN_START) ){
         moveableHead.vSpeed=-10;
     }
     
+    //Calculate the vSpeed for the player based on gravity
+    gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
+    //Move the player objects
+    moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
+}
+
+void scrollControls(void){
+    //Scroll right if you aren't at the edge of the map
+    while (scrolling_x<271 //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
+        && moveableHead.parentSprite->fields.x>160){ //How far along the screen we want to the player to be able to go
+
+        rightScroll();
+    }
+    //Scroll left if you aren't at the left edge of the map
+    while (scrolling_x>0
+        && moveableHead.parentSprite->fields.x<40){
+
+        leftScroll();
+    }
+    
+    while (scrolling_y<96 //256-160
+        && moveableHead.parentSprite->fields.y>120){
+        
+        downScroll();
+    }
+    
+    while (scrolling_y>0
+        && moveableHead.parentSprite->fields.y<40){
+
+        upScroll();
+    }
+}
+
+void tongueControls(void){
+    if ( checkState(BTN_A) ){
+        sprites[1].fields.x=sprites[0].fields.x+32-64*sprites[0].fields.horizontalFlip;
+        sprites[1].fields.y=sprites[0].fields.y;
+        sprites[1].fields.horizontalFlip=sprites[0].fields.horizontalFlip;
+    }
+    else if ( checkReleased(BTN_A) ){
+        sprites[1].fields.x=240;
+        sprites[1].fields.y=240;
+    }
+    
+    //Debug thing
     if ( checkPressed(BTN_R) ){
         switch (mainColor){
             case redMain:
@@ -307,54 +392,47 @@ void playerMovement(void){
                 break;
         }
     }
-    
-    //Calculate the vSpeed for the player based on gravity
-    gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
-    //Move the player objects
-    moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
-}
-
-void scrollControls(void){
-    //Scroll right if you aren't at the edge of the map
-    while (scrolling_x<271 //This is...uhh... 1200 - 240 - 1. Map width - screen width - 1
-        && moveableHead.parentSprite->fields.x>160){ //How far along the screen we want to the player to be able to go
-
-        rightScroll();
-        moveableHead.parentSprite->fields.x--;
-    }
-    //Scroll left if you aren't at the left edge of the map
-    while (scrolling_x>0
-        && moveableHead.parentSprite->fields.x<40){
-
-        leftScroll();
-        moveableHead.parentSprite->fields.x++;
-    }
-    
-    while (scrolling_y<96 //256-160
-        && moveableHead.parentSprite->fields.y>120){
-        
-        downScroll();
-        moveableHead.parentSprite->fields.y--;
-    }
-    
-    while (scrolling_y>0
-        && moveableHead.parentSprite->fields.y<40){
-
-        upScroll();
-        moveableHead.parentSprite->fields.y++;
-    }
 }
 
 void downScroll(void){
+    Moveable *currentMove;
+    
     scrolling_y++;
+    moveableHead.parentSprite->fields.y--;
+    
+    currentMove=moveableHead.next;
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.y--;
+        currentMove=currentMove->next;
+    }
+    
 }
 
 void upScroll(void){
+    Moveable *currentMove;
+    
     scrolling_y--;
+    moveableHead.parentSprite->fields.y++;
+    
+    currentMove=moveableHead.next;
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.y++;
+        currentMove=currentMove->next;
+    }
 }
 
 void rightScroll(void){
+    Moveable *currentMove=moveableHead.next;
+    
     scrolling_x++; //Scroll right. This will be applied to the scrolling register during the draw portion
+    moveableHead.parentSprite->fields.x--;
+    
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.x--;
+        currentMove=currentMove->next;
+    }
+    
+    
     if (scrolling_x%8==1){ //If starting on a new column in the scrolling, copy the next column in to be prepared
         copyColumn(hitMap,nextRight,64,32,bg0map,nextRightDestination,32,32);
         copyColumn(backMap,nextRight,64,32,bg2map,nextRightDestination,32,32);
@@ -391,7 +469,15 @@ void rightScroll(void){
 
 //Essentially the same as rightScroll();
 void leftScroll(void){
+    Moveable *currentMove=moveableHead.next;
+    
     scrolling_x--;
+    moveableHead.parentSprite->fields.x++;
+    
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.x--;
+        currentMove=currentMove->next;
+    }
 
     if (scrolling_x%8==7){
         copyColumn(hitMap,nextLeft,64,32,bg0map,nextLeftDestination,32,32);

@@ -2846,6 +2846,1809 @@ ChameleonPalette:
 	.short	0
 	.short	0
 	.short	0
+	.global	FliesData
+	.align	1
+	.type	FliesData, %object
+	.size	FliesData, 6144
+FliesData:
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	3072
+	.short	12
+	.short	0
+	.short	0
+	.short	3072
+	.short	3084
+	.short	0
+	.short	0
+	.short	3072
+	.short	3084
+	.short	12
+	.short	0
+	.short	0
+	.short	3072
+	.short	3084
+	.short	0
+	.short	0
+	.short	0
+	.short	3084
+	.short	2572
+	.short	0
+	.short	0
+	.short	3072
+	.short	778
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	3072
+	.short	12
+	.short	0
+	.short	0
+	.short	3084
+	.short	12
+	.short	0
+	.short	3072
+	.short	3084
+	.short	12
+	.short	0
+	.short	3084
+	.short	12
+	.short	0
+	.short	3082
+	.short	3084
+	.short	0
+	.short	0
+	.short	2563
+	.short	12
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	0
+	.short	778
+	.short	0
+	.short	0
+	.short	0
+	.short	2560
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	2563
+	.short	0
+	.short	0
+	.short	0
+	.short	10
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	3072
+	.short	3084
+	.short	3084
+	.short	2572
+	.short	3084
+	.short	3084
+	.short	3084
+	.short	778
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	3082
+	.short	3084
+	.short	3084
+	.short	12
+	.short	2563
+	.short	3084
+	.short	3084
+	.short	3084
+	.short	3072
+	.short	3084
+	.short	2572
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	2560
+	.short	771
+	.short	0
+	.short	0
+	.short	0
+	.short	778
+	.short	0
+	.short	0
+	.short	0
+	.short	2560
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	771
+	.short	3082
+	.short	3084
+	.short	12
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	771
+	.short	10
+	.short	0
+	.short	0
+	.short	2563
+	.short	0
+	.short	0
+	.short	0
+	.short	10
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	13568
+	.short	53
+	.short	0
+	.short	0
+	.short	13568
+	.short	13621
+	.short	0
+	.short	0
+	.short	13568
+	.short	13621
+	.short	53
+	.short	0
+	.short	0
+	.short	13568
+	.short	13621
+	.short	0
+	.short	0
+	.short	0
+	.short	13621
+	.short	13365
+	.short	0
+	.short	0
+	.short	13568
+	.short	11060
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	13568
+	.short	53
+	.short	0
+	.short	0
+	.short	13621
+	.short	53
+	.short	0
+	.short	13568
+	.short	13621
+	.short	53
+	.short	0
+	.short	13621
+	.short	53
+	.short	0
+	.short	13620
+	.short	13621
+	.short	0
+	.short	0
+	.short	13355
+	.short	53
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	0
+	.short	11060
+	.short	0
+	.short	0
+	.short	0
+	.short	13312
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	13355
+	.short	0
+	.short	0
+	.short	0
+	.short	52
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	13568
+	.short	13621
+	.short	13621
+	.short	13365
+	.short	13621
+	.short	13621
+	.short	13621
+	.short	11060
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	13620
+	.short	13621
+	.short	13621
+	.short	53
+	.short	13355
+	.short	13621
+	.short	13621
+	.short	13621
+	.short	13568
+	.short	13621
+	.short	13365
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	13312
+	.short	11051
+	.short	0
+	.short	0
+	.short	0
+	.short	11060
+	.short	0
+	.short	0
+	.short	0
+	.short	13312
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	11051
+	.short	13620
+	.short	13621
+	.short	53
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	11051
+	.short	52
+	.short	0
+	.short	0
+	.short	13355
+	.short	0
+	.short	0
+	.short	0
+	.short	52
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10752
+	.short	42
+	.short	0
+	.short	0
+	.short	10752
+	.short	10794
+	.short	0
+	.short	0
+	.short	10752
+	.short	10794
+	.short	42
+	.short	0
+	.short	0
+	.short	10752
+	.short	10794
+	.short	0
+	.short	0
+	.short	0
+	.short	10794
+	.short	10538
+	.short	0
+	.short	0
+	.short	10752
+	.short	10025
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10752
+	.short	42
+	.short	0
+	.short	0
+	.short	10794
+	.short	42
+	.short	0
+	.short	10752
+	.short	10794
+	.short	42
+	.short	0
+	.short	10794
+	.short	42
+	.short	0
+	.short	10793
+	.short	10794
+	.short	0
+	.short	0
+	.short	10535
+	.short	42
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	0
+	.short	10025
+	.short	0
+	.short	0
+	.short	0
+	.short	10496
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10535
+	.short	0
+	.short	0
+	.short	0
+	.short	41
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10752
+	.short	10794
+	.short	10794
+	.short	10538
+	.short	10794
+	.short	10794
+	.short	10794
+	.short	10025
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10793
+	.short	10794
+	.short	10794
+	.short	42
+	.short	10535
+	.short	10794
+	.short	10794
+	.short	10794
+	.short	10752
+	.short	10794
+	.short	10538
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	10496
+	.short	10023
+	.short	0
+	.short	0
+	.short	0
+	.short	10025
+	.short	0
+	.short	0
+	.short	0
+	.short	10496
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	10023
+	.short	10793
+	.short	10794
+	.short	42
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10023
+	.short	41
+	.short	0
+	.short	0
+	.short	10535
+	.short	0
+	.short	0
+	.short	0
+	.short	41
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	7936
+	.short	31
+	.short	0
+	.short	0
+	.short	7936
+	.short	7967
+	.short	0
+	.short	0
+	.short	7936
+	.short	7967
+	.short	31
+	.short	0
+	.short	0
+	.short	7936
+	.short	7967
+	.short	0
+	.short	0
+	.short	0
+	.short	7967
+	.short	7711
+	.short	0
+	.short	0
+	.short	7936
+	.short	6174
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	7936
+	.short	31
+	.short	0
+	.short	0
+	.short	7967
+	.short	31
+	.short	0
+	.short	7936
+	.short	7967
+	.short	31
+	.short	0
+	.short	7967
+	.short	31
+	.short	0
+	.short	7966
+	.short	7967
+	.short	0
+	.short	0
+	.short	7704
+	.short	31
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	0
+	.short	6174
+	.short	0
+	.short	0
+	.short	0
+	.short	7680
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	7704
+	.short	0
+	.short	0
+	.short	0
+	.short	30
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	7936
+	.short	7967
+	.short	7967
+	.short	7711
+	.short	7967
+	.short	7967
+	.short	7967
+	.short	6174
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	7966
+	.short	7967
+	.short	7967
+	.short	31
+	.short	7704
+	.short	7967
+	.short	7967
+	.short	7967
+	.short	7936
+	.short	7967
+	.short	7711
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	7680
+	.short	6168
+	.short	0
+	.short	0
+	.short	0
+	.short	6174
+	.short	0
+	.short	0
+	.short	0
+	.short	7680
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	6168
+	.short	7966
+	.short	7967
+	.short	31
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	6168
+	.short	30
+	.short	0
+	.short	0
+	.short	7704
+	.short	0
+	.short	0
+	.short	0
+	.short	30
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	5632
+	.short	22
+	.short	0
+	.short	0
+	.short	5632
+	.short	5654
+	.short	0
+	.short	0
+	.short	5632
+	.short	5654
+	.short	22
+	.short	0
+	.short	0
+	.short	5632
+	.short	5654
+	.short	0
+	.short	0
+	.short	0
+	.short	5654
+	.short	5142
+	.short	0
+	.short	0
+	.short	5632
+	.short	4884
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	5632
+	.short	22
+	.short	0
+	.short	0
+	.short	5654
+	.short	22
+	.short	0
+	.short	5632
+	.short	5654
+	.short	22
+	.short	0
+	.short	5654
+	.short	22
+	.short	0
+	.short	5652
+	.short	5654
+	.short	0
+	.short	0
+	.short	5139
+	.short	22
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	0
+	.short	4884
+	.short	0
+	.short	0
+	.short	0
+	.short	5120
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	5139
+	.short	0
+	.short	0
+	.short	0
+	.short	20
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	5632
+	.short	5654
+	.short	5654
+	.short	5142
+	.short	5654
+	.short	5654
+	.short	5654
+	.short	4884
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	5652
+	.short	5654
+	.short	5654
+	.short	22
+	.short	5139
+	.short	5654
+	.short	5654
+	.short	5654
+	.short	5632
+	.short	5654
+	.short	5142
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	5120
+	.short	4883
+	.short	0
+	.short	0
+	.short	0
+	.short	4884
+	.short	0
+	.short	0
+	.short	0
+	.short	5120
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	4883
+	.short	5652
+	.short	5654
+	.short	22
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	4883
+	.short	20
+	.short	0
+	.short	0
+	.short	5139
+	.short	0
+	.short	0
+	.short	0
+	.short	20
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	16384
+	.short	64
+	.short	0
+	.short	0
+	.short	16384
+	.short	16448
+	.short	0
+	.short	0
+	.short	16384
+	.short	16448
+	.short	64
+	.short	0
+	.short	0
+	.short	16384
+	.short	16448
+	.short	0
+	.short	0
+	.short	0
+	.short	16448
+	.short	15936
+	.short	0
+	.short	0
+	.short	16384
+	.short	14142
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	16384
+	.short	64
+	.short	0
+	.short	0
+	.short	16448
+	.short	64
+	.short	0
+	.short	16384
+	.short	16448
+	.short	64
+	.short	0
+	.short	16448
+	.short	64
+	.short	0
+	.short	16446
+	.short	16448
+	.short	0
+	.short	0
+	.short	15927
+	.short	64
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	0
+	.short	14142
+	.short	0
+	.short	0
+	.short	0
+	.short	15872
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	15927
+	.short	0
+	.short	0
+	.short	0
+	.short	62
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	16384
+	.short	16448
+	.short	16448
+	.short	15936
+	.short	16448
+	.short	16448
+	.short	16448
+	.short	14142
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	16446
+	.short	16448
+	.short	16448
+	.short	64
+	.short	15927
+	.short	16448
+	.short	16448
+	.short	16448
+	.short	16384
+	.short	16448
+	.short	15936
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	15872
+	.short	14135
+	.short	0
+	.short	0
+	.short	0
+	.short	14142
+	.short	0
+	.short	0
+	.short	0
+	.short	15872
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	14135
+	.short	16446
+	.short	16448
+	.short	64
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	14135
+	.short	62
+	.short	0
+	.short	0
+	.short	15927
+	.short	0
+	.short	0
+	.short	0
+	.short	62
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.space	3072
+	.global	FliesPalette
+	.align	1
+	.type	FliesPalette, %object
+	.size	FliesPalette, 512
+FliesPalette:
+	.short	0
+	.short	2
+	.short	1086
+	.short	3194
+	.short	6358
+	.short	7404
+	.short	2131
+	.short	1071
+	.short	1066
+	.short	8478
+	.short	11645
+	.short	17981
+	.short	23261
+	.short	29734
+	.short	23785
+	.short	15625
+	.short	8358
+	.short	20516
+	.short	10242
+	.short	29963
+	.short	30160
+	.short	30292
+	.short	30456
+	.short	2982
+	.short	5864
+	.short	7656
+	.short	6438
+	.short	1701
+	.short	1378
+	.short	8107
+	.short	16305
+	.short	22454
+	.short	3005
+	.short	4921
+	.short	7696
+	.short	6474
+	.short	1717
+	.short	495
+	.short	297
+	.short	7101
+	.short	12221
+	.short	18365
+	.short	23485
+	.short	2556
+	.short	5590
+	.short	7536
+	.short	6410
+	.short	1397
+	.short	1296
+	.short	203
+	.short	5660
+	.short	10876
+	.short	15037
+	.short	23390
+	.short	29784
+	.short	23764
+	.short	16623
+	.short	10474
+	.short	21554
+	.short	16429
+	.short	10248
+	.short	29945
+	.short	30042
+	.short	30267
+	.short	30428
+	.short	27523
+	.short	21190
+	.short	15880
+	.short	10566
+	.short	20130
+	.short	15873
+	.short	11649
+	.short	28585
+	.short	28590
+	.short	29619
+	.short	30648
+	.short	10570
+	.short	19026
+	.short	27482
+	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.global	prevButton
 	.data
 	.align	1
@@ -3582,6 +5385,28 @@ playerCollisionHandler:
 	b	.L161
 	.size	playerCollisionHandler, .-playerCollisionHandler
 	.align	2
+	.global	addMoveable
+	.type	addMoveable, %function
+addMoveable:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	cmp	r0, #0	@  head
+	stmfd	sp!, {r4, fp, ip, lr, pc}
+	mov	r4, r0	@  head
+	sub	fp, ip, #4
+	moveq	r4, r1	@  head,  toAdd
+	beq	.L164
+	ldr	r0, [r0, #28]	@  head,  <variable>.next
+	bl	addMoveable
+	str	r0, [r4, #28]	@  head,  <variable>.next
+.L164:
+	mov	r0, r4	@  head
+	ldmea	fp, {r4, fp, sp, lr}
+	bx	lr
+	.size	addMoveable, .-addMoveable
+	.align	2
 	.global	DMAFastCopy
 	.type	DMAFastCopy, %function
 DMAFastCopy:
@@ -3672,68 +5497,68 @@ PlaySound:
 	sub	r4, r4, #191
 	mov	r6, r1	@  music
 	strh	r3, [r2, #132]	@ movhi 
-	bne	.L165
+	bne	.L169
 	ldr	r3, [r0, #0]	@  <variable>.pBuffer
 	str	r3, [r2, #188]
 	str	ip, [r2, #192]
-	ldr	r3, .L167+8
+	ldr	r3, .L171+8
 	strh	r5, [r2, #198]	@ movhi 
 	ldr	r0, [r0, #8]	@  theSound,  <variable>.length
 	ldrh	r1, [r3, #0]	@  music,  sample
-	ldr	r3, .L167+12
+	ldr	r3, .L171+12
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L167+16
+	ldr	r3, .L171+16
 	mov	lr, pc
 	bx	r3
-	adr	r2, .L167
+	adr	r2, .L171
 	ldmia	r2, {r2-r3}
-	ldr	ip, .L167+20
+	ldr	ip, .L171+20
 	mov	lr, pc
 	bx	ip
-	ldr	r3, .L167+24
+	ldr	r3, .L171+24
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L167+28
-	ldr	r2, .L167+32
+	ldr	r3, .L171+28
+	ldr	r2, .L171+32
 	strh	r0, [r3, #0]	@ movhi 	@  theSound,  SampleLength0
 	strh	r6, [r2, #0]	@ movhi 	@  music,  SamplePosition0
-.L164:
+.L168:
 	ldmea	fp, {r4, r5, r6, fp, sp, lr}
 	bx	lr
-.L165:
+.L169:
 	ldr	ip, [r0, #0]	@  <variable>.pBuffer
-	ldr	r3, .L167+8
+	ldr	r3, .L171+8
 	str	ip, [r2, #200]
 	str	lr, [r2, #204]
 	strh	r4, [r2, #210]	@ movhi 
 	ldrh	r1, [r3, #0]	@  music,  sample
-	ldr	r3, .L167+36
-	ldr	r2, .L167+12
+	ldr	r3, .L171+36
+	ldr	r2, .L171+12
 	str	ip, [r3, #0]	@  playing
 	ldr	r0, [r0, #8]	@  theSound,  <variable>.length
 	mov	lr, pc
 	bx	r2
-	ldr	r3, .L167+16
+	ldr	r3, .L171+16
 	mov	lr, pc
 	bx	r3
-	adr	r2, .L167
+	adr	r2, .L171
 	ldmia	r2, {r2-r3}
-	ldr	ip, .L167+20
+	ldr	ip, .L171+20
 	mov	lr, pc
 	bx	ip
-	ldr	r3, .L167+24
+	ldr	r3, .L171+24
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L167+40
-	ldr	r2, .L167+44
+	ldr	r3, .L171+40
+	ldr	r2, .L171+44
 	strh	r0, [r3, #0]	@ movhi 	@  theSound,  SampleLength1
 	mov	r3, #0	@ movhi
 	strh	r3, [r2, #0]	@ movhi 	@  SamplePosition1
-	b	.L164
-.L168:
+	b	.L168
+.L172:
 	.align	2
-.L167:
+.L171:
 	.word	1076831191
 	.word	171798692
 	.word	sample
@@ -3766,16 +5591,16 @@ MyHandler:
 	mov	r0, #512
 	mov	ip, #67108864
 	tst	r3, #65536
-	ldr	r4, .L175
+	ldr	r4, .L179
 	add	r0, r0, #67108866
 	add	ip, ip, #520
 	mov	lr, r3, asr #16	@  Int_Flag
-	beq	.L170
+	beq	.L174
 	ldrh	r1, [r4, #0]	@  SampleLength0
 	cmp	r1, #0
-	ldr	r7, .L175+4
-	ldr	r2, .L175+8
-	beq	.L171
+	ldr	r7, .L179+4
+	ldr	r2, .L179+8
+	beq	.L175
 	ldrh	r3, [r2, #0]	@  SamplePosition0
 	add	r3, r3, #1
 	strh	r3, [r2, #0]	@ movhi 	@  SamplePosition0
@@ -3785,11 +5610,11 @@ MyHandler:
 	movhi	r3, #67108864
 	strhih	r2, [r3, #198]	@ movhi 
 	strhih	r2, [r4, #0]	@ movhi 	@  SampleLength0
-.L171:
-	ldr	r3, .L175+12
+.L175:
+	ldr	r3, .L179+12
 	ldrh	r1, [r3, #0]	@  SampleLength1
 	cmp	r1, #0
-	beq	.L170
+	beq	.L174
 	ldrh	r2, [r7, #0]	@  SamplePosition1
 	add	r2, r2, #1
 	strh	r2, [r7, #0]	@ movhi 	@  SamplePosition1
@@ -3800,23 +5625,23 @@ MyHandler:
 	mov	r4, r5
 	sub	r6, r6, #191
 	add	r5, r5, #164
-	bls	.L170
-	ldr	r3, .L175+16
+	bls	.L174
+	ldr	r3, .L179+16
 	ldr	r2, [r3, #0]	@  playing
 	mov	r3, #0	@ movhi
 	str	r2, [r4, #200]
 	strh	r3, [r7, #0]	@ movhi 	@  SamplePosition1
 	str	r5, [r4, #204]
 	strh	r6, [r4, #210]	@ movhi 
-.L170:
+.L174:
 	mov	r1, #1	@ movhi
 	strh	lr, [r0, #0]	@ movhi 	@  Int_Flag
 	strh	r1, [ip, #0]	@ movhi 
 	ldmfd	sp!, {r4, r5, r6, r7, lr}
 	bx	lr
-.L176:
+.L180:
 	.align	2
-.L175:
+.L179:
 	.word	SampleLength0
 	.word	SamplePosition1
 	.word	SamplePosition0
@@ -3843,8 +5668,8 @@ StopSound:
 	movne	r2, #0	@ movhi
 	strneh	r2, [r3, #210]	@ movhi 
 	streqh	r0, [r3, #198]	@ movhi 	@  channel
-	ldrne	r3, .L180
-	ldreq	r3, .L180+4
+	ldrne	r3, .L184
+	ldreq	r3, .L184+4
 	strneh	r2, [r3, #0]	@ movhi 	@  SampleLength1
 	streqh	r0, [r3, #0]	@ movhi 	@  channel,  SampleLength0
 	mov	r3, #512
@@ -3856,9 +5681,9 @@ StopSound:
 	@ lr needed for prologue
 	strh	r3, [r2, #0]	@ movhi 
 	bx	lr
-.L181:
+.L185:
 	.align	2
-.L180:
+.L184:
 	.word	SampleLength1
 	.word	SampleLength0
 	.size	StopSound, .-StopSound
@@ -3875,7 +5700,7 @@ setInterruptHandler:
 	ldrh	r3, [r1, #0]
 	orr	r3, r3, #1
 	strh	r3, [r1, #0]	@ movhi 
-	ldr	r3, .L183
+	ldr	r3, .L187
 	ldrh	r2, [ip, #4]
 	mov	r1, #50331648
 	add	r1, r1, #32512
@@ -3887,9 +5712,9 @@ setInterruptHandler:
 	strh	r3, [lr, #0]	@ movhi 
 	ldr	lr, [sp], #4
 	bx	lr
-.L184:
+.L188:
 	.align	2
-.L183:
+.L187:
 	.word	MyHandler
 	.size	setInterruptHandler, .-setInterruptHandler
 	.align	2
@@ -3911,7 +5736,7 @@ loadLevelOneHitMap:
 	mov	r2, r5
 	mov	r1, #0
 	mov	r0, r4	@  location
-	ldr	r3, .L186
+	ldr	r3, .L190
 	mov	lr, pc
 	bx	r3
 	sub	ip, fp, #4096
@@ -4511,7 +6336,7 @@ loadLevelOneHitMap:
 	strh	r3, [fp, #-158]	@ movhi 	@  LevelOnePlatforms_Map
 	mov	r1, r4	@  location
 	strh	r3, [fp, #-156]	@ movhi 	@  LevelOnePlatforms_Map
-	ldr	ip, .L186+4
+	ldr	ip, .L190+4
 	strh	r3, [fp, #-154]	@ movhi 	@  LevelOnePlatforms_Map
 	strh	r3, [fp, #-152]	@ movhi 	@  LevelOnePlatforms_Map
 	strh	r3, [fp, #-150]	@ movhi 	@  LevelOnePlatforms_Map
@@ -4573,9 +6398,9 @@ loadLevelOneHitMap:
 	bx	ip
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L187:
+.L191:
 	.align	2
-.L186:
+.L190:
 	.word	memset
 	.word	memcpy
 	.size	loadLevelOneHitMap, .-loadLevelOneHitMap
@@ -4916,9 +6741,9 @@ loadLevelOneHitMapTiles:
 	sub	r4, fp, #340	@  location
 	mov	r5, r0	@  location
 	mov	r2, #320
-	ldr	r1, .L189
+	ldr	r1, .L193
 	mov	r0, r4	@  location
-	ldr	r3, .L189+4
+	ldr	r3, .L193+4
 	mov	lr, pc
 	bx	r3
 	mov	r0, r4	@  location
@@ -4928,9 +6753,9 @@ loadLevelOneHitMapTiles:
 	bl	DMAFastCopy
 	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L190:
+.L194:
 	.align	2
-.L189:
+.L193:
 	.word	.LC0
 	.word	memcpy
 	.size	loadLevelOneHitMapTiles, .-loadLevelOneHitMapTiles
@@ -4949,7 +6774,7 @@ loadLevelOnePalette:
 	mov	r2, #512
 	mov	r1, #0
 	mov	r0, r9
-	ldr	r3, .L192
+	ldr	r3, .L196
 	mov	lr, pc
 	bx	r3
 	mov	r0, r9
@@ -5243,9 +7068,9 @@ loadLevelOnePalette:
 	bl	DMAFastCopy
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L193:
+.L197:
 	.align	2
-.L192:
+.L196:
 	.word	memset
 	.size	loadLevelOnePalette, .-loadLevelOnePalette
 	.section	.rodata
@@ -13202,9 +15027,9 @@ loadLevelOneBackgroundTiles:
 	sub	r4, r4, #20	@  location,  location
 	mov	r5, r0	@  location
 	mov	r2, #7936
-	ldr	r1, .L195
+	ldr	r1, .L199
 	mov	r0, r4	@  location
-	ldr	r3, .L195+4
+	ldr	r3, .L199+4
 	mov	lr, pc
 	bx	r3
 	mov	r0, r4	@  location
@@ -13214,9 +15039,9 @@ loadLevelOneBackgroundTiles:
 	bl	DMAFastCopy
 	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L196:
+.L200:
 	.align	2
-.L195:
+.L199:
 	.word	.LC1
 	.word	memcpy
 	.size	loadLevelOneBackgroundTiles, .-loadLevelOneBackgroundTiles
@@ -15288,8 +17113,8 @@ loadLevelOneMap:
 	mov	r6, #4096
 	mov	r4, r0	@  location
 	mov	r2, r6
-	ldr	r7, .L198
-	ldr	r1, .L198+4
+	ldr	r7, .L202
+	ldr	r1, .L202+4
 	mov	r0, r5	@  location
 	mov	lr, pc
 	bx	r7
@@ -15300,9 +17125,9 @@ loadLevelOneMap:
 	bx	r7
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L199:
+.L203:
 	.align	2
-.L198:
+.L202:
 	.word	memcpy
 	.word	.LC2
 	.size	loadLevelOneMap, .-loadLevelOneMap
@@ -15335,21 +17160,21 @@ main:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
-	ldr	r3, .L205
+	ldr	r3, .L209
 	sub	fp, ip, #4
 	mov	lr, pc
 	bx	r3
-	ldr	r5, .L205+4
-	ldr	r4, .L205+8
-.L204:
+	ldr	r5, .L209+4
+	ldr	r4, .L209+8
+.L208:
 	mov	lr, pc
 	bx	r5
 	mov	lr, pc
 	bx	r4
-	b	.L204
-.L206:
+	b	.L208
+.L210:
 	.align	2
-.L205:
+.L209:
 	.word	init
 	.word	update
 	.word	draw
@@ -15365,22 +17190,22 @@ init:
 	mov	r1, #0
 	mov	r3, #67108864
 	stmfd	sp!, {fp, ip, lr, pc}
-	ldr	r2, .L208
+	ldr	r2, .L212
 	str	r1, [r3, #0]
 	sub	fp, ip, #4
 	mov	lr, pc
 	bx	r2
-	ldr	r3, .L208+4
+	ldr	r3, .L212+4
 	mov	lr, pc
 	bx	r3
-	ldr	r2, .L208+8
+	ldr	r2, .L212+8
 	mov	lr, pc
 	bx	r2
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L209:
+.L213:
 	.align	2
-.L208:
+.L212:
 	.word	backgroundSetup
 	.word	objectSetup
 	.word	timerSetup
@@ -15394,18 +17219,18 @@ timerSetup:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {fp, ip, lr, pc}
-	ldr	r3, .L211
+	ldr	r3, .L215
 	sub	fp, ip, #4
 	mov	lr, pc
 	bx	r3
-	ldr	r2, .L211+4
+	ldr	r2, .L215+4
 	mov	lr, pc
 	bx	r2
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L212:
+.L216:
 	.align	2
-.L211:
+.L215:
 	.word	buttonTimerSetup
 	.word	soundTimerSetup
 	.size	timerSetup, .-timerSetup
@@ -15453,13 +17278,13 @@ buttonTimerSetup:
 	strh	r3, [r2, #0]	@ movhi 
 	add	r0, r0, #268
 	ldrh	r2, [r0, #0]
-	ldr	r3, .L215
+	ldr	r3, .L219
 	@ lr needed for prologue
 	strh	r2, [r3, #0]	@ movhi 	@  prev_timer3
 	bx	lr
-.L216:
+.L220:
 	.align	2
-.L215:
+.L219:
 	.word	prev_timer3
 	.size	buttonTimerSetup, .-buttonTimerSetup
 	.align	2
@@ -15476,10 +17301,10 @@ objectSetup:
 	orr	r3, r3, #4160
 	sub	fp, ip, #4
 	str	r3, [r2, #0]
-	ldr	ip, .L225
+	ldr	ip, .L229
 	mov	r0, #0	@  i
 	mvn	lr, #95
-.L222:
+.L226:
 	add	r1, ip, r0, asl #3	@  i
 	ldrh	r3, [r1, #2]
 	bic	r3, r3, #268
@@ -15502,29 +17327,43 @@ objectSetup:
 	cmp	r0, #127	@  i
 	strb	r3, [r1, #1]
 	strb	r2, [r1, #3]
-	ble	.L222
+	ble	.L226
 	mov	r1, #83886080
 	mov	r3, #-2147483648
-	ldr	r0, .L225+4
+	ldr	r0, .L229+4
 	add	r1, r1, #512
 	mov	r2, #256
 	bl	DMAFastCopy
-	ldr	r0, .L225+8
-	mov	r1, #5120
+	ldr	r0, .L229+8
+	mov	r1, #512
 	mov	r2, #0
 	bl	copyToSpriteData
-	ldr	r3, .L225+12
+	ldr	r0, .L229+12
+	mov	r1, #512
+	mov	r2, #256
+	bl	copyToSpriteData
+	ldr	r0, .L229+16
+	mov	r1, #3072
+	mov	r2, #512
+	bl	copyToSpriteData
+	ldr	r3, .L229+20
 	mov	lr, pc
 	bx	r3
+	ldr	r2, .L229+24
+	mov	lr, pc
+	bx	r2
 	ldmea	fp, {fp, sp, lr}
 	bx	lr
-.L226:
+.L230:
 	.align	2
-.L225:
+.L229:
 	.word	sprites
 	.word	ChameleonPalette
 	.word	ChameleonData
+	.word	ChameleonData+4608
+	.word	FliesData
 	.word	playerObjectSetup
+	.word	flyObjectSetup
 	.size	objectSetup, .-objectSetup
 	.align	2
 	.global	playerObjectSetup
@@ -15535,7 +17374,7 @@ playerObjectSetup:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
-	ldr	r1, .L228
+	ldr	r1, .L232
 	ldrh	r3, [r1, #2]
 	bic	r3, r3, #500
 	bic	r3, r3, #3
@@ -15544,45 +17383,135 @@ playerObjectSetup:
 	sub	fp, ip, #4
 	orr	r3, r3, #8
 	ldrh	ip, [r1, #4]
-	ldr	r4, .L228+4
+	ldr	r4, .L232+4
 	strh	r3, [r1, #2]	@ movhi 
-	ldr	r3, .L228+8
+	ldr	r3, .L232+8
 	mov	r5, #0
-	mov	r2, #8
 	and	ip, ip, #64512
+	mov	r2, #8
 	strb	r2, [r1, #0]	@  <variable>.fields.y
 	strh	ip, [r1, #4]	@ movhi 
 	mov	r0, #20
 	str	r1, [r4, #0]	@  moveableHead.parentSprite
 	str	r3, [r4, #16]	@  moveableHead.collisionHandler
 	str	r5, [r4, #20]	@  moveableHead.hSpeed
-	ldr	r3, .L228+12
 	str	r5, [r4, #24]	@  moveableHead.vSpeed
 	str	r5, [r4, #28]	@  moveableHead.next
+	ldr	r3, .L232+12
 	mov	lr, pc
 	bx	r3
-	mov	r3, #1
 	ldr	r1, [r4, #0]	@  moveableHead.parentSprite
+	mov	r3, #1
 	str	r3, [r4, #12]	@  moveableHead.hitBoxCount
 	mov	r2, #16
 	mov	r3, #32
-	str	r5, [r0, #4]	@  <variable>.y
 	str	r3, [r0, #8]	@  <variable>.xSize
+	str	r5, [r0, #4]	@  <variable>.y
 	str	r2, [r0, #12]	@  <variable>.ySize
 	str	r1, [r0, #16]	@  <variable>.parentSprite
 	str	r0, [r4, #8]	@  moveableHead.hitBoxList
 	str	r0, [r4, #4]	@  moveableHead.masterHitBox
 	str	r5, [r0, #0]	@  <variable>.x
+	ldr	r3, .L232+16
+	mov	lr, pc
+	bx	r3
 	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L229:
+.L233:
 	.align	2
-.L228:
+.L232:
 	.word	sprites
 	.word	moveableHead
 	.word	playerCollisionHandler
 	.word	malloc
+	.word	tongueObjectSetup
 	.size	playerObjectSetup, .-playerObjectSetup
+	.align	2
+	.global	tongueObjectSetup
+	.type	tongueObjectSetup, %function
+tongueObjectSetup:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r1, .L235
+	ldrh	r3, [r1, #12]
+	ldrh	r2, [r1, #10]
+	bic	r3, r3, #1004
+	bic	r2, r2, #268
+	bic	r3, r3, #3
+	bic	r2, r2, #3
+	mov	r3, r3, asl #16
+	mov	r2, r2, asl #16
+	mov	r3, r3, lsr #16
+	orr	r3, r3, #16
+	mov	r2, r2, lsr #16
+	orr	r2, r2, #240
+	strh	r3, [r1, #12]	@ movhi 
+	mvn	r3, #95
+	@ lr needed for prologue
+	strh	r2, [r1, #10]	@ movhi 
+	strb	r3, [r1, #8]	@  <variable>.fields.y
+	bx	lr
+.L236:
+	.align	2
+.L235:
+	.word	sprites
+	.size	tongueObjectSetup, .-tongueObjectSetup
+	.align	2
+	.global	flyObjectSetup
+	.type	flyObjectSetup, %function
+flyObjectSetup:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {r4, r5, r6, fp, ip, lr, pc}
+	ldr	r3, .L238
+	sub	fp, ip, #4
+	mov	r0, #32
+	mov	lr, pc
+	bx	r3
+	ldr	ip, .L238+4
+	ldrh	r3, [ip, #18]
+	bic	r3, r3, #492
+	bic	r3, r3, #3
+	mov	r3, r3, asl #16
+	mov	r3, r3, lsr #16
+	ldrh	r1, [ip, #20]
+	orr	r3, r3, #16
+	strh	r3, [ip, #18]	@ movhi 
+	bic	r1, r1, #988
+	ldrb	lr, [ip, #19]	@ zero_extendqisi2
+	bic	r1, r1, #3
+	ldrb	r4, [ip, #17]	@ zero_extendqisi2
+	mov	r1, r1, asl #16
+	bic	lr, lr, #128
+	mov	r1, r1, lsr #16
+	ldr	r3, .L238+8
+	mov	r5, #0
+	bic	r4, r4, #192
+	orr	lr, lr, #64
+	orr	r1, r1, #32
+	add	r6, ip, #16
+	mvn	r2, #75
+	str	r0, [r3, #28]	@  flyOne,  moveableHead.next
+	strb	r2, [ip, #16]	@  <variable>.fields.y
+	strb	r4, [ip, #17]
+	strb	lr, [ip, #19]
+	strh	r1, [ip, #20]	@ movhi 
+	str	r6, [r0, #0]	@  <variable>.parentSprite
+	str	r5, [r0, #24]	@  <variable>.vSpeed
+	str	r5, [r0, #20]	@  <variable>.hSpeed
+	ldmea	fp, {r4, r5, r6, fp, sp, lr}
+	bx	lr
+.L239:
+	.align	2
+.L238:
+	.word	malloc
+	.word	sprites
+	.word	moveableHead
+	.size	flyObjectSetup, .-flyObjectSetup
 	.align	2
 	.global	backgroundSetup
 	.type	backgroundSetup, %function
@@ -15594,11 +17523,11 @@ backgroundSetup:
 	stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, ip, lr, pc}
 	sub	fp, ip, #4
 	sub	sp, sp, #16
-	ldr	r4, .L238
+	ldr	r4, .L248
 	mov	r0, #4096
 	mov	lr, pc
 	bx	r4
-	ldr	r5, .L238+4
+	ldr	r5, .L248+4
 	mov	r3, r0
 	str	r3, [r5, #0]	@  hitMap
 	mov	r0, #4096
@@ -15612,7 +17541,7 @@ backgroundSetup:
 	add	r1, r1, #2
 	add	ip, ip, #12
 	str	r3, [r2, #0]
-	ldr	sl, .L238+8
+	ldr	sl, .L248+8
 	mov	r3, #8064	@ movhi
 	strh	r3, [r2, #8]	@ movhi 
 	strh	r1, [r2, #10]	@ movhi 
@@ -15628,11 +17557,11 @@ backgroundSetup:
 	bl	loadLevelOneHitMap
 	ldr	r0, [sl, #0]	@  backMap
 	bl	loadLevelOneMap
-	ldr	r7, .L238+12
-	ldr	r8, .L238+16
+	ldr	r7, .L248+12
+	ldr	r8, .L248+16
 	mov	r4, #0	@  i
 	mov	r9, #32
-.L235:
+.L245:
 	ldr	ip, [r7, #0]	@  bg0map
 	ldr	r0, [r5, #0]	@  hitMap
 	mov	r1, r4	@  i
@@ -15654,13 +17583,13 @@ backgroundSetup:
 	str	r9, [sp, #12]
 	bl	copyColumn
 	cmp	r4, #29	@  i
-	ble	.L235
-	ldr	ip, .L238+20
+	ble	.L245
+	ldr	ip, .L248+20
 	mov	r4, #30
 	str	r4, [ip, #0]	@  nextRightDestination
 	ldr	r7, [r7, #0]	@  bg0map
-	ldr	lr, .L238+24
-	ldr	ip, .L238+28
+	ldr	lr, .L248+24
+	ldr	ip, .L248+28
 	ldr	r0, [r5, #0]	@  hitMap
 	mov	r6, #149	@  i
 	mov	r5, #31
@@ -15668,7 +17597,7 @@ backgroundSetup:
 	str	r7, [sp, #0]
 	str	r5, [sp, #4]
 	str	r6, [ip, #0]	@  i,  nextLeft
-	ldr	ip, .L238+32
+	ldr	ip, .L248+32
 	mov	r1, r6	@  i
 	str	r5, [ip, #0]	@  nextLeftDestination
 	mov	r2, #64
@@ -15676,9 +17605,9 @@ backgroundSetup:
 	str	r9, [sp, #8]
 	str	r9, [sp, #12]
 	bl	copyColumn
-	ldr	r3, .L238+28
+	ldr	r3, .L248+28
 	ldr	r1, [r3, #0]	@  i,  nextLeft
-	ldr	r3, .L238+32
+	ldr	r3, .L248+32
 	ldr	ip, [r8, #0]	@  bg2map
 	ldr	lr, [r3, #0]	@  nextLeftDestination
 	ldr	r0, [sl, #0]	@  backMap
@@ -15688,11 +17617,11 @@ backgroundSetup:
 	str	r9, [sp, #8]
 	str	r9, [sp, #12]
 	bl	copyColumn
-	ldr	r3, .L238+36
+	ldr	r3, .L248+36
 	mov	r1, #0
 	str	r1, [r3, #0]	@  scrolling_y
-	ldr	r2, .L238+40
-	ldr	r3, .L238+44
+	ldr	r2, .L248+40
+	ldr	r3, .L248+44
 	mov	ip, #67108864
 	mvn	r0, #0
 	strh	r1, [ip, #16]	@ movhi 
@@ -15701,9 +17630,9 @@ backgroundSetup:
 	strh	r1, [ip, #18]	@ movhi 
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L239:
+.L249:
 	.align	2
-.L238:
+.L248:
 	.word	malloc
 	.word	hitMap
 	.word	backMap
@@ -15726,32 +17655,36 @@ update:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
-	ldr	r5, .L242
+	ldr	r5, .L252
 	mov	r4, #67108864
 	add	r4, r4, #268
 	ldrh	r2, [r4, #0]
 	ldrh	r3, [r5, #0]	@  prev_timer3
 	cmp	r2, r3
 	sub	fp, ip, #4
-	beq	.L240
+	beq	.L250
 	bl	pollButtons
 	ldrh	r3, [r4, #0]
-	ldr	r2, .L242+4
+	ldr	r2, .L252+4
 	strh	r3, [r5, #0]	@ movhi 	@  prev_timer3
 	mov	lr, pc
 	bx	r2
-	ldr	r3, .L242+8
+	ldr	r3, .L252+8
 	mov	lr, pc
 	bx	r3
-.L240:
+	ldr	r0, .L252+12
+	mov	lr, pc
+	bx	r0
+.L250:
 	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L243:
+.L253:
 	.align	2
-.L242:
+.L252:
 	.word	prev_timer3
 	.word	playerMovement
 	.word	scrollControls
+	.word	tongueControls
 	.size	update, .-update
 	.align	2
 	.global	playerMovement
@@ -15767,203 +17700,76 @@ playerMovement:
 	mov	r0, #16
 	bl	checkState
 	cmp	r0, #0
-	beq	.L245
-	ldr	r4, .L282
-	ldr	r3, [r4, #0]	@  moveableHead.parentSprite
+	beq	.L255
+	ldr	r7, .L264
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #3]	@ zero_extendqisi2
 	mov	r1, #4
 	bic	r2, r2, #16
 	strb	r2, [r3, #3]
-.L277:
-	str	r1, [r4, #20]	@  moveableHead.hSpeed
-.L246:
+.L262:
+	str	r1, [r7, #20]	@  moveableHead.hSpeed
+.L256:
 	mov	r0, #64
 	bl	checkPressed
 	cmp	r0, #0
-	ldreq	r6, .L282+4
-	ldreq	r7, .L282+8
-	ldreq	r5, .L282+12
-	bne	.L281
-.L249:
-	mov	r0, #1
+	ldreq	r5, .L264+4
+	ldreq	r6, .L264+8
+	ldreq	r4, .L264+12
+	bne	.L263
+.L259:
+	mov	r0, #8
 	bl	checkPressed
 	cmp	r0, #0
 	mvnne	r3, #9
-	strne	r3, [r4, #24]	@  moveableHead.vSpeed
-	mov	r0, #256
-	bl	checkPressed
-	cmp	r0, #0
-	beq	.L251
-	mov	r0, #83886080
-	add	r0, r0, #556
-	ldrh	r2, [r0, #2]
-	mov	r1, #4544
-	add	r1, r1, #62
-	cmp	r2, r1
-	beq	.L267
-	bgt	.L261
-	mov	r3, #1104
-	add	r3, r3, #12
-	cmp	r2, r3
-	beq	.L266
-	mov	r3, #2976
-	add	r3, r3, #6
-	cmp	r2, r3
-	beq	.L269
-.L263:
-	ldr	r1, [r6, #0]	@  scrolling_x
-	ldr	r2, [r7, #0]	@  scrolling_y
-	ldr	r3, [r5, #0]	@  bg0map
-	ldr	r0, .L282
+	strne	r3, [r7, #24]	@  moveableHead.vSpeed
+	ldr	r1, [r5, #0]	@  scrolling_x
+	ldr	r2, [r6, #0]	@  scrolling_y
+	ldr	r3, [r4, #0]	@  bg0map
+	ldr	r0, .L264
 	bl	gravityControls
-	ldr	r2, [r6, #0]	@  scrolling_x
-	ldr	r3, [r5, #0]	@  bg0map
+	ldr	r2, [r5, #0]	@  scrolling_x
+	ldr	r3, [r4, #0]	@  bg0map
 	str	r2, [sp, #0]
 	mov	r1, #1
-	ldr	ip, [r7, #0]	@  scrolling_y
+	ldr	ip, [r6, #0]	@  scrolling_y
 	mov	r2, r1
-	ldr	r0, .L282
+	ldr	r0, .L264
 	str	ip, [sp, #4]
 	bl	moveObject
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L269:
-	mov	r3, #30720
-	mov	r1, #83886080
-	mov	r2, #28672
-	add	r3, r3, #228
-	add	r1, r1, #560
-	add	r2, r2, #129
-.L278:
-	strh	r3, [r0, #2]	@ movhi 
-	strh	r2, [r1, #0]	@ movhi 
-	b	.L263
-.L266:
-	mov	r2, #83886080
-	mov	r3, #1424
-	add	r2, r2, #560
-	add	r3, r3, #12
-.L279:
-	strh	r1, [r0, #2]	@ movhi 
-	strh	r3, [r2, #0]	@ movhi 
-	b	.L263
-.L261:
-	mov	r1, #28672
-	add	r1, r1, #55
-	cmp	r2, r1
-	beq	.L271
-	movle	r3, #6016
-	addle	r3, r3, #62
-	ble	.L280
-	mov	r3, #30720
-	add	r3, r3, #228
-	cmp	r2, r3
-	moveq	r2, #83886080
-	moveq	r3, #21504
-	addeq	r2, r2, #560
-	addeq	r3, r3, #50
-	bne	.L263
-	b	.L279
-.L280:
-	cmp	r2, r3
-	bne	.L263
-	mov	r3, #2976
-	mov	r1, #83886080
-	mov	r2, #5824
-	add	r3, r3, #6
-	add	r1, r1, #560
-	add	r2, r2, #40
-	b	.L278
-.L271:
-	mov	r3, #1104
-	mov	r2, r3
-	mov	r1, #83886080
-	add	r3, r3, #12
-	add	r1, r1, #560
-	add	r2, r2, #8
-	b	.L278
-.L267:
-	mov	r3, #6016
-	mov	r1, #83886080
-	mov	r2, #1808
-	add	r3, r3, #62
-	add	r1, r1, #560
-	add	r2, r2, #10
-	b	.L278
-.L251:
-	mov	r0, #512
-	bl	checkPressed
-	cmp	r0, #0
-	beq	.L263
-	mov	r0, #83886080
-	add	r0, r0, #556
-	ldrh	r2, [r0, #2]
-	mov	r1, #4544
-	add	r1, r1, #62
-	cmp	r2, r1
-	beq	.L271
-	bgt	.L274
-	mov	r3, #1104
-	add	r3, r3, #12
-	cmp	r2, r3
-	beq	.L270
-	mov	r3, #2976
-	add	r3, r3, #6
-	cmp	r2, r3
-	bne	.L263
-	b	.L267
-.L270:
-	mov	r3, #28672
-	mov	r1, #83886080
-	mov	r2, #21504
-	add	r3, r3, #55
-	add	r1, r1, #560
-	add	r2, r2, #50
-	b	.L278
-.L274:
-	mov	r3, #28672
-	add	r3, r3, #55
-	cmp	r2, r3
-	beq	.L269
-	movgt	r3, #30720
-	addgt	r3, r3, #228
-	bgt	.L280
-	mov	r3, #6016
-	add	r3, r3, #62
-	cmp	r2, r3
-	bne	.L263
-	b	.L266
-.L281:
-	ldr	r7, .L282+8
-	ldr	r6, .L282+4
-	ldr	r2, [r7, #0]	@  scrolling_y
-	ldr	r5, .L282+12
-	ldr	r1, [r6, #0]	@  scrolling_x
-	ldr	r3, [r5, #0]	@  bg0map
+.L263:
+	ldr	r6, .L264+8
+	ldr	r5, .L264+4
+	ldr	r2, [r6, #0]	@  scrolling_y
+	ldr	r4, .L264+12
+	ldr	r1, [r5, #0]	@  scrolling_x
+	ldr	r3, [r4, #0]	@  bg0map
 	add	r2, r2, #1
-	ldr	r0, .L282
+	ldr	r0, .L264
 	bl	hitDetection
 	cmp	r0, #0
 	mvnne	r3, #9
-	strne	r3, [r4, #24]	@  moveableHead.vSpeed
-	b	.L249
-.L245:
+	strne	r3, [r7, #24]	@  moveableHead.vSpeed
+	b	.L259
+.L255:
 	mov	r0, #32
 	bl	checkState
 	cmp	r0, #0
-	ldreq	r4, .L282
-	streq	r0, [r4, #20]	@  moveableHead.hSpeed
-	beq	.L246
-	ldr	r4, .L282
-	ldr	r3, [r4, #0]	@  moveableHead.parentSprite
+	ldreq	r7, .L264
+	streq	r0, [r7, #20]	@  moveableHead.hSpeed
+	beq	.L256
+	ldr	r7, .L264
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #3]	@ zero_extendqisi2
 	orr	r2, r2, #16
 	strb	r2, [r3, #3]
 	mvn	r1, #3
-	b	.L277
-.L283:
+	b	.L262
+.L265:
 	.align	2
-.L282:
+.L264:
 	.word	moveableHead
 	.word	scrolling_x
 	.word	scrolling_y
@@ -15977,129 +17783,106 @@ scrollControls:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
-	stmfd	sp!, {r4, r5, r6, fp, ip, lr, pc}
-	ldr	r4, .L309
-	mov	r3, #268
-	ldr	r2, [r4, #0]	@  scrolling_x
-	add	r3, r3, #2
-	cmp	r2, r3
-	sub	fp, ip, #4
-	bgt	.L286
-	ldr	r6, .L309+4
-	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
-	ldrh	r3, [r2, #2]
-	mov	r3, r3, asl #23
-	mov	r3, r3, lsr #23
-	cmp	r3, #160
-	ble	.L286
-	ldr	r5, .L309+8
-.L289:
-	mov	lr, pc
-	bx	r5
-	ldr	r1, [r6, #0]	@  moveableHead.parentSprite
-	ldrh	r2, [r1, #2]
-	mov	r3, r2, asl #23
-	sub	r3, r3, #8388608
-	orr	r3, r3, r2, lsr #9
-	mov	r3, r3, ror #23
-	strh	r3, [r1, #2]	@ movhi 
-	mov	r2, #268
+	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
+	ldr	r4, .L291
+	mov	r1, #268
 	ldr	r3, [r4, #0]	@  scrolling_x
-	add	r2, r2, #2
-	cmp	r3, r2
-	bgt	.L286
-	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
+	add	r1, r1, #2
+	cmp	r3, r1
+	sub	fp, ip, #4
+	bgt	.L268
+	ldr	r7, .L291+4
+	ldr	r2, [r7, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #160
-	bgt	.L289
-.L286:
+	ble	.L268
+	ldr	r6, .L291+8
+	mov	r5, r1
+.L271:
+	mov	lr, pc
+	bx	r6
+	ldr	r3, [r4, #0]	@  scrolling_x
+	cmp	r3, r5
+	bgt	.L268
+	ldr	r2, [r7, #0]	@  moveableHead.parentSprite
+	ldrh	r3, [r2, #2]
+	mov	r3, r3, asl #23
+	mov	r3, r3, lsr #23
+	cmp	r3, #160
+	bgt	.L271
+.L268:
 	ldr	r3, [r4, #0]	@  scrolling_x
 	cmp	r3, #0
-	ble	.L291
-	ldr	r6, .L309+4
-	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
+	ble	.L273
+	ldr	r7, .L291+4
+	ldr	r2, [r7, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #39
-	bgt	.L291
-	ldr	r5, .L309+12
-.L294:
+	bgt	.L273
+	ldr	r5, .L291+12
+.L276:
 	mov	lr, pc
 	bx	r5
-	ldr	r1, [r6, #0]	@  moveableHead.parentSprite
-	ldrh	r2, [r1, #2]
-	mov	r3, r2, asl #23
-	add	r3, r3, #8388608
-	orr	r3, r3, r2, lsr #9
-	mov	r3, r3, ror #23
-	strh	r3, [r1, #2]	@ movhi 
-	ldr	r2, [r4, #0]	@  scrolling_x
-	cmp	r2, #0
-	ble	.L291
-	ldr	r2, [r6, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r4, #0]	@  scrolling_x
+	cmp	r3, #0
+	ble	.L273
+	ldr	r2, [r7, #0]	@  moveableHead.parentSprite
 	ldrh	r3, [r2, #2]
 	mov	r3, r3, asl #23
 	mov	r3, r3, lsr #23
 	cmp	r3, #39
-	ble	.L294
-.L291:
-	ldr	r4, .L309+16
+	ble	.L276
+.L273:
+	ldr	r4, .L291+16
 	ldr	r3, [r4, #0]	@  scrolling_y
 	cmp	r3, #95
-	bgt	.L296
-	ldr	r6, .L309+4
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	bgt	.L278
+	ldr	r7, .L291+4
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	cmp	r2, #120
-	bls	.L296
-	ldr	r5, .L309+20
-.L299:
+	bls	.L278
+	ldr	r5, .L291+20
+.L281:
 	mov	lr, pc
 	bx	r5
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
-	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
-	sub	r2, r2, #1
-	strb	r2, [r3, #0]	@  <variable>.fields.y
-	ldr	r1, [r4, #0]	@  scrolling_y
-	cmp	r1, #95
-	bgt	.L296
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r4, #0]	@  scrolling_y
+	cmp	r3, #95
+	bgt	.L278
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	cmp	r2, #120
-	bhi	.L299
-.L296:
+	bhi	.L281
+.L278:
 	ldr	r3, [r4, #0]	@  scrolling_y
 	cmp	r3, #0
-	ble	.L301
-	ldr	r6, .L309+4
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ble	.L283
+	ldr	r7, .L291+4
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	cmp	r2, #39
-	bhi	.L301
-	ldr	r5, .L309+24
-.L304:
+	bhi	.L283
+	ldr	r5, .L291+24
+.L286:
 	mov	lr, pc
 	bx	r5
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
-	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
-	add	r2, r2, #1
-	strb	r2, [r3, #0]	@  <variable>.fields.y
-	ldr	r1, [r4, #0]	@  scrolling_y
-	cmp	r1, #0
-	ble	.L301
-	ldr	r3, [r6, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r4, #0]	@  scrolling_y
+	cmp	r3, #0
+	ble	.L283
+	ldr	r3, [r7, #0]	@  moveableHead.parentSprite
 	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	cmp	r2, #39
-	bls	.L304
-.L301:
-	ldmea	fp, {r4, r5, r6, fp, sp, lr}
+	bls	.L286
+.L283:
+	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L310:
+.L292:
 	.align	2
-.L309:
+.L291:
 	.word	scrolling_x
 	.word	moveableHead
 	.word	rightScroll
@@ -16109,6 +17892,191 @@ scrollControls:
 	.word	upScroll
 	.size	scrollControls, .-scrollControls
 	.align	2
+	.global	tongueControls
+	.type	tongueControls, %function
+tongueControls:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 1, uses_anonymous_args = 0
+	mov	ip, sp
+	stmfd	sp!, {fp, ip, lr, pc}
+	mov	r0, #1
+	sub	fp, ip, #4
+	bl	checkState
+	cmp	r0, #0
+	beq	.L294
+	ldr	r1, .L325
+	ldrh	r2, [r1, #2]	@  sprites
+	ldrb	r0, [r1, #3]	@ zero_extendqisi2	@  sprites
+	mov	r2, r2, asl #23
+	mov	r0, r0, lsr #4
+	ldrh	r3, [r1, #10]
+	and	r0, r0, #1
+	mov	r2, r2, lsr #23
+	sub	r2, r2, r0, asl #6
+	add	r2, r2, #32
+	mov	r3, r3, lsr #9
+	orr	r3, r3, r2, asl #23
+	mov	r3, r3, ror #23
+	strh	r3, [r1, #10]	@ movhi 
+	ldrb	r2, [r1, #11]	@ zero_extendqisi2
+	ldrb	r3, [r1, #0]	@ zero_extendqisi2
+	bic	r2, r2, #16
+	orr	r2, r2, r0, asl #4
+	strb	r2, [r1, #11]
+	strb	r3, [r1, #8]	@  <variable>.fields.y
+.L295:
+	mov	r0, #256
+	bl	checkPressed
+	cmp	r0, #0
+	beq	.L297
+	mov	r0, #83886080
+	add	r0, r0, #556
+	ldrh	r2, [r0, #2]
+	mov	r1, #4544
+	add	r1, r1, #62
+	cmp	r2, r1
+	beq	.L313
+	bgt	.L307
+	mov	r3, #1104
+	add	r3, r3, #12
+	cmp	r2, r3
+	beq	.L312
+	mov	r3, #2976
+	add	r3, r3, #6
+	cmp	r2, r3
+	beq	.L315
+.L293:
+	ldmea	fp, {fp, sp, lr}
+	bx	lr
+.L315:
+	mov	r3, #30720
+	mov	r1, #83886080
+	mov	r2, #28672
+	add	r3, r3, #228
+	add	r1, r1, #560
+	add	r2, r2, #129
+.L322:
+	strh	r3, [r0, #2]	@ movhi 
+	strh	r2, [r1, #0]	@ movhi 
+	b	.L293
+.L312:
+	mov	r2, #83886080
+	mov	r3, #1424
+	add	r2, r2, #560
+	add	r3, r3, #12
+.L323:
+	strh	r1, [r0, #2]	@ movhi 
+	strh	r3, [r2, #0]	@ movhi 
+	b	.L293
+.L307:
+	mov	r1, #28672
+	add	r1, r1, #55
+	cmp	r2, r1
+	beq	.L317
+	movle	r3, #6016
+	addle	r3, r3, #62
+	ble	.L324
+	mov	r3, #30720
+	add	r3, r3, #228
+	cmp	r2, r3
+	moveq	r2, #83886080
+	moveq	r3, #21504
+	addeq	r2, r2, #560
+	addeq	r3, r3, #50
+	bne	.L293
+	b	.L323
+.L324:
+	cmp	r2, r3
+	bne	.L293
+	mov	r3, #2976
+	mov	r1, #83886080
+	mov	r2, #5824
+	add	r3, r3, #6
+	add	r1, r1, #560
+	add	r2, r2, #40
+	b	.L322
+.L317:
+	mov	r3, #1104
+	mov	r2, r3
+	mov	r1, #83886080
+	add	r3, r3, #12
+	add	r1, r1, #560
+	add	r2, r2, #8
+	b	.L322
+.L313:
+	mov	r3, #6016
+	mov	r1, #83886080
+	mov	r2, #1808
+	add	r3, r3, #62
+	add	r1, r1, #560
+	add	r2, r2, #10
+	b	.L322
+.L297:
+	mov	r0, #512
+	bl	checkPressed
+	cmp	r0, #0
+	beq	.L293
+	mov	r0, #83886080
+	add	r0, r0, #556
+	ldrh	r2, [r0, #2]
+	mov	r1, #4544
+	add	r1, r1, #62
+	cmp	r2, r1
+	beq	.L317
+	bgt	.L320
+	mov	r3, #1104
+	add	r3, r3, #12
+	cmp	r2, r3
+	beq	.L316
+	mov	r3, #2976
+	add	r3, r3, #6
+	cmp	r2, r3
+	bne	.L293
+	b	.L313
+.L316:
+	mov	r3, #28672
+	mov	r1, #83886080
+	mov	r2, #21504
+	add	r3, r3, #55
+	add	r1, r1, #560
+	add	r2, r2, #50
+	b	.L322
+.L320:
+	mov	r3, #28672
+	add	r3, r3, #55
+	cmp	r2, r3
+	beq	.L315
+	movgt	r3, #30720
+	addgt	r3, r3, #228
+	bgt	.L324
+	mov	r3, #6016
+	add	r3, r3, #62
+	cmp	r2, r3
+	bne	.L293
+	b	.L312
+.L294:
+	mov	r0, #1
+	bl	checkReleased
+	cmp	r0, #0
+	beq	.L295
+	ldr	r3, .L325
+	ldrh	r2, [r3, #10]
+	bic	r2, r2, #268
+	bic	r2, r2, #3
+	mov	r2, r2, asl #16
+	mov	r2, r2, lsr #16
+	orr	r2, r2, #240
+	mvn	r1, #15
+	strb	r1, [r3, #8]	@  <variable>.fields.y
+	strh	r2, [r3, #10]	@ movhi 
+	b	.L295
+.L326:
+	.align	2
+.L325:
+	.word	sprites
+	.size	tongueControls, .-tongueControls
+	.align	2
 	.global	downScroll
 	.type	downScroll, %function
 downScroll:
@@ -16116,15 +18084,32 @@ downScroll:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r2, .L312
-	ldr	r3, [r2, #0]	@  scrolling_y
+	ldr	ip, .L334
+	ldr	r1, .L334+4
+	ldr	r0, [ip, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r1, #0]	@  scrolling_y
+	ldrb	r2, [r0, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	add	r3, r3, #1
+	sub	r2, r2, #1
+	str	r3, [r1, #0]	@  scrolling_y
+	strb	r2, [r0, #0]	@  <variable>.fields.y
+	ldr	r1, [ip, #28]	@  currentMove,  moveableHead.next
+	cmp	r1, #0	@  currentMove
 	@ lr needed for prologue
-	str	r3, [r2, #0]	@  scrolling_y
+	bxeq	lr
+.L331:
+	ldr	r2, [r1, #0]	@  <variable>.parentSprite
+	ldrb	r3, [r2, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	sub	r3, r3, #1
+	strb	r3, [r2, #0]	@  <variable>.fields.y
+	ldr	r1, [r1, #28]	@  currentMove,  <variable>.next
+	cmp	r1, #0	@  currentMove
+	bne	.L331
 	bx	lr
-.L313:
+.L335:
 	.align	2
-.L312:
+.L334:
+	.word	moveableHead
 	.word	scrolling_y
 	.size	downScroll, .-downScroll
 	.align	2
@@ -16135,15 +18120,32 @@ upScroll:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r2, .L315
-	ldr	r3, [r2, #0]	@  scrolling_y
+	ldr	ip, .L343
+	ldr	r1, .L343+4
+	ldr	r0, [ip, #0]	@  moveableHead.parentSprite
+	ldr	r3, [r1, #0]	@  scrolling_y
+	ldrb	r2, [r0, #0]	@ zero_extendqisi2	@  <variable>.fields.y
 	sub	r3, r3, #1
+	add	r2, r2, #1
+	str	r3, [r1, #0]	@  scrolling_y
+	strb	r2, [r0, #0]	@  <variable>.fields.y
+	ldr	r1, [ip, #28]	@  currentMove,  moveableHead.next
+	cmp	r1, #0	@  currentMove
 	@ lr needed for prologue
-	str	r3, [r2, #0]	@  scrolling_y
+	bxeq	lr
+.L340:
+	ldr	r2, [r1, #0]	@  <variable>.parentSprite
+	ldrb	r3, [r2, #0]	@ zero_extendqisi2	@  <variable>.fields.y
+	add	r3, r3, #1
+	strb	r3, [r2, #0]	@  <variable>.fields.y
+	ldr	r1, [r1, #28]	@  currentMove,  <variable>.next
+	cmp	r1, #0	@  currentMove
+	bne	.L340
 	bx	lr
-.L316:
+.L344:
 	.align	2
-.L315:
+.L343:
+	.word	moveableHead
 	.word	scrolling_y
 	.size	upScroll, .-upScroll
 	.align	2
@@ -16155,72 +18157,96 @@ rightScroll:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r1, .L325
+	ldr	r0, .L359
 	sub	fp, ip, #4
 	sub	sp, sp, #16
-	ldr	r2, [r1, #0]	@  scrolling_x
+	ldr	ip, [r0, #0]	@  moveableHead.parentSprite
+	ldrh	r1, [ip, #2]
+	ldr	lr, .L359+4
+	mov	r3, r1, asl #23
+	ldr	r2, [lr, #0]	@  scrolling_x
+	ldr	r0, [r0, #28]	@  currentMove,  moveableHead.next
+	sub	r3, r3, #8388608
+	orr	r3, r3, r1, lsr #9
 	add	r2, r2, #1
+	mov	r3, r3, ror #23
+	cmp	r0, #0	@  currentMove
+	str	r2, [lr, #0]	@  scrolling_x
+	strh	r3, [ip, #2]	@ movhi 
+	beq	.L357
+.L349:
+	ldr	r1, [r0, #0]	@  <variable>.parentSprite
+	ldrh	r2, [r1, #2]
+	mov	r3, r2, asl #23
+	sub	r3, r3, #8388608
+	orr	r3, r3, r2, lsr #9
+	mov	r3, r3, ror #23
+	strh	r3, [r1, #2]	@ movhi 
+	ldr	r0, [r0, #28]	@  currentMove,  <variable>.next
+	cmp	r0, #0	@  currentMove
+	bne	.L349
+.L357:
+	ldr	r2, [lr, #0]	@  scrolling_x
 	mov	r3, r2, asr #31
 	add	r3, r2, r3, lsr #29
 	bic	r3, r3, #7
 	rsb	r5, r3, r2
 	cmp	r5, #1
-	str	r2, [r1, #0]	@  scrolling_x
-	beq	.L324
-.L317:
+	beq	.L358
+.L345:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L324:
-	ldr	r3, .L325+4
-	ldr	r6, .L325+8
+.L358:
+	ldr	r3, .L359+8
+	ldr	r7, .L359+12
 	ldr	r0, [r3, #0]	@  hitMap
-	ldr	r3, .L325+12
-	ldr	r7, .L325+16
+	ldr	r3, .L359+16
+	ldr	r6, .L359+20
 	ldr	lr, [r3, #0]	@  bg0map
 	mov	r4, #32
-	ldr	ip, [r6, #0]	@  nextRightDestination
+	ldr	ip, [r7, #0]	@  nextRightDestination
 	mov	r3, r4
-	ldr	r1, [r7, #0]	@  nextRight
+	ldr	r1, [r6, #0]	@  nextRight
 	mov	r2, #64
 	str	lr, [sp, #0]
 	str	ip, [sp, #4]
 	str	r4, [sp, #8]
 	str	r4, [sp, #12]
 	bl	copyColumn
-	ldr	r3, .L325+20
+	ldr	r3, .L359+24
 	ldr	r0, [r3, #0]	@  backMap
-	ldr	r3, .L325+24
-	ldr	lr, [r6, #0]	@  nextRightDestination
+	ldr	r3, .L359+28
+	ldr	lr, [r7, #0]	@  nextRightDestination
 	ldr	ip, [r3, #0]	@  bg2map
-	ldr	r1, [r7, #0]	@  nextRight
+	ldr	r1, [r6, #0]	@  nextRight
 	mov	r3, r4
 	mov	r2, #64
 	stmia	sp, {ip, lr}	@ phole stm
 	str	r4, [sp, #8]
 	str	r4, [sp, #12]
 	bl	copyColumn
-	ldr	r3, [r7, #0]	@  nextRight
-	ldr	ip, .L325+28
+	ldr	r3, [r6, #0]	@  nextRight
+	ldr	ip, .L359+32
 	add	r3, r3, #1
-	ldr	r2, [r6, #0]	@  nextRightDestination
+	ldr	r2, [r7, #0]	@  nextRightDestination
 	cmp	r3, #149
-	str	r3, [r7, #0]	@  nextRight
-	ldr	lr, .L325+32
+	str	r3, [r6, #0]	@  nextRight
+	ldr	lr, .L359+36
 	movgt	r3, #0
 	ldr	r1, [ip, #0]	@  nextLeft
 	add	r2, r2, #1
-	strgt	r3, [r7, #0]	@  nextRight
+	strgt	r3, [r6, #0]	@  nextRight
 	cmp	r2, #31
 	movgt	r3, #0
 	ldr	r0, [lr, #0]	@  nextLeftDestination
 	add	r1, r1, #1
-	str	r2, [r6, #0]	@  nextRightDestination
-	strgt	r3, [r6, #0]	@  nextRightDestination
+	str	r2, [r7, #0]	@  nextRightDestination
+	strgt	r3, [r7, #0]	@  nextRightDestination
 	cmp	r1, #149
 	movgt	r3, #0
 	add	r0, r0, #1
 	str	r1, [ip, #0]	@  nextLeft
-	ldr	r4, .L325+36
+	ldr	r4, .L359+40
 	strgt	r3, [ip, #0]	@  nextLeft
 	cmp	r0, #31
 	movgt	r3, #0
@@ -16228,25 +18254,26 @@ rightScroll:
 	strgt	r3, [lr, #0]	@  nextLeftDestination
 	ldr	r3, [r4, #0]	@  goingRight
 	cmp	r3, #0
-	bne	.L323
-	ldr	r3, [r7, #0]	@  nextRight
-	ldr	r2, [r6, #0]	@  nextRightDestination
+	bne	.L355
+	ldr	r3, [r6, #0]	@  nextRight
+	ldr	r2, [r7, #0]	@  nextRightDestination
 	ldr	r1, [ip, #0]	@  nextLeft
 	ldr	r0, [lr, #0]	@  nextLeftDestination
 	add	r3, r3, #1
 	add	r2, r2, #1
 	add	r1, r1, #1
 	add	r0, r0, #1
-	str	r3, [r7, #0]	@  nextRight
-	str	r2, [r6, #0]	@  nextRightDestination
+	str	r3, [r6, #0]	@  nextRight
+	str	r2, [r7, #0]	@  nextRightDestination
 	str	r1, [ip, #0]	@  nextLeft
 	str	r0, [lr, #0]	@  nextLeftDestination
-.L323:
+.L355:
 	str	r5, [r4, #0]	@  goingRight
-	b	.L317
-.L326:
+	b	.L345
+.L360:
 	.align	2
-.L325:
+.L359:
+	.word	moveableHead
 	.word	scrolling_x
 	.word	hitMap
 	.word	nextRightDestination
@@ -16267,27 +18294,51 @@ leftScroll:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
 	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r1, .L335
+	ldr	r0, .L375
 	sub	fp, ip, #4
 	sub	sp, sp, #16
-	ldr	r2, [r1, #0]	@  scrolling_x
+	ldr	ip, [r0, #0]	@  moveableHead.parentSprite
+	ldrh	r1, [ip, #2]
+	ldr	lr, .L375+4
+	mov	r3, r1, asl #23
+	ldr	r2, [lr, #0]	@  scrolling_x
+	ldr	r0, [r0, #28]	@  currentMove,  moveableHead.next
+	add	r3, r3, #8388608
+	orr	r3, r3, r1, lsr #9
 	sub	r2, r2, #1
+	mov	r3, r3, ror #23
+	cmp	r0, #0	@  currentMove
+	str	r2, [lr, #0]	@  scrolling_x
+	strh	r3, [ip, #2]	@ movhi 
+	beq	.L373
+.L365:
+	ldr	r1, [r0, #0]	@  <variable>.parentSprite
+	ldrh	r2, [r1, #2]
+	mov	r3, r2, asl #23
+	sub	r3, r3, #8388608
+	orr	r3, r3, r2, lsr #9
+	mov	r3, r3, ror #23
+	strh	r3, [r1, #2]	@ movhi 
+	ldr	r0, [r0, #28]	@  currentMove,  <variable>.next
+	cmp	r0, #0	@  currentMove
+	bne	.L365
+.L373:
+	ldr	r2, [lr, #0]	@  scrolling_x
 	mov	r3, r2, asr #31
 	add	r3, r2, r3, lsr #29
 	bic	r3, r3, #7
-	rsb	r3, r3, r2
-	cmp	r3, #7
-	str	r2, [r1, #0]	@  scrolling_x
-	beq	.L334
-.L327:
+	rsb	r2, r3, r2
+	cmp	r2, #7
+	beq	.L374
+.L361:
 	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
 	bx	lr
-.L334:
-	ldr	r3, .L335+4
-	ldr	r6, .L335+8
+.L374:
+	ldr	r3, .L375+8
+	ldr	r6, .L375+12
 	ldr	r0, [r3, #0]	@  hitMap
-	ldr	r3, .L335+12
-	ldr	r5, .L335+16
+	ldr	r3, .L375+16
+	ldr	r5, .L375+20
 	ldr	lr, [r3, #0]	@  bg0map
 	mov	r4, #32
 	ldr	ip, [r6, #0]	@  nextLeftDestination
@@ -16299,9 +18350,9 @@ leftScroll:
 	str	r4, [sp, #8]
 	str	r4, [sp, #12]
 	bl	copyColumn
-	ldr	r3, .L335+20
+	ldr	r3, .L375+24
 	ldr	r0, [r3, #0]	@  backMap
-	ldr	r3, .L335+24
+	ldr	r3, .L375+28
 	ldr	lr, [r6, #0]	@  nextLeftDestination
 	ldr	ip, [r3, #0]	@  bg2map
 	ldr	r1, [r5, #0]	@  nextLeft
@@ -16310,10 +18361,10 @@ leftScroll:
 	stmia	sp, {ip, lr}	@ phole stm
 	str	r4, [sp, #8]
 	str	r4, [sp, #12]
-	ldr	r7, .L335+28
+	ldr	r7, .L375+32
 	bl	copyColumn
-	ldr	r4, .L335+32
-	ldr	lr, .L335+36
+	ldr	r4, .L375+36
+	ldr	lr, .L375+40
 	ldr	r1, [r4, #0]	@  nextRightDestination
 	ldr	r2, [lr, #0]	@  nextRight
 	ldr	r0, [r5, #0]	@  nextLeft
@@ -16328,7 +18379,7 @@ leftScroll:
 	str	r1, [r4, #0]	@  nextRightDestination
 	str	r0, [r5, #0]	@  nextLeft
 	str	ip, [r6, #0]	@  nextLeftDestination
-	beq	.L329
+	beq	.L367
 	sub	r3, r2, #1
 	sub	r2, r1, #1
 	sub	r1, r0, #1
@@ -16337,7 +18388,7 @@ leftScroll:
 	str	r2, [r4, #0]	@  nextRightDestination
 	str	r1, [r5, #0]	@  nextLeft
 	str	r0, [r6, #0]	@  nextLeftDestination
-.L329:
+.L367:
 	ldr	r3, [lr, #0]	@  nextRight
 	cmp	r3, #0
 	movlt	r3, #149
@@ -16356,10 +18407,11 @@ leftScroll:
 	strlt	r3, [r6, #0]	@  nextLeftDestination
 	mov	r3, #0
 	str	r3, [r7, #0]	@  goingRight
-	b	.L327
-.L336:
+	b	.L361
+.L376:
 	.align	2
-.L335:
+.L375:
+	.word	moveableHead
 	.word	scrolling_x
 	.word	hitMap
 	.word	nextLeftDestination
@@ -16383,9 +18435,9 @@ draw:
 	sub	fp, ip, #4
 	sub	sp, sp, #4
 	bl	waitVBlank
-	ldr	r2, .L359
+	ldr	r2, .L399
 	ldrh	r3, [r2, #0]	@  scrolling_x
-	ldr	r2, .L359+4
+	ldr	r2, .L399+4
 	ldrh	r1, [r2, #0]	@  scrolling_y
 	mov	r2, #67108864
 	strh	r3, [r2, #16]	@ movhi 
@@ -16395,19 +18447,19 @@ draw:
 	strh	r3, [r2, #24]	@ movhi 
 	strh	r1, [r2, #26]	@ movhi 
 	bl	writeToOAM
-	ldr	r3, .L359+8
+	ldr	r3, .L399+8
 	mov	ip, #0	@  i
 	mov	r1, #1020
 	ldr	r2, [r3, #0]	@  bg1map
 	add	r1, r1, #3
 	mov	r0, ip	@  i,  i
-.L342:
+.L382:
 	mov	r3, ip, asl #1	@  i
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r1	@  i
 	strh	r0, [r3, r2]	@ movhi 	@  i
-	ble	.L342
-	ldr	r2, .L359+12
+	ble	.L382
+	ldr	r2, .L399+12
 	ldr	r1, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r3, [r1, #12]	@  <variable>.ySize
 	mov	r2, r3, asr #31
@@ -16415,31 +18467,31 @@ draw:
 	mov	r3, r3, asr #3
 	cmp	r0, r3	@  i
 	mov	ip, #0	@  i
-	bgt	.L356
+	bgt	.L396
 	str	r3, [fp, #-44]
 	mov	r2, r1
 	mov	r9, r1
-.L352:
+.L392:
 	ldr	r2, [r2, #8]	@  <variable>.xSize
 	mov	r3, r2, asr #31
 	adds	r3, r2, r3, lsr #29
 	mov	lr, #0	@  j
-	bmi	.L358
-	ldr	r2, .L359+12
+	bmi	.L398
+	ldr	r2, .L399+12
 	ldr	r3, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r1, [r3, #8]	@  <variable>.xSize
-	ldr	r3, .L359+8
+	ldr	r3, .L399+8
 	mov	r2, r1, asr #31
 	add	r1, r1, r2, lsr #29
 	ldr	r8, [r3, #0]	@  bg1map
-	ldr	r2, .L359+4
-	ldr	r3, .L359
-	ldr	sl, .L359+16
+	ldr	r2, .L399+4
+	ldr	r3, .L399
+	ldr	sl, .L399+16
 	ldr	r6, [r2, #0]	@  scrolling_y
 	ldr	r7, [r3, #0]	@  scrolling_x
 	mov	r5, r1, asr #3
 	mov	r4, ip, asl #3	@  i
-.L351:
+.L391:
 	ldrb	r3, [sl, #0]	@ zero_extendqisi2
 	ldrh	r2, [sl, #2]	@  sprites
 	add	r3, r3, r6
@@ -16468,19 +18520,19 @@ draw:
 	mov	r2, #2	@ movhi
 	cmp	lr, r5	@  j
 	strh	r2, [r3, r8]	@ movhi 
-	ble	.L351
-.L358:
+	ble	.L391
+.L398:
 	ldr	r3, [fp, #-44]
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r3	@  i
 	mov	r2, r9
-	ble	.L352
-.L356:
+	ble	.L392
+.L396:
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L360:
+.L400:
 	.align	2
-.L359:
+.L399:
 	.word	scrolling_x
 	.word	scrolling_y
 	.word	bg1map

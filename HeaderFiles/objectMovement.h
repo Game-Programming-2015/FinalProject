@@ -200,3 +200,14 @@ int playerCollisionHandler(int collisionID,Moveable *self){
     
     return r;
 }
+
+Moveable* addMoveable(Moveable *head,Moveable *toAdd){
+    if (head==NULL){
+        head=toAdd;
+    }
+    else{
+        head->next=addMoveable(head->next,toAdd);
+    }
+    
+    return head;
+}
