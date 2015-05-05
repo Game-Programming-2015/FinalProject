@@ -82,7 +82,7 @@ typedef union tagSprite3{
     SpriteAttributes attributes;
 } Sprite, *pSprite;
 
-
+//sprites[i].fields.x = #HERE;
 Sprite sprites[128];
 
 void copySpritePalette(unsigned short myPalette[256]){

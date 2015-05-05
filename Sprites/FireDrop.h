@@ -5,6 +5,10 @@
 #define  FireDrop_WIDTH   8
 #define  FireDrop_HEIGHT  24
 
+#define Fire_1  0
+#define Fire_2  1
+#define Drop    2
+
 
 const u16 FireDropData[] = {
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0200, 0x0002, 0x0000, 0x0000, 0x0200,

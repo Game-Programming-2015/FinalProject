@@ -5,6 +5,19 @@
 #define  Flies_WIDTH   16
 #define  Flies_HEIGHT  192
 
+#define Red_1       0
+#define Red_2       1
+#define Orange_1    2
+#define Orange_2    3
+#define Yellow_1    4
+#define Yellow_2    5
+#define Green_1     6
+#define Green_2     7
+#define Blue_1      8
+#define Blue_2      9
+#define Indigo_1    10
+#define Indigo_2    11
+
 
 const u16 FliesData[] = {
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0C00, 0x000C,

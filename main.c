@@ -19,6 +19,9 @@
 
 
 #include "Sprites/Chameleon.h"
+#include "Sprites/Sprites.h"
+#include "Sprites/Flies.h"
+#include "Sprites/FireDrop.h"
 
 //Sound files
 //Tyler commented these out because it makes compiling take almost a minute when they're included, and I didn't want to sit through it. It compiles with them there just fine, though.
@@ -133,8 +136,11 @@ void objectSetup(void){
     }
 
     //Write sprite data in
-    DMAFastCopy((void*)ChameleonPalette, (void*)spritePal,256, DMA_16NOW);
-    copyToSpriteData(ChameleonData,Chameleon_WIDTH*Chameleon_HEIGHT,0);
+    DMAFastCopy((void*)SpritesPalette, (void*)spritePal,256, DMA_16NOW);
+    //copy in chameleon sprite
+    copyToSpriteData(SpritesData,Sprites_WIDTH*16,0);
+    //chameleon tongue sprite
+    copyToSpriteData(SpritesData+(256*Chameleon_tongueSprite),Sprites_WIDTH*16,256);
     
     playerObjectSetup();
     
@@ -176,7 +182,7 @@ void backgroundSetup(void){
     //Load the pallete, tiles, and hitmap
     loadLevelOnePalette();
 
-    loadLevelOneHitmapTiles((void*)CharBaseBlock(0));
+    //loadLevelOneHitmapTiles((void*)CharBaseBlock(0));
     
     loadLevelOneHitMap(hitMap);
 
@@ -208,6 +214,66 @@ void update(void){
         playerMovement();
         scrollControls();
     }
+}
+
+//update animations for objects
+void nextFrameObject(Moveable *object){
+    object->parentSprite->fields.tileIndex=object->nextFrame;
+    object->nextFrame=object->currentFrame;
+}
+
+//update animations for player
+void nextFramePlayer(Moveable *player, int condition){
+    //conditions are as follows:
+    //0: moving
+    //1: jump
+    //3: attacking
+    //4: jumping and attacking
+    //use no condition if you want to return to default
+    
+    switch(condition){
+        case 0:
+        nextFrameRun();
+        break;
+        case 1:
+        nextFrameJump();
+        break;
+        case 3:
+        nextFrameAttack();
+        break;
+        case 4:
+        nextFrameJumpAttack();
+        default:
+        defaultFrame();
+        break;
+    }
+    
+}
+
+//note, these assume the chameleon sprite is at the first index(0)
+void defaultFrame(void){
+    //puts the main chameleon sprite back
+    copyToSpriteData(SpritesData+(256*Chameleon_run1),Sprites_WIDTH*16,0);
+}
+
+void nextFrameRun(void){
+    //places the run sprite at the chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_run2),Sprites_WIDTH*16,0);
+}
+
+void nextFrameJump(void){
+    //places jump sprite at chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_jump),Sprites_WIDTH*16,0);
+}
+
+void nextFrameAttack(void){
+    //places attack sprite at chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_groundLick),Sprites_WIDTH*16,0);
+}
+
+void nextFrameJumpAttack(void){
+    //places jump attack sprite at chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_jumpLick),Sprites_WIDTH*16,0);
 }
 
 //Update player movment, left/right/up with button presses, up/down with gravity
