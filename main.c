@@ -1,7 +1,9 @@
 #include <string.h>
 
-#include "Sprites/Chameleon.h"
+#include "Sprites/Sprites.h"
+//#include "Sprites/Chameleon.h"
 #include "Sprites/Flies.h"
+#include "Sprites/FireDrop.h"
 
 #include "HeaderFiles/button.h"
 #include "HeaderFiles/mode0.h"
@@ -59,6 +61,15 @@ void loadLevel03(void);
 void loadVictory(void);*/
 
 void update(void);
+void objectsAnimationUpdate(void);
+void nextFrameObject(Moveable*);
+void nextFramePlayer(int);
+void defaultFrame(void);
+void nextFrameRun(void);
+void nextFrameJump(void);
+void nextFrameAttack(void);
+void nextFrameJumpAttack(void);
+void playerAnimationControls(void);
 void playerMovement(void);
 void scrollControls(void);
 void leftScroll(void);
@@ -146,11 +157,25 @@ void objectSetup(void){
     }
 
     //Write sprite data in
-    DMAFastCopy((void*)ChameleonPalette, (void*)spritePal,256, DMA_16NOW);
+    DMAFastCopy((void*)SpritesPalette, (void*)spritePal,256, DMA_16NOW);
 
-    copyToSpriteData( ChameleonData+256*Chameleon_run1 ,512,0);
-    copyToSpriteData( ChameleonData+256*Chameleon_tongueSprite ,512,256);
+    copyToSpriteData( SpritesData+256*Chameleon_run1 ,512,0);
+    copyToSpriteData( SpritesData+256*Chameleon_tongueSprite ,512,256);
+    //flies
+    //red is at 16
+    //orange is at 24
+    //yellow is at 32
+    //green 40
+    //blue is at 48
+    //indigo 56
     copyToSpriteData( FliesData ,3072,512);
+    //copy in slime at 64
+    copyToSpriteData(SpritesData+256*Slime_1, 1024, 2048);
+    //copy in fire and drop
+    //fire is at 80
+    //drop is at 82
+    copyToSpriteData(FireDropData, 8*24, 2560);
+    //copyToSpriteData(SpritesData, Sprites_WIDTH*Sprites_HEIGHT, 0);
     
     //Sprites 0 and 1 are reserved for the player and the tongue
     playerObjectSetup();
@@ -208,6 +233,8 @@ void flyObjectSetup(void){
     flyOne->parentSprite=&(sprites[2]);
     flyOne->hSpeed=0;
     flyOne->vSpeed=0;
+    flyOne->currentFrame=16;
+    flyOne->nextFrame=20;
     
     flyOneHitbox->x=0;
     flyOneHitbox->y=0;
@@ -276,8 +303,8 @@ void backgroundSetup(void){
 void update(void){
     if (REG_TM3D!=prev_timer3){ //On button timer update
         pollButtons();
+        //objectsAnimationUpdate();
         prev_timer3=REG_TM3D;
-        
         playerMovement();
         scrollControls();
 
@@ -285,11 +312,112 @@ void update(void){
         if (REG_TM3D%2)
             //Calculate the vSpeed for the player based on gravity
             gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
+            
         //Move the player objects
         moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
         
+        playerAnimationControls();
         tongueControls();
     }
+}
+
+//update animations for objects
+void objectsAnimationUpdate(void){
+    Moveable* current = moveableHead.next;
+    while(current->currentFrame!=0){
+        nextFrameObject(current);
+        current = current->next;
+    }
+}
+
+void nextFrameObject(Moveable *object){
+    object->parentSprite->fields.tileIndex=object->nextFrame;
+    object->nextFrame=object->currentFrame;
+}
+
+//update animations for player
+void nextFramePlayer(int condition){
+    //conditions are as follows:
+    //0: moving
+    //1: jump
+    //3: attacking
+    //4: jumping and attacking
+    //use no condition if you want to return to default
+
+    switch(condition){
+        case 0:
+        nextFrameRun();
+        break;
+        case 1:
+        nextFrameJump();
+        break;
+        case 3:
+        nextFrameAttack();
+        break;
+        case 4:
+        nextFrameJumpAttack();
+        break;
+        default:
+        defaultFrame();
+        break;
+    }
+
+}
+
+//note, these assume the chameleon sprite is at the first index(0)
+void defaultFrame(void){
+    //puts the main chameleon sprite back
+    copyToSpriteData(SpritesData+(256*Chameleon_run1),Sprites_WIDTH*16,0);
+}
+
+void nextFrameRun(void){
+    //places the run sprite at the chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_run2),Sprites_WIDTH*16,0);
+}
+
+void nextFrameJump(void){
+    //places jump sprite at chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_jump),Sprites_WIDTH*16,0);
+}
+
+void nextFrameAttack(void){
+    //places attack sprite at chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_groundLick),Sprites_WIDTH*16,0);
+}
+
+void nextFrameJumpAttack(void){
+    //places jump attack sprite at chameleon sprite index
+    copyToSpriteData(SpritesData+(256*Chameleon_jumpLick),Sprites_WIDTH*16,0);
+}
+
+void playerAnimationControls(){
+    //will decide what animation to play for the player based on conditions
+    if(!hitDetection(&moveableHead,scrolling_x,scrolling_y+1,bg0map)){
+        if(checkState(BTN_A)){
+            nextFramePlayer(4);
+        }
+        else{
+            nextFramePlayer(1);
+        }
+    }
+    else{
+        if(checkState(BTN_A)){
+            nextFramePlayer(3);
+        }
+        else{
+            nextFramePlayer(9);
+        }
+    }
+    
+    if(checkState(BTN_LEFT) || checkState(BTN_RIGHT)){
+        if(REG_TM3D%2){
+            nextFramePlayer(0);
+        }
+        else{
+            nextFramePlayer(9);
+        }
+    }
+    
 }
 
 //Update player movment, left/right/up with button presses, up/down with gravity
@@ -313,6 +441,7 @@ void playerMovement(void){
       && hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) //If there is a block directly below the player.
     ){
         moveableHead.vSpeed=-7; //Tell the player object to move up
+        
     }
     //Debug thing
     if ( checkPressed(BTN_START) ){
@@ -465,7 +594,7 @@ void leftScroll(void){
 }
 
 int isFly(pSprite sprite){
-    return (sprite->fields.tileIndex>=32 && sprite->fields.tileIndex<20000);
+    return (sprite->fields.tileIndex>=32 && sprite->fields.tileIndex<64);
 }
 
 void changeColor(pSprite flySprite){

@@ -19,6 +19,12 @@ typedef struct moveable_object{
     int hSpeed;
     int vSpeed;
     
+    //for animation
+    //these are the tile indexes
+    //obviously, for player chameleon, these will be the exact same, as player animations works differently
+    int currentFrame;
+    int nextFrame;
+    
     //Make this into a linked list so it can be easy to move all sprites around in one swoop
     //I think this will be easier than an array, but feel free to pitch me reasons why not.
     struct moveable_object *next;
