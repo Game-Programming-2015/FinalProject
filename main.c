@@ -436,6 +436,16 @@ void nextFrameJumpAttack(void){
 
 void playerAnimationControls(){
     //will decide what animation to play for the player based on conditions
+    
+    if(checkState(BTN_LEFT) || checkState(BTN_RIGHT)){
+        if(REG_TM3D%2){
+            nextFramePlayer(0);
+        }
+        else{
+            nextFramePlayer(9);
+        }
+    }
+    
     if(!hitDetection(&moveableHead,scrolling_x,scrolling_y+1,bg0map)){
         if(checkState(BTN_A)){
             nextFramePlayer(4);
@@ -447,15 +457,6 @@ void playerAnimationControls(){
     else{
         if(checkState(BTN_A)){
             nextFramePlayer(3);
-        }
-        else{
-            nextFramePlayer(9);
-        }
-    }
-    
-    if(checkState(BTN_LEFT) || checkState(BTN_RIGHT)){
-        if(REG_TM3D%2){
-            nextFramePlayer(0);
         }
         else{
             nextFramePlayer(9);
