@@ -5,8 +5,48 @@
 #define  Sprites_WIDTH   32
 #define  Sprites_HEIGHT  256
 
+//Defines for changing colors on the chameleon
+//Indices (this will make it easier to change the palette if it needs changed (I think it does))
+#define  mainColorIndex 23
+#define  secondaryColorIndex 24
 
-const u16 SpritesData[] = {
+//Locations in spritePalette of the primary and secondary colors for the chameleon
+#define  mainColor (spritePal[mainColorIndex])
+#define  secondaryColor (spritePal[secondaryColorIndex])
+
+//Various color definitions. These can and perhaps should be changed, I just picked them randomly
+#define  redMain 0x045C
+#define  redSecondary 0x0458
+#define  orangeMain 0x11FE
+#define  orangeSecondary 0x059C
+#define  yellowMain 0x17BE
+#define  yellowSecondary 0x071A
+#define  greenMain 0x0BA6
+#define  greenSecondary 0x16E8
+#define  blueMain 0x78E4
+#define  blueSecondary 0x7081
+#define  violetMain 0x7037
+#define  violetSecondary 0x5432
+
+#define Chameleon_run1          0
+#define Chameleon_run2          1
+#define Chameleon_groundLick    2
+#define Chameleon_jump          3
+#define Chameleon_jumpLick      4
+#define Chameleon_tongueSprite  5
+#define Bird_1                  6
+#define Bird_2                  7
+#define Slime_1                 8
+#define Slime_2                 9
+#define Lynx_1                  10
+#define Lynx_2                  11
+#define Lynx_eat                12
+#define Bug_1                   13
+#define Bug_2                   14
+#define Smoke                   15
+
+
+const unsigned short SpritesData[] = {
                     0x0000, 0x0000, 0x0002, 0x0000, 0x0000, 0x1700, 0x174C, 0x0000, 0x0000, 0x1717,
                     0x1700, 0x0017, 0x4C02, 0x004C, 0x0000, 0x024C, 0x0000, 0x0017, 0x1702, 0x0017,
                     0x4C02, 0x004C, 0x0000, 0x0000, 0x0000, 0x1717, 0x0000, 0x0000, 0x0000, 0x1700,
@@ -416,9 +456,9 @@ const u16 SpritesData[] = {
                     0x0000, 0x0000, 0x0000, 0x0000, 0x4C4C, 0x004C, 0x0000, 0x0000, 0x4C4C, 0x0000,
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
-                    0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,};
+                    0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000};
 
-const u16 SpritesPalette[] = {
+const unsigned short SpritesPalette[] = {
                     0x0000, 0x0002, 0x043E, 0x0C7A, 0x18D6, 0x1CEC, 0x0853, 0x042F, 0x042A, 0x211E,
                     0x2D7D, 0x463D, 0x5ADD, 0x7426, 0x5CE9, 0x3D09, 0x20A6, 0x5024, 0x2802, 0x750B,
                     0x75D0, 0x7654, 0x76F8, 0x0BA6, 0x16E8, 0x1DE8, 0x1926, 0x06A5, 0x0562, 0x1FAB,
@@ -444,4 +484,4 @@ const u16 SpritesPalette[] = {
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
-                    0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,};
+                    0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000};
