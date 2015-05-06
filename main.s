@@ -18335,6 +18335,53 @@ leftScroll:
 	.word	nextRight
 	.size	leftScroll, .-leftScroll
 	.align	2
+	.global	isFly
+	.type	isFly, %function
+isFly:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldrh	r0, [r0, #4]
+	mov	r0, r0, asl #22
+	mov	r0, r0, lsr #22
+	sub	r0, r0, #32
+	cmp	r0, #19968
+	movcs	r0, #0	@  sprite
+	movcc	r0, #1	@  sprite
+	@ lr needed for prologue
+	bx	lr
+	.size	isFly, .-isFly
+	.align	2
+	.global	changeColor
+	.type	changeColor, %function
+changeColor:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldrh	r3, [r0, #4]
+	mov	r3, r3, asl #22
+	mov	ip, #83886080
+	mov	r1, #1104
+	mov	r3, r3, lsr #22
+	mov	r0, ip
+	mov	r2, r1
+	cmp	r3, #32
+	@ lr needed for prologue
+	add	ip, ip, #556
+	add	r1, r1, #12
+	add	r0, r0, #560
+	add	r2, r2, #8
+	beq	.L351
+	cmp	r3, #40
+	bxne	lr
+.L351:
+	strh	r1, [ip, #2]	@ movhi 
+	strh	r2, [r0, #0]	@ movhi 
+	bx	lr
+	.size	changeColor, .-changeColor
+	.align	2
 	.global	tongueControls
 	.type	tongueControls, %function
 tongueControls:
@@ -18342,15 +18389,15 @@ tongueControls:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 1, uses_anonymous_args = 0
 	mov	ip, sp
-	stmfd	sp!, {r4, r5, r6, r7, fp, ip, lr, pc}
-	ldr	r3, .L358
+	stmfd	sp!, {r4, r5, fp, ip, lr, pc}
+	ldr	r3, .L366
 	sub	fp, ip, #4
 	mov	r0, #1
-	ldr	r4, [r3, #28]	@  currentMoveable,  moveableHead.next
+	ldr	r5, [r3, #28]	@  currentMoveable,  moveableHead.next
 	bl	checkState
 	cmp	r0, #0
-	beq	.L348
-	ldr	r1, .L358+4
+	beq	.L355
+	ldr	r1, .L366+4
 	ldrh	r2, [r1, #2]	@  sprites
 	ldrb	r0, [r1, #3]	@ zero_extendqisi2	@  sprites
 	mov	r2, r2, asl #23
@@ -18370,35 +18417,37 @@ tongueControls:
 	orr	r2, r2, r0, asl #4
 	strb	r2, [r1, #11]
 	strb	r3, [r1, #8]	@  <variable>.fields.y
-.L349:
-	cmp	r4, #0	@  currentMoveable
-	beq	.L357
-	mov	r3, #83886080
-	mov	r5, #6016
-	add	r7, r3, #560
-	add	r6, r3, #556
-	add	r5, r5, #62
-.L355:
-	ldr	r0, [r4, #4]	@  <variable>.masterHitBox
-	ldr	r1, .L358+8
-	bl	checkTwoHitBoxCollision
-	mov	r3, #1808
-	ldr	r4, [r4, #28]	@  currentMoveable,  <variable>.next
+.L356:
+	cmp	r5, #0	@  currentMoveable
+	beq	.L364
+.L362:
+	ldr	r4, [r5, #0]	@  <variable>.parentSprite
+	mov	r0, r4
+	bl	isFly
 	cmp	r0, #0
-	add	r3, r3, #10
-	strneh	r5, [r6, #2]	@ movhi 
-	strneh	r3, [r7, #0]	@ movhi 
-	cmp	r4, #0	@  currentMoveable
-	bne	.L355
-.L357:
-	ldmea	fp, {r4, r5, r6, r7, fp, sp, lr}
+	ldr	r1, .L366+8
+	beq	.L361
+	ldr	r0, [r5, #4]	@  <variable>.masterHitBox
+	bl	checkTwoHitBoxCollision
+	cmp	r0, #0
+	mov	r0, r4
+	bne	.L365
+.L361:
+	ldr	r5, [r5, #28]	@  currentMoveable,  <variable>.next
+	cmp	r5, #0	@  currentMoveable
+	bne	.L362
+.L364:
+	ldmea	fp, {r4, r5, fp, sp, lr}
 	bx	lr
-.L348:
+.L365:
+	bl	changeColor
+	b	.L361
+.L355:
 	mov	r0, #1
 	bl	checkReleased
 	cmp	r0, #0
-	beq	.L349
-	ldr	r3, .L358+4
+	beq	.L356
+	ldr	r3, .L366+4
 	ldrh	r2, [r3, #10]
 	bic	r2, r2, #268
 	bic	r2, r2, #3
@@ -18408,10 +18457,10 @@ tongueControls:
 	mvn	r1, #15
 	strb	r1, [r3, #8]	@  <variable>.fields.y
 	strh	r2, [r3, #10]	@ movhi 
-	b	.L349
-.L359:
+	b	.L356
+.L367:
 	.align	2
-.L358:
+.L366:
 	.word	moveableHead
 	.word	sprites
 	.word	tongueHitBox
@@ -18428,9 +18477,9 @@ draw:
 	sub	fp, ip, #4
 	sub	sp, sp, #4
 	bl	waitVBlank
-	ldr	r2, .L382
+	ldr	r2, .L390
 	ldrh	r3, [r2, #0]	@  scrolling_x
-	ldr	r2, .L382+4
+	ldr	r2, .L390+4
 	ldrh	r1, [r2, #0]	@  scrolling_y
 	mov	r2, #67108864
 	strh	r3, [r2, #16]	@ movhi 
@@ -18440,19 +18489,19 @@ draw:
 	strh	r3, [r2, #24]	@ movhi 
 	strh	r1, [r2, #26]	@ movhi 
 	bl	writeToOAM
-	ldr	r3, .L382+8
+	ldr	r3, .L390+8
 	mov	ip, #0	@  i
 	mov	r1, #1020
 	ldr	r2, [r3, #0]	@  bg1map
 	add	r1, r1, #3
 	mov	r0, ip	@  i,  i
-.L365:
+.L373:
 	mov	r3, ip, asl #1	@  i
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r1	@  i
 	strh	r0, [r3, r2]	@ movhi 	@  i
-	ble	.L365
-	ldr	r2, .L382+12
+	ble	.L373
+	ldr	r2, .L390+12
 	ldr	r1, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r3, [r1, #12]	@  <variable>.ySize
 	mov	r2, r3, asr #31
@@ -18460,31 +18509,31 @@ draw:
 	mov	r3, r3, asr #3
 	cmp	r0, r3	@  i
 	mov	ip, #0	@  i
-	bgt	.L379
+	bgt	.L387
 	str	r3, [fp, #-44]
 	mov	r2, r1
 	mov	r9, r1
-.L375:
+.L383:
 	ldr	r2, [r2, #8]	@  <variable>.xSize
 	mov	r3, r2, asr #31
 	adds	r3, r2, r3, lsr #29
 	mov	lr, #0	@  j
-	bmi	.L381
-	ldr	r2, .L382+12
+	bmi	.L389
+	ldr	r2, .L390+12
 	ldr	r3, [r2, #4]	@  moveableHead.masterHitBox
 	ldr	r1, [r3, #8]	@  <variable>.xSize
-	ldr	r3, .L382+8
+	ldr	r3, .L390+8
 	mov	r2, r1, asr #31
 	add	r1, r1, r2, lsr #29
 	ldr	r8, [r3, #0]	@  bg1map
-	ldr	r2, .L382+4
-	ldr	r3, .L382
-	ldr	sl, .L382+16
+	ldr	r2, .L390+4
+	ldr	r3, .L390
+	ldr	sl, .L390+16
 	ldr	r6, [r2, #0]	@  scrolling_y
 	ldr	r7, [r3, #0]	@  scrolling_x
 	mov	r5, r1, asr #3
 	mov	r4, ip, asl #3	@  i
-.L374:
+.L382:
 	ldrb	r3, [sl, #0]	@ zero_extendqisi2
 	ldrh	r2, [sl, #2]	@  sprites
 	add	r3, r3, r6
@@ -18513,19 +18562,19 @@ draw:
 	mov	r2, #2	@ movhi
 	cmp	lr, r5	@  j
 	strh	r2, [r3, r8]	@ movhi 
-	ble	.L374
-.L381:
+	ble	.L382
+.L389:
 	ldr	r3, [fp, #-44]
 	add	ip, ip, #1	@  i,  i
 	cmp	ip, r3	@  i
 	mov	r2, r9
-	ble	.L375
-.L379:
+	ble	.L383
+.L387:
 	ldmea	fp, {r4, r5, r6, r7, r8, r9, sl, fp, sp, lr}
 	bx	lr
-.L383:
+.L391:
 	.align	2
-.L382:
+.L390:
 	.word	scrolling_x
 	.word	scrolling_y
 	.word	bg1map

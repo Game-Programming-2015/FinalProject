@@ -464,6 +464,20 @@ void leftScroll(void){
     }
 }
 
+int isFly(pSprite sprite){
+    return (sprite->fields.tileIndex>=32 && sprite->fields.tileIndex<20000);
+}
+
+void changeColor(pSprite flySprite){
+    switch (flySprite->fields.tileIndex){
+        case 32:
+        case 40: //I don't know what number this should be. Animation 2 for the red fly
+            mainColor=redMain;
+            secondaryColor=redSecondary;
+            break;
+    }
+}
+
 void tongueControls(void){
     Moveable *currentMoveable = moveableHead.next;
     if ( checkState(BTN_A) ){
@@ -478,10 +492,9 @@ void tongueControls(void){
 
     //Check if the tongue is hitting any flies
     while (currentMoveable!=NULL){
-        if ( checkTwoHitBoxCollision(currentMoveable->masterHitBox,&tongueHitBox) ){
+        if ( isFly(currentMoveable->parentSprite) && checkTwoHitBoxCollision(currentMoveable->masterHitBox,&tongueHitBox) ){
             //Maybe check for another collision from the subhitboxess
-            mainColor=yellowMain;
-            secondaryColor=yellowSecondary;
+            changeColor(currentMoveable->parentSprite);
         }
         currentMoveable=currentMoveable->next;
     }
