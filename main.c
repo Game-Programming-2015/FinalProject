@@ -24,6 +24,7 @@
 
 //Sound files
 //Tyler commented these out because it makes compiling take almost a minute when they're included, and I didn't want to sit through it. It compiles with them there just fine, though.
+/*
 #include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
@@ -37,6 +38,7 @@
 #include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
 #include "Sounds/victory.h"
+*/
 
 //Function prototypes
 void init(void);
@@ -48,17 +50,20 @@ void flyObjectSetup(void);
 void timerSetup(void);
 void buttonTimerSetup(void);
 void soundTimerSetup(void);
+/*
 void loadMainMenu(void);
+
 void loadLevel01(void);
 void loadLevel02(void);
 void loadLevel03(void);
-void loadVictory(void);
+void loadVictory(void);*/
 
 void update(void);
 void playerMovement(void);
 void scrollControls(void);
 void leftScroll(void);
 void rightScroll(void);
+void tongueControls(void);
 
 void draw(void);
 
@@ -70,8 +75,10 @@ int nextRight,nextLeft,nextRightDestination,nextLeftDestination,goingRight,scrol
 unsigned short *hitMap,*backMap;
 unsigned short prev_timer3;
 Moveable moveableHead;
+HitBox tongueHitBox;
 
 //define sound files
+/*
 sound attackSnd = {&attack_bin, 8000, 1120};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
@@ -80,6 +87,7 @@ sound enemy_die2Snd = {&enemy_die2_bin, 8000, 1424};
 sound getflySnd = {&getfly_bin, 8000, 5136};
 sound jumpSnd = {&jump_bin, 8000, 2672};
 sound omnom1Snd = {&omnom1_bin, 8000, 10160};
+*/
 
 int main(void){
     init();
@@ -179,10 +187,18 @@ void tongueObjectSetup(void){
     sprites[1].fields.x=240;
     sprites[1].fields.y=160;
     sprites[1].fields.tileIndex=16;
+    
+    tongueHitBox.x=0;
+    tongueHitBox.y=8;
+    tongueHitBox.xSize=17;
+    tongueHitBox.ySize=2;
+    tongueHitBox.parentSprite=&(sprites[1]);
 }
 
 void flyObjectSetup(void){
     Moveable *flyOne=malloc(sizeof(Moveable)*1);
+    pHitBox flyOneHitbox=malloc(sizeof(HitBox)*1);
+    
     sprites[2].fields.x=16;
     sprites[2].fields.y=180;
     sprites[2].fields.shape=0;
@@ -192,6 +208,16 @@ void flyObjectSetup(void){
     flyOne->parentSprite=&(sprites[2]);
     flyOne->hSpeed=0;
     flyOne->vSpeed=0;
+    
+    flyOneHitbox->x=0;
+    flyOneHitbox->y=0;
+    flyOneHitbox->xSize=16;
+    flyOneHitbox->ySize=16;
+    flyOneHitbox->parentSprite=&(sprites[2]);
+    
+    flyOne->masterHitBox=flyOneHitbox;
+    flyOne->hitBoxList=flyOneHitbox;
+    flyOne->hitBoxCount=1;
     
     //addMoveable(&moveableHead,flyOne);
     moveableHead.next=flyOne;
@@ -254,6 +280,13 @@ void update(void){
         
         playerMovement();
         scrollControls();
+
+        //Don't do this every frame
+        if (REG_TM3D%2)
+            //Calculate the vSpeed for the player based on gravity
+            gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
+        //Move the player objects
+        moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
         
         tongueControls();
     }
@@ -279,17 +312,12 @@ void playerMovement(void){
     if ( checkPressed(BTN_UP)
       && hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) //If there is a block directly below the player.
     ){
-        moveableHead.vSpeed=-10; //Tell the player object to move up
+        moveableHead.vSpeed=-7; //Tell the player object to move up
     }
     //Debug thing
     if ( checkPressed(BTN_START) ){
         moveableHead.vSpeed=-10;
     }
-    
-    //Calculate the vSpeed for the player based on gravity
-    gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
-    //Move the player objects
-    moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
 }
 
 void scrollControls(void){
@@ -319,7 +347,125 @@ void scrollControls(void){
     }
 }
 
+
+void downScroll(void){
+    Moveable *currentMove;
+    
+    scrolling_y++;
+    moveableHead.parentSprite->fields.y--;
+    
+    currentMove=moveableHead.next;
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.y--;
+        currentMove=currentMove->next;
+    }
+    
+}
+
+void upScroll(void){
+    Moveable *currentMove;
+    
+    scrolling_y--;
+    moveableHead.parentSprite->fields.y++;
+    
+    currentMove=moveableHead.next;
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.y++;
+        currentMove=currentMove->next;
+    }
+}
+
+void rightScroll(void){
+    Moveable *currentMove=moveableHead.next;
+    
+    scrolling_x++; //Scroll right. This will be applied to the scrolling register during the draw portion
+    moveableHead.parentSprite->fields.x--;
+    
+    //Move all the object so they can move on/off screen.
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.x--;
+        currentMove=currentMove->next;
+    }
+    
+    
+    if (scrolling_x%8==1){ //If starting on a new column in the scrolling, copy the next column in to be prepared
+        copyColumn(hitMap,nextRight,64,32,bg0map,nextRightDestination,32,32);
+        copyColumn(backMap,nextRight,64,32,bg2map,nextRightDestination,32,32);
+        
+        //Increment the destinations.
+        nextRight++;
+        nextRightDestination++;
+        nextLeft++;
+        nextLeftDestination++;
+
+        //Bounds checking. This is kind of avoided by the "Can't scroll past the edge" thing.
+        if (nextRight>149)
+            nextRight=0;
+        if (nextRightDestination>31)
+            nextRightDestination=0;
+
+        if (nextLeft>149)
+            nextLeft=0;
+        if (nextLeftDestination>31)
+            nextLeftDestination=0;
+            
+        //If you change directions, you have to double increment. It's a thing that I've always had to do and never understood why, in lots of things.
+        if (!goingRight){
+            nextRight++;
+            nextRightDestination++;
+            nextLeft++;
+            nextLeftDestination++;
+        }
+        
+        //Change directions. This would also be where you would update the hFlip.
+        goingRight=1;
+    }
+}
+
+//Essentially the same as rightScroll();
+void leftScroll(void){
+    Moveable *currentMove=moveableHead.next;
+    
+    scrolling_x--;
+    moveableHead.parentSprite->fields.x++;
+    
+    while (currentMove!=NULL){
+        currentMove->parentSprite->fields.x++;
+        currentMove=currentMove->next;
+    }
+
+    if (scrolling_x%8==7){
+        copyColumn(hitMap,nextLeft,64,32,bg0map,nextLeftDestination,32,32);
+        copyColumn(backMap,nextLeft,64,32,bg2map,nextLeftDestination,32,32);
+        nextRight--;
+        nextRightDestination--;
+        nextLeft--;
+        nextLeftDestination--;
+
+        if (goingRight){
+            nextRight--;
+            nextRightDestination--;
+            nextLeft--;
+            nextLeftDestination--;
+        }
+
+        if (nextRight<0)
+            nextRight=149;
+        if (nextRightDestination<0)
+            nextRightDestination=31;
+
+        if (nextLeft<0)
+            nextLeft=149;
+        if (nextLeftDestination<0)
+            nextLeftDestination=31;
+
+
+        goingRight=0;
+    }
+}
+
 void tongueControls(void){
+    Moveable *currentMoveable = moveableHead.next;
     if ( checkState(BTN_A) ){
         sprites[1].fields.x=sprites[0].fields.x+32-64*sprites[0].fields.horizontalFlip;
         sprites[1].fields.y=sprites[0].fields.y;
@@ -329,7 +475,17 @@ void tongueControls(void){
         sprites[1].fields.x=240;
         sprites[1].fields.y=240;
     }
-    
+
+    //Check if the tongue is hitting any flies
+    while (currentMoveable!=NULL){
+        if ( checkTwoHitBoxCollision(currentMoveable->masterHitBox,&tongueHitBox) ){
+            //Maybe check for another collision from the subhitboxess
+            mainColor=yellowMain;
+            secondaryColor=yellowSecondary;
+        }
+        currentMoveable=currentMoveable->next;
+    }
+    /*
     //Debug thing
     if ( checkPressed(BTN_R) ){
         switch (mainColor){
@@ -386,122 +542,7 @@ void tongueControls(void){
                 secondaryColor=redSecondary;
                 break;
         }
-    }
-}
-
-void downScroll(void){
-    Moveable *currentMove;
-    
-    scrolling_y++;
-    moveableHead.parentSprite->fields.y--;
-    
-    currentMove=moveableHead.next;
-    while (currentMove!=NULL){
-        currentMove->parentSprite->fields.y--;
-        currentMove=currentMove->next;
-    }
-    
-}
-
-void upScroll(void){
-    Moveable *currentMove;
-    
-    scrolling_y--;
-    moveableHead.parentSprite->fields.y++;
-    
-    currentMove=moveableHead.next;
-    while (currentMove!=NULL){
-        currentMove->parentSprite->fields.y++;
-        currentMove=currentMove->next;
-    }
-}
-
-void rightScroll(void){
-    Moveable *currentMove=moveableHead.next;
-    
-    scrolling_x++; //Scroll right. This will be applied to the scrolling register during the draw portion
-    moveableHead.parentSprite->fields.x--;
-    
-    while (currentMove!=NULL){
-        currentMove->parentSprite->fields.x--;
-        currentMove=currentMove->next;
-    }
-    
-    
-    if (scrolling_x%8==1){ //If starting on a new column in the scrolling, copy the next column in to be prepared
-        copyColumn(hitMap,nextRight,64,32,bg0map,nextRightDestination,32,32);
-        copyColumn(backMap,nextRight,64,32,bg2map,nextRightDestination,32,32);
-        
-        //Increment the destinations.
-        nextRight++;
-        nextRightDestination++;
-        nextLeft++;
-        nextLeftDestination++;
-
-        //Bounds checking. This is kind of avoided by the "Can't scroll past the edge" thing.
-        if (nextRight>149)
-            nextRight=0;
-        if (nextRightDestination>31)
-            nextRightDestination=0;
-
-        if (nextLeft>149)
-            nextLeft=0;
-        if (nextLeftDestination>31)
-            nextLeftDestination=0;
-            
-        //If you change directions, you have to double increment. It's a thing that I've always had to do and never understood why, in lots of things.
-        if (!goingRight){
-            nextRight++;
-            nextRightDestination++;
-            nextLeft++;
-            nextLeftDestination++;
-        }
-        
-        //Change directions. This would also be where you would update the hFlip.
-        goingRight=1;
-    }
-}
-
-//Essentially the same as rightScroll();
-void leftScroll(void){
-    Moveable *currentMove=moveableHead.next;
-    
-    scrolling_x--;
-    moveableHead.parentSprite->fields.x++;
-    
-    while (currentMove!=NULL){
-        currentMove->parentSprite->fields.x--;
-        currentMove=currentMove->next;
-    }
-
-    if (scrolling_x%8==7){
-        copyColumn(hitMap,nextLeft,64,32,bg0map,nextLeftDestination,32,32);
-        copyColumn(backMap,nextLeft,64,32,bg2map,nextLeftDestination,32,32);
-        nextRight--;
-        nextRightDestination--;
-        nextLeft--;
-        nextLeftDestination--;
-
-        if (goingRight){
-            nextRight--;
-            nextRightDestination--;
-            nextLeft--;
-            nextLeftDestination--;
-        }
-
-        if (nextRight<0)
-            nextRight=149;
-        if (nextRightDestination<0)
-            nextRightDestination=31;
-
-        if (nextLeft<0)
-            nextLeft=149;
-        if (nextLeftDestination<0)
-            nextLeftDestination=31;
-
-
-        goingRight=0;
-    }
+    }*/
 }
 
 void draw(void){
@@ -528,7 +569,7 @@ void draw(void){
     }
 
 }
-
+/*
 void loadMainMenu(void){
     songLength = set_mainmenu(&song);
     channelMus.pBuffer = song;
@@ -556,4 +597,4 @@ void loadVictory(void){
     songLength = set_victory(&song);
     channelMus.pBuffer = song;
     channelMus.length = songLength;
-}
+}*/

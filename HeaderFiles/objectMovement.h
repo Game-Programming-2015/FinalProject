@@ -4,14 +4,14 @@ typedef struct hitBox{
     int xSize;
     int ySize;
     pSprite parentSprite;
-} HitBox, *pHitbox;
+} HitBox, *pHitBox;
 
 typedef struct moveable_object{
     pSprite parentSprite;
     
     //Hitbox information
-    pHitbox masterHitBox; //A big outer hitbox to check before the hitBoxList for a collision
-    pHitbox hitBoxList; //A list of more accurate hitboxes to check
+    pHitBox masterHitBox; //A big outer hitbox to check before the hitBoxList for a collision
+    pHitBox hitBoxList; //A list of more accurate hitboxes to check
     int hitBoxCount;
     int (*collisionHandler)(int collisionId,struct moveable_object *self); //A function that defines how this object should handle collisions
     
@@ -210,4 +210,19 @@ Moveable* addMoveable(Moveable *head,Moveable *toAdd){
     }
     
     return head;
+}
+
+
+int checkTwoHitBoxCollision(pHitBox one,pHitBox two){
+    int leftOne=one->x+one->parentSprite->fields.x;
+    int topOne=one->y+one->parentSprite->fields.y;
+    int rightOne=leftOne+one->xSize;
+    int bottomOne=topOne+one->ySize;
+    
+    int leftTwo=two->x+two->parentSprite->fields.x;
+    int topTwo=two->y+two->parentSprite->fields.y;
+    int rightTwo=leftTwo+two->xSize;
+    int bottomTwo=topTwo+two->ySize;
+    
+    return ( leftOne<rightTwo && rightOne>leftTwo && bottomOne>topTwo && topOne<bottomTwo );
 }
