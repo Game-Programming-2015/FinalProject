@@ -63,6 +63,8 @@ void playerMovement(void);
 void scrollControls(void);
 void leftScroll(void);
 void rightScroll(void);
+void downScroll(void);
+void upScroll(void);
 void tongueControls(void);
 
 void draw(void);
@@ -160,8 +162,8 @@ void objectSetup(void){
 
 void playerObjectSetup(void){
     //Start player positions
-    sprites[0].fields.x=8;
-    sprites[0].fields.y=8;
+    sprites[0].fields.x=84;
+    sprites[0].fields.y=87;
     sprites[0].fields.tileIndex=0;
     //Setup player movement controller
     moveableHead.parentSprite=&sprites[0];
@@ -199,11 +201,11 @@ void flyObjectSetup(void){
     Moveable *flyOne=malloc(sizeof(Moveable)*1);
     pHitBox flyOneHitbox=malloc(sizeof(HitBox)*1);
     
-    sprites[2].fields.x=16;
-    sprites[2].fields.y=180;
+    sprites[2].fields.x=71;
+    sprites[2].fields.y=184;
     sprites[2].fields.shape=0;
     sprites[2].fields.size=1;
-    sprites[2].fields.tileIndex=32;
+    sprites[2].fields.tileIndex=redFlyOne;
     
     flyOne->parentSprite=&(sprites[2]);
     flyOne->hSpeed=0;
@@ -219,15 +221,57 @@ void flyObjectSetup(void){
     flyOne->hitBoxList=flyOneHitbox;
     flyOne->hitBoxCount=1;
     
-    //addMoveable(&moveableHead,flyOne);
-    moveableHead.next=flyOne;
-    /*
-    sprites[3].fields.x=32;
-    sprites[3].fields.y=64;
+    addMoveable(&moveableHead,flyOne);
+    
+    flyOne=malloc(sizeof(Moveable)*1);
+    flyOneHitbox=malloc(sizeof(HitBox)*1);
+
+    sprites[3].fields.x=360;
+    sprites[3].fields.y=32;
     sprites[3].fields.shape=0;
     sprites[3].fields.size=1;
-    sprites[3].fields.tileIndex=40;
-    */
+    sprites[3].fields.tileIndex=violetFlyTwo;
+
+    flyOne->parentSprite=&(sprites[3]);
+    flyOne->hSpeed=0;
+    flyOne->vSpeed=0;
+
+    flyOneHitbox->x=0;
+    flyOneHitbox->y=0;
+    flyOneHitbox->xSize=16;
+    flyOneHitbox->ySize=16;
+    flyOneHitbox->parentSprite=&(sprites[3]);
+
+    flyOne->masterHitBox=flyOneHitbox;
+    flyOne->hitBoxList=flyOneHitbox;
+    flyOne->hitBoxCount=1;
+
+    addMoveable(&moveableHead,flyOne);
+    
+    flyOne=malloc(sizeof(Moveable)*1);
+    flyOneHitbox=malloc(sizeof(HitBox)*1);
+
+    sprites[4].fields.x=410;
+    sprites[4].fields.y=34;
+    sprites[4].fields.shape=0;
+    sprites[4].fields.size=1;
+    sprites[4].fields.tileIndex=blueFlyOne;
+
+    flyOne->parentSprite=&(sprites[4]);
+    flyOne->hSpeed=0;
+    flyOne->vSpeed=0;
+
+    flyOneHitbox->x=0;
+    flyOneHitbox->y=0;
+    flyOneHitbox->xSize=16;
+    flyOneHitbox->ySize=16;
+    flyOneHitbox->parentSprite=&(sprites[4]);
+
+    flyOne->masterHitBox=flyOneHitbox;
+    flyOne->hitBoxList=flyOneHitbox;
+    flyOne->hitBoxCount=1;
+
+    addMoveable(&moveableHead,flyOne);
 }
 
 void backgroundSetup(void){
@@ -470,10 +514,35 @@ int isFly(pSprite sprite){
 
 void changeColor(pSprite flySprite){
     switch (flySprite->fields.tileIndex){
-        case 32:
-        case 40: //I don't know what number this should be. Animation 2 for the red fly
+        case redFlyOne:
+        case redFlyTwo:
             mainColor=redMain;
             secondaryColor=redSecondary;
+            break;
+        case orangeFlyOne:
+        case orangeFlyTwo:
+            mainColor=orangeMain;
+            secondaryColor=orangeSecondary;
+            break;
+        case yellowFlyOne:
+        case yellowFlyTwo:
+            mainColor=yellowMain;
+            secondaryColor=yellowSecondary;
+            break;
+        case greenFlyOne:
+        case greenFlyTwo:
+            mainColor=greenMain;
+            secondaryColor=greenSecondary;
+            break;
+        case blueFlyOne:
+        case blueFlyTwo:
+            mainColor=blueMain;
+            secondaryColor=blueSecondary;
+            break;
+        case violetFlyOne:
+        case violetFlyTwo:
+            mainColor=violetMain;
+            secondaryColor=violetSecondary;
             break;
     }
 }

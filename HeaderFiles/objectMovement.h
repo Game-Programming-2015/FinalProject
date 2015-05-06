@@ -212,17 +212,60 @@ Moveable* addMoveable(Moveable *head,Moveable *toAdd){
     return head;
 }
 
+int spriteWidth(pSprite sprite){
+    int r=0;
+
+    switch (sprite->fields.size<<2 | sprite->fields.shape){
+        case 0:
+        case 2:
+        case 6:
+            r=8;
+            break;
+        case 4:
+        case 1:
+        case 10:
+            r=16;
+            break;
+        case 8:
+        case 9:
+        case 5:
+        case 14:
+            r=32;
+            break;
+        case 12:
+        case 13:
+            r=64;
+            break;
+    }
+
+    return r;
+}
 
 int checkTwoHitBoxCollision(pHitBox one,pHitBox two){
-    int leftOne=one->x+one->parentSprite->fields.x;
-    int topOne=one->y+one->parentSprite->fields.y;
-    int rightOne=leftOne+one->xSize;
-    int bottomOne=topOne+one->ySize;
+    int leftOne,topOne,rightOne,bottomOne;
+    int leftTwo,topTwo,rightTwo,bottomTwo;
+
+    if (one->parentSprite->fields.horizontalFlip){
+        rightOne=one->parentSprite->fields.x+spriteWidth(one->parentSprite)-one->x;
+        leftOne=rightOne-one->xSize;
+    }
+    else{
+        leftOne=one->x+one->parentSprite->fields.x;
+        rightOne=leftOne+one->xSize;
+    }
+    topOne=one->y+one->parentSprite->fields.y;
+    bottomOne=topOne+one->ySize;
     
-    int leftTwo=two->x+two->parentSprite->fields.x;
-    int topTwo=two->y+two->parentSprite->fields.y;
-    int rightTwo=leftTwo+two->xSize;
-    int bottomTwo=topTwo+two->ySize;
+    if (two->parentSprite->fields.horizontalFlip){
+        rightTwo=two->parentSprite->fields.x+spriteWidth(two->parentSprite)-two->x;
+        leftTwo=rightTwo-two->xSize;
+    }
+    else{
+        leftTwo=two->x+two->parentSprite->fields.x;
+        rightTwo=leftTwo+two->xSize;
+    }
+    topTwo=two->y+two->parentSprite->fields.y;
+    bottomTwo=topTwo+two->ySize;
     
     return ( leftOne<rightTwo && rightOne>leftTwo && bottomOne>topTwo && topOne<bottomTwo );
 }

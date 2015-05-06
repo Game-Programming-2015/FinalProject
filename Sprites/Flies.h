@@ -5,6 +5,23 @@
 #define  Flies_WIDTH   16
 #define  Flies_HEIGHT  192
 
+#define redFlyOne 32
+#define redFlyTwo 40
+
+#define orangeFlyOne 48
+#define orangeFlyTwo 56
+
+#define yellowFlyOne 64
+#define yellowFlyTwo 72
+
+#define greenFlyOne 80
+#define greenFlyTwo 88
+
+#define blueFlyOne 96
+#define blueFlyTwo 104
+
+#define violetFlyOne 112
+#define violetFlyTwo 120
 
 const unsigned short FliesData[3072] = {
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0C00, 0x000C,

@@ -112,3 +112,4 @@ void copyToSpriteData(const unsigned short* image,size_t length, int location){
 void* copyToSpritePalette(const unsigned short* palette){
     return memcpy(spritePal,palette,256);
 }
+
