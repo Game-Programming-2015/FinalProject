@@ -77,7 +77,7 @@ void addToPalette(const u16 palette[256],int start,int end){
 
 
 //Copies a vertical column of tiles from a source map to the map on screen.
-//unsigned short *source: Array of references to tiles in the tile map
+//const unsigned short *source: Array of references to tiles in the tile map
 //int sourceStart: "x" location in the source array to start at. Also the top most tile to be copied in.
 //int sourceWidth: The total width of the source map, in tiles, not pixels
 //int sourceHeight: The height of the source map, though this isn't currently used.

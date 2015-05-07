@@ -4,6 +4,31 @@
 **********************************************/
 #define  Chameleon_WIDTH   32
 #define  Chameleon_HEIGHT  160
+
+//Defines for changing colors on the chameleon
+//Indices (this will make it easier to change the palette if it needs changed (I think it does))
+#define  mainColorIndex 23
+#define  secondaryColorIndex 24
+
+//Locations in spritePalette of the primary and secondary colors for the chameleon
+#define  mainColor (spritePal[mainColorIndex])
+#define  secondaryColor (spritePal[secondaryColorIndex])
+
+//Various color definitions. These can and perhaps should be changed, I just picked them randomly
+#define  redMain 0x045C
+#define  redSecondary 0x0458
+#define  orangeMain 0x11FE
+#define  orangeSecondary 0x059C
+#define  yellowMain 0x17BE
+#define  yellowSecondary 0x071A
+#define  greenMain 0x0BA6
+#define  greenSecondary 0x16E8
+#define  blueMain 0x78E4
+#define  blueSecondary 0x7081
+#define  violetMain 0x7037
+#define  violetSecondary 0x5432
+
+//These should be the start positions of the various frames of animation. For now, it's just the order they appear in the tile set
 #define  Chameleon_run1             0
 #define  Chameleon_run2             1
 #define  Chameleon_groundLick       2
@@ -15,7 +40,8 @@
 #define  Chameleon_jumpLickUp       8
 #define  Chameleon_tongueSprite     9
 
-const unsigned short ChameleonData[5120] = {
+//const unsigned short ChameleonData[5120] = {
+const unsigned short ChameleonData[2560] = {
                     0x0000, 0x0000, 0x0002, 0x0000, 0x0000, 0x1700, 0x174C, 0x0000, 0x0000, 0x1717,
                     0x1700, 0x0017, 0x4C02, 0x004C, 0x0000, 0x024C, 0x0000, 0x0017, 0x1702, 0x0017,
                     0x4C02, 0x004C, 0x0000, 0x0000, 0x0000, 0x1717, 0x0000, 0x0000, 0x0000, 0x1700,
