@@ -26,7 +26,7 @@
 
 //Sound files
 //Tyler commented these out because it makes compiling take almost a minute when they're included, and I didn't want to sit through it. It compiles with them there just fine, though.
-/*
+
 #include "Sounds/attack.h"
 #include "Sounds/caw1.h"
 #include "Sounds/caw2.h"
@@ -34,13 +34,12 @@
 #include "Sounds/enemy_die2.h"
 #include "Sounds/getfly.h"
 #include "Sounds/jump.h"
-#include "Sounds/level01.h"
-#include "Sounds/level02.h"
-#include "Sounds/level03.h"
-#include "Sounds/mainmenu.h"
+//#include "Sounds/level01.h"
+//#include "Sounds/level02.h"
+//#include "Sounds/level03.h"
+//#include "Sounds/mainmenu.h"
 #include "Sounds/omnom1.h"
-#include "Sounds/victory.h"
-*/
+//#include "Sounds/victory.h"
 
 //Function prototypes
 void init(void);
@@ -92,32 +91,29 @@ Moveable moveableHead;
 HitBox tongueHitBox;
 
 //define sound files
-/*
-sound attackSnd = {&attack_bin, 8000, 1120};
+sound attackSnd = {&attack_bin, 8000, 2752};
 sound caw1Snd = {&caw1_bin, 8000, 16144};
 sound caw2Snd = {&caw2_bin, 8000, 18064};
 sound deathSnd = {&death_bin, 8000, 11568};
-sound enemy_die2Snd = {&enemy_die2_bin, 8000, 1424};
+sound enemy_die2Snd = {&enemy_die2_bin, 8000, 2560};
 sound getflySnd = {&getfly_bin, 8000, 5136};
 sound jumpSnd = {&jump_bin, 8000, 2672};
 sound omnom1Snd = {&omnom1_bin, 8000, 10160};
-*/
 
 int main(void){
     init();
-    
+
     while(1){
         update();
-        
+
         draw();
     }
-    
+
     return 0;
 }
 
 void init(void){
     setMode(0);
-	channelMus.sampleRate = 8000;
     backgroundSetup();
     objectSetup();
     timerSetup();
@@ -132,6 +128,10 @@ void soundTimerSetup(void){
     //enable timer for sound
     REG_TM0D = 65536 - (16777216 / 8000);
     REG_TM0CNT = TIMER_ENABLE;
+    //set sample rate for music struct
+    channelMus.sampleRate = 8000;
+    //set interrupt handler
+    setInterruptHandler();
 }
 
 void buttonTimerSetup(void){
@@ -181,10 +181,10 @@ void objectSetup(void){
     //copyToSpriteData(SpritesData, Sprites_WIDTH*Sprites_HEIGHT, 0);
     //copy in Lynx
     copyToSpriteData(SpritesData+256*Lynx_1, 1536, 2656);
-    
+
     //Sprites 0 and 1 are reserved for the player and the tongue
     playerObjectSetup();
-    
+
     flyObjectSetup();
 }
 
@@ -209,7 +209,7 @@ void playerObjectSetup(void){
     //Setup the secondary hitboxes
     moveableHead.hitBoxList=moveableHead.masterHitBox;
     moveableHead.hitBoxCount=1;
-    
+
     tongueObjectSetup();
 }
 
@@ -217,7 +217,7 @@ void tongueObjectSetup(void){
     sprites[1].fields.x=240;
     sprites[1].fields.y=160;
     sprites[1].fields.tileIndex=16;
-    
+
     tongueHitBox.x=0;
     tongueHitBox.y=8;
     tongueHitBox.xSize=17;
@@ -228,31 +228,31 @@ void tongueObjectSetup(void){
 void flyObjectSetup(void){
     Moveable *flyOne=malloc(sizeof(Moveable)*1);
     pHitBox flyOneHitbox=malloc(sizeof(HitBox)*1);
-    
+
     sprites[2].fields.x=71;
     sprites[2].fields.y=184;
     sprites[2].fields.shape=0;
     sprites[2].fields.size=1;
     sprites[2].fields.tileIndex=redFlyOne;
-    
+
     flyOne->parentSprite=&(sprites[2]);
     flyOne->hSpeed=0;
     flyOne->vSpeed=0;
     flyOne->currentFrame=redFlyOne;
     flyOne->nextFrame=redFlyTwo;
-    
+
     flyOneHitbox->x=0;
     flyOneHitbox->y=0;
     flyOneHitbox->xSize=16;
     flyOneHitbox->ySize=16;
     flyOneHitbox->parentSprite=&(sprites[2]);
-    
+
     flyOne->masterHitBox=flyOneHitbox;
     flyOne->hitBoxList=flyOneHitbox;
     flyOne->hitBoxCount=1;
-    
+
     addMoveable(&moveableHead,flyOne);
-    
+
     flyOne=malloc(sizeof(Moveable)*1);
     flyOneHitbox=malloc(sizeof(HitBox)*1);
 
@@ -279,7 +279,7 @@ void flyObjectSetup(void){
     flyOne->hitBoxCount=1;
 
     addMoveable(&moveableHead,flyOne);
-    
+
     flyOne=malloc(sizeof(Moveable)*1);
     flyOneHitbox=malloc(sizeof(HitBox)*1);
 
@@ -306,7 +306,7 @@ void flyObjectSetup(void){
     flyOne->hitBoxCount=1;
 
     addMoveable(&moveableHead,flyOne);
-    
+
     //fire sprite
     flyOne=malloc(sizeof(Moveable)*1);
     flyOneHitbox=malloc(sizeof(HitBox)*1);
@@ -334,7 +334,7 @@ void flyObjectSetup(void){
     flyOne->hitBoxCount=1;
 
     addMoveable(&moveableHead,flyOne);
-    
+
     //acid sprite
     flyOne=malloc(sizeof(Moveable)*1);
     flyOneHitbox=malloc(sizeof(HitBox)*1);
@@ -362,7 +362,7 @@ void flyObjectSetup(void){
     flyOne->hitBoxCount=1;
 
     addMoveable(&moveableHead,flyOne);
-    
+
     //lynx sprite
     flyOne=malloc(sizeof(Moveable)*1);
     flyOneHitbox=malloc(sizeof(HitBox)*1);
@@ -394,7 +394,7 @@ void flyObjectSetup(void){
 
 void backgroundSetup(void){
     int i;
-    
+
     hitMap=malloc(sizeof(unsigned short)*2048);
     backMap=malloc(sizeof(unsigned short)*2048);
     enableBG0(); //Right now, this is the hitmap.
@@ -409,7 +409,7 @@ void backgroundSetup(void){
 
     loadLevelOneHitMapTiles((void*)CharBaseBlock(0));
     loadLevelOneBackgroundTiles((void*)CharBaseBlock(3));
-    
+
     loadLevelOneHitMap(hitMap);
     loadLevelOneMap(backMap);
 
@@ -447,10 +447,10 @@ void update(void){
         if (REG_TM3D%2)
             //Calculate the vSpeed for the player based on gravity
             gravityControls(&moveableHead,scrolling_x,scrolling_y,bg0map);
-            
+
         //Move the player objects
         moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
-        
+
         playerAnimationControls();
         tongueControls();
         updateLynx();
@@ -535,7 +535,7 @@ void nextFrameJumpAttack(void){
 
 void playerAnimationControls(){
     //will decide what animation to play for the player based on conditions
-    
+
     if(checkState(BTN_LEFT) || checkState(BTN_RIGHT)){
         if(REG_TM3D%2){
             nextFramePlayer(0);
@@ -544,7 +544,7 @@ void playerAnimationControls(){
             nextFramePlayer(9);
         }
     }
-    
+
     if(!hitDetection(&moveableHead,scrolling_x,scrolling_y+1,bg0map)){
         if(checkState(BTN_A)){
             nextFramePlayer(4);
@@ -561,7 +561,7 @@ void playerAnimationControls(){
             nextFramePlayer(9);
         }
     }
-    
+
 }
 
 //Update player movment, left/right/up with button presses, up/down with gravity
@@ -580,12 +580,14 @@ void playerMovement(void){
     else{
         moveableHead.hSpeed=0;
     }
-    
+
     if ( checkPressed(BTN_UP)
       && hitDetection(&moveableHead,scrolling_x+0,scrolling_y+1,bg0map) //If there is a block directly below the player.
     ){
+        StopSound(0);
+        PlaySound(&jumpSnd,0);
         moveableHead.vSpeed=-7; //Tell the player object to move up
-        
+
     }
     //Debug thing
     if ( checkPressed(BTN_START) ){
@@ -606,13 +608,13 @@ void scrollControls(void){
 
         leftScroll();
     }
-    
+
     while (scrolling_y<96 //256-160
         && moveableHead.parentSprite->fields.y>120){
-        
+
         downScroll();
     }
-    
+
     while (scrolling_y>0
         && moveableHead.parentSprite->fields.y<40){
 
@@ -623,24 +625,24 @@ void scrollControls(void){
 
 void downScroll(void){
     Moveable *currentMove;
-    
+
     scrolling_y++;
     moveableHead.parentSprite->fields.y--;
-    
+
     currentMove=moveableHead.next;
     while (currentMove!=NULL){
         currentMove->parentSprite->fields.y--;
         currentMove=currentMove->next;
     }
-    
+
 }
 
 void upScroll(void){
     Moveable *currentMove;
-    
+
     scrolling_y--;
     moveableHead.parentSprite->fields.y++;
-    
+
     currentMove=moveableHead.next;
     while (currentMove!=NULL){
         currentMove->parentSprite->fields.y++;
@@ -650,21 +652,21 @@ void upScroll(void){
 
 void rightScroll(void){
     Moveable *currentMove=moveableHead.next;
-    
+
     scrolling_x++; //Scroll right. This will be applied to the scrolling register during the draw portion
     moveableHead.parentSprite->fields.x--;
-    
+
     //Move all the object so they can move on/off screen.
     while (currentMove!=NULL){
         currentMove->parentSprite->fields.x--;
         currentMove=currentMove->next;
     }
-    
-    
+
+
     if (scrolling_x%8==1){ //If starting on a new column in the scrolling, copy the next column in to be prepared
         copyColumn(hitMap,nextRight,64,32,bg0map,nextRightDestination,32,32);
         copyColumn(backMap,nextRight,64,32,bg2map,nextRightDestination,32,32);
-        
+
         //Increment the destinations.
         nextRight++;
         nextRightDestination++;
@@ -681,7 +683,7 @@ void rightScroll(void){
             nextLeft=0;
         if (nextLeftDestination>31)
             nextLeftDestination=0;
-            
+
         //If you change directions, you have to double increment. It's a thing that I've always had to do and never understood why, in lots of things.
         if (!goingRight){
             nextRight++;
@@ -689,7 +691,7 @@ void rightScroll(void){
             nextLeft++;
             nextLeftDestination++;
         }
-        
+
         //Change directions. This would also be where you would update the hFlip.
         goingRight=1;
     }
@@ -698,10 +700,10 @@ void rightScroll(void){
 //Essentially the same as rightScroll();
 void leftScroll(void){
     Moveable *currentMove=moveableHead.next;
-    
+
     scrolling_x--;
     moveableHead.parentSprite->fields.x++;
-    
+
     while (currentMove!=NULL){
         currentMove->parentSprite->fields.x++;
         currentMove=currentMove->next;
@@ -778,12 +780,19 @@ void changeColor(pSprite flySprite){
 
 void tongueControls(void){
     Moveable *currentMoveable = moveableHead.next;
+    static int attack = 0;
     if ( checkState(BTN_A) ){
         sprites[1].fields.x=sprites[0].fields.x+32-64*sprites[0].fields.horizontalFlip;
         sprites[1].fields.y=sprites[0].fields.y;
         sprites[1].fields.horizontalFlip=sprites[0].fields.horizontalFlip;
+        if(!attack){
+            attack = 1;
+            StopSound(0);
+            PlaySound(&attackSnd,0);
+        }
     }
     else if ( checkReleased(BTN_A) ){
+        attack = 0;
         sprites[1].fields.x=240;
         sprites[1].fields.y=240;
     }
@@ -792,6 +801,12 @@ void tongueControls(void){
     while (currentMoveable!=NULL){
         if ( isFly(currentMoveable->parentSprite) && checkTwoHitBoxCollision(currentMoveable->masterHitBox,&tongueHitBox) ){
             //Maybe check for another collision from the subhitboxess
+            if(SampleLength0 != 0){
+                StopSound(0);
+                PlaySound(&getflySnd,0);
+            } else {
+                PlaySound(&getflySnd,0);
+            }
             changeColor(currentMoveable->parentSprite);
         }
         currentMoveable=currentMoveable->next;
