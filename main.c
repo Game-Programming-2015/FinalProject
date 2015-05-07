@@ -90,6 +90,7 @@ unsigned short prev_timer3;
 Moveable moveableHead;
 HitBox tongueHitBox;
 int dead;
+int deathFlag;
 
 //define sound files
 sound attackSnd = {&attack_bin, 8000, 2752};
@@ -119,6 +120,7 @@ void init(void){
     objectSetup();
     timerSetup();
     dead = 0;
+	deathFlag = 0;
 }
 
 void timerSetup(void){
@@ -900,6 +902,11 @@ void draw(void){
         sprites[7].fields.tileIndex=198;
         sprites[0].fields.y=240;
         sprites[1].fields.y=240;
+		if(!deathFlag){
+			deathFlag = 1;
+			StopSound(0);
+			PlaySound(&deathSnd,0);
+		}
     }
     //Update OAM memory
     writeToOAM();
