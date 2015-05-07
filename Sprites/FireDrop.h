@@ -9,6 +9,11 @@
 #define Fire_2  1
 #define Drop    2
 
+//tile index
+#define fireOne 160
+#define fireTwo 162
+#define dropOne 164
+
 
 const unsigned short FireDropData[] = {
                     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0200, 0x0002, 0x0000, 0x0000, 0x0200,

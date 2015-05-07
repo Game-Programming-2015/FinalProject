@@ -61,7 +61,7 @@ void loadLevel03(void);
 void loadVictory(void);*/
 
 void update(void);
-void objectsAnimationUpdate(void);
+void updateAllObjectAnimation();
 void nextFrameObject(Moveable*);
 void nextFramePlayer(int);
 void defaultFrame(void);
@@ -235,8 +235,8 @@ void flyObjectSetup(void){
     flyOne->parentSprite=&(sprites[2]);
     flyOne->hSpeed=0;
     flyOne->vSpeed=0;
-    flyOne->currentFrame=16;
-    flyOne->nextFrame=20;
+    flyOne->currentFrame=redFlyOne;
+    flyOne->nextFrame=redFlyTwo;
     
     flyOneHitbox->x=0;
     flyOneHitbox->y=0;
@@ -262,6 +262,8 @@ void flyObjectSetup(void){
     flyOne->parentSprite=&(sprites[3]);
     flyOne->hSpeed=0;
     flyOne->vSpeed=0;
+    flyOne->currentFrame=violetFlyTwo;
+    flyOne->nextFrame=violetFlyOne;
 
     flyOneHitbox->x=0;
     flyOneHitbox->y=0;
@@ -287,6 +289,8 @@ void flyObjectSetup(void){
     flyOne->parentSprite=&(sprites[4]);
     flyOne->hSpeed=0;
     flyOne->vSpeed=0;
+    flyOne->currentFrame=blueFlyOne;
+    flyOne->nextFrame=blueFlyTwo;
 
     flyOneHitbox->x=0;
     flyOneHitbox->y=0;
@@ -300,6 +304,35 @@ void flyObjectSetup(void){
 
     addMoveable(&moveableHead,flyOne);
 }
+
+//void fireObjectSetup(void){
+//    Moveable *fireOne;//=malloc(sizeof(Moveable)*1);
+//    pHitBox fireOneHitbox;//=malloc(sizeof(HitBox)*1);
+//
+//    sprites[5].fields.x=420;
+//    sprites[5].fields.y=190;
+//    sprites[5].fields.shape=0;
+//    sprites[5].fields.size=1;
+//    sprites[5].fields.tileIndex=fireOne;
+//
+//    fireOne->parentSprite=&(sprites[5]);
+//    fireOne->hSpeed=0;
+//    fireOne->vSpeed=0;
+//    fireOne->currentFrame=fireOne;
+//    fireOne->nextFrame=fireTwo;
+//
+//    fireOneHitbox->x=0;
+//    fireOneHitbox->y=0;
+//    fireOneHitbox->xSize=8;
+//    fireOneHitbox->ySize=8;
+//    fireOneHitbox->parentSprite=&(sprites[5]);
+//
+//    fireOne->masterHitBox=fireOneHitbox;
+//    fireOne->hitBoxList=fireOneHitbox;
+//    fireOne->hitBoxCount=1;
+//
+//    addMoveable(&moveableHead,fireOne);
+//}
 
 void backgroundSetup(void){
     int i;
@@ -362,21 +395,22 @@ void update(void){
         
         playerAnimationControls();
         tongueControls();
+        updateAllObjectAnimation();
     }
 }
 
-//update animations for objects
-void objectsAnimationUpdate(void){
-    Moveable* current = moveableHead.next;
-    while(current->currentFrame!=0){
+void updateAllObjectAnimation(void){
+    Moveable *current=moveableHead.next;
+    while (current!=NULL){
         nextFrameObject(current);
-        current = current->next;
+        current=current->next;
     }
 }
 
 void nextFrameObject(Moveable *object){
     object->parentSprite->fields.tileIndex=object->nextFrame;
     object->nextFrame=object->currentFrame;
+    object->currentFrame=object->parentSprite->fields.tileIndex;
 }
 
 //update animations for player
