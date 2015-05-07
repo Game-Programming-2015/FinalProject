@@ -28,6 +28,7 @@
 #define  violetMain 0x7037
 #define  violetSecondary 0x5432
 
+//indices
 #define Chameleon_run1          0
 #define Chameleon_run2          1
 #define Chameleon_groundLick    2
