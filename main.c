@@ -61,6 +61,7 @@ void loadLevel03(void);
 void loadVictory(void);*/
 
 void update(void);
+void updateLynx(void);
 void updateAllObjectAnimation();
 void nextFrameObject(Moveable*);
 void nextFramePlayer(int);
@@ -178,6 +179,8 @@ void objectSetup(void){
     //drop is at 82
     copyToSpriteData(FireDropData, 8*24, 2560);
     //copyToSpriteData(SpritesData, Sprites_WIDTH*Sprites_HEIGHT, 0);
+    //copy in Lynx
+    copyToSpriteData(SpritesData+256*Lynx_1, 1536, 2656);
     
     //Sprites 0 and 1 are reserved for the player and the tongue
     playerObjectSetup();
@@ -359,36 +362,35 @@ void flyObjectSetup(void){
     flyOne->hitBoxCount=1;
 
     addMoveable(&moveableHead,flyOne);
-}
+    
+    //lynx sprite
+    flyOne=malloc(sizeof(Moveable)*1);
+    flyOneHitbox=malloc(sizeof(HitBox)*1);
 
-//void fireObjectSetup(void){
-//    Moveable *fireOne;//=malloc(sizeof(Moveable)*1);
-//    pHitBox fireOneHitbox;//=malloc(sizeof(HitBox)*1);
-//
-//    sprites[5].fields.x=420;
-//    sprites[5].fields.y=190;
-//    sprites[5].fields.shape=0;
-//    sprites[5].fields.size=1;
-//    sprites[5].fields.tileIndex=fireOne;
-//
-//    fireOne->parentSprite=&(sprites[5]);
-//    fireOne->hSpeed=0;
-//    fireOne->vSpeed=0;
-//    fireOne->currentFrame=fireOne;
-//    fireOne->nextFrame=fireTwo;
-//
-//    fireOneHitbox->x=0;
-//    fireOneHitbox->y=0;
-//    fireOneHitbox->xSize=8;
-//    fireOneHitbox->ySize=8;
-//    fireOneHitbox->parentSprite=&(sprites[5]);
-//
-//    fireOne->masterHitBox=fireOneHitbox;
-//    fireOne->hitBoxList=fireOneHitbox;
-//    fireOne->hitBoxCount=1;
-//
-//    addMoveable(&moveableHead,fireOne);
-//}
+    sprites[7].fields.x=moveableHead.parentSprite->fields.x;
+    sprites[7].fields.y=240;
+    sprites[7].fields.shape=1;
+    sprites[7].fields.size=2;
+    sprites[7].fields.tileIndex=166;
+
+    flyOne->parentSprite=&(sprites[7]);
+    flyOne->hSpeed=0;
+    flyOne->vSpeed=0;
+    flyOne->currentFrame=166;
+    flyOne->nextFrame=182;
+
+    flyOneHitbox->x=0;
+    flyOneHitbox->y=0;
+    flyOneHitbox->xSize=32;
+    flyOneHitbox->ySize=16;
+    flyOneHitbox->parentSprite=&(sprites[7]);
+
+    flyOne->masterHitBox=flyOneHitbox;
+    flyOne->hitBoxList=flyOneHitbox;
+    flyOne->hitBoxCount=1;
+
+    addMoveable(&moveableHead,flyOne);
+}
 
 void backgroundSetup(void){
     int i;
@@ -451,8 +453,15 @@ void update(void){
         
         playerAnimationControls();
         tongueControls();
+        updateLynx();
         updateAllObjectAnimation();
     }
+}
+
+void updateLynx(void){
+    //updates the lynx stuff
+    sprites[7].fields.x=moveableHead.parentSprite->fields.x;
+    sprites[7].fields.horizontalFlip=moveableHead.parentSprite->fields.horizontalFlip;
 }
 
 void updateAllObjectAnimation(void){
