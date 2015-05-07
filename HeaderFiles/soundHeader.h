@@ -200,7 +200,7 @@ void StopSound(int channel){
 }
 
 /*interrupt handler*/
-int setInterruptHandler(void)
+void setInterruptHandler(void)
 {
 	REG_IME = 0x00;
 	REG_INTERRUPT = (unsigned long)MyHandler;
