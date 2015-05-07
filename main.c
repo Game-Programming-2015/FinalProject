@@ -89,6 +89,7 @@ unsigned short *hitMap,*backMap;
 unsigned short prev_timer3;
 Moveable moveableHead;
 HitBox tongueHitBox;
+int dead;
 
 //define sound files
 sound attackSnd = {&attack_bin, 8000, 2752};
@@ -117,6 +118,7 @@ void init(void){
     backgroundSetup();
     objectSetup();
     timerSetup();
+    dead = 0;
 }
 
 void timerSetup(void){
@@ -450,11 +452,23 @@ void update(void){
 
         //Move the player objects
         moveObject(&moveableHead,1,1,bg0map,scrolling_x,scrolling_y);
+        
+        if(dead==1){
+            //game is over, freeze
+            while(1){}
+        }
 
         playerAnimationControls();
         tongueControls();
-        updateLynx();
         updateAllObjectAnimation();
+        updateLynx();
+        checkForDeath();
+    }
+}
+
+void checkForDeath(void){
+    if(sprites[0].fields.y>=135){
+        dead=1;
     }
 }
 
@@ -462,6 +476,7 @@ void updateLynx(void){
     //updates the lynx stuff
     sprites[7].fields.x=moveableHead.parentSprite->fields.x;
     sprites[7].fields.horizontalFlip=moveableHead.parentSprite->fields.horizontalFlip;
+    
 }
 
 void updateAllObjectAnimation(void){
@@ -880,6 +895,12 @@ void draw(void){
     REG_BG1VOFS=scrolling_y;
     REG_BG2HOFS=scrolling_x;
     REG_BG2VOFS=scrolling_y;
+    //death animations
+    if(dead==1){
+        sprites[7].fields.tileIndex=198;
+        sprites[0].fields.y=240;
+        sprites[1].fields.y=240;
+    }
     //Update OAM memory
     writeToOAM();
 
