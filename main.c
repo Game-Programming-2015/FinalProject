@@ -303,6 +303,62 @@ void flyObjectSetup(void){
     flyOne->hitBoxCount=1;
 
     addMoveable(&moveableHead,flyOne);
+    
+    //fire sprite
+    flyOne=malloc(sizeof(Moveable)*1);
+    flyOneHitbox=malloc(sizeof(HitBox)*1);
+
+    sprites[5].fields.x=404;
+    sprites[5].fields.y=72;
+    sprites[5].fields.shape=0;
+    sprites[5].fields.size=0;
+    sprites[5].fields.tileIndex=fireOne;
+
+    flyOne->parentSprite=&(sprites[5]);
+    flyOne->hSpeed=0;
+    flyOne->vSpeed=0;
+    flyOne->currentFrame=fireOne;
+    flyOne->nextFrame=fireTwo;
+
+    flyOneHitbox->x=0;
+    flyOneHitbox->y=0;
+    flyOneHitbox->xSize=8;
+    flyOneHitbox->ySize=8;
+    flyOneHitbox->parentSprite=&(sprites[5]);
+
+    flyOne->masterHitBox=flyOneHitbox;
+    flyOne->hitBoxList=flyOneHitbox;
+    flyOne->hitBoxCount=1;
+
+    addMoveable(&moveableHead,flyOne);
+    
+    //acid sprite
+    flyOne=malloc(sizeof(Moveable)*1);
+    flyOneHitbox=malloc(sizeof(HitBox)*1);
+
+    sprites[6].fields.x=285;
+    sprites[6].fields.y=102;
+    sprites[6].fields.shape=0;
+    sprites[6].fields.size=0;
+    sprites[6].fields.tileIndex=dropOne;
+
+    flyOne->parentSprite=&(sprites[6]);
+    flyOne->hSpeed=0;
+    flyOne->vSpeed=0;
+    flyOne->currentFrame=dropOne;
+    flyOne->nextFrame=dropOne;
+
+    flyOneHitbox->x=0;
+    flyOneHitbox->y=0;
+    flyOneHitbox->xSize=8;
+    flyOneHitbox->ySize=8;
+    flyOneHitbox->parentSprite=&(sprites[6]);
+
+    flyOne->masterHitBox=flyOneHitbox;
+    flyOne->hitBoxList=flyOneHitbox;
+    flyOne->hitBoxCount=1;
+
+    addMoveable(&moveableHead,flyOne);
 }
 
 //void fireObjectSetup(void){
